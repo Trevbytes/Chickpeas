@@ -2,7 +2,14 @@ body{
     background-color: green;
 }
 
-/* Style the tab buttons */
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+/* Style tab links */
 .tablink {
   background-color: #555;
   color: white;
@@ -15,17 +22,16 @@ body{
   width: 25%;
 }
 
-/* Change background color of buttons on hover */
 .tablink:hover {
   background-color: #777;
 }
 
-/* Set default styles for tab content */
+/* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
   color: white;
   display: none;
-  padding: 50px;
-  text-align: center;
+  padding: 100px 20px;
+  height: 100%;
 }
 
 /* Style each tab content individually */
