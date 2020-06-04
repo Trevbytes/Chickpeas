@@ -1,6 +1,18 @@
 {% extends 'base.html'%}
 {% block content %}
-Test
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-6">Chickpeas</h1>
+    <p class="lead">- and other creative cooking substitutes!</p>
+  </div>
+</div>
+  <div class="carousel">
+    <a class="carousel-item" href="#one!"><img src="https://res.cloudinary.com/chickpeas/image/upload/v1591259520/chickpeas/burrito_knzpkg.jpg"></a>
+    <a class="carousel-item" href="#two!"><img src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"></a>
+    <a class="carousel-item" href="#three!"><img src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/bananas_js7553.jpg"></a>
+    <a class="carousel-item" href="#four!"><img src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"></a>
+    <a class="carousel-item" href="#five!"><img src="https://res.cloudinary.com/chickpeas/image/upload/v1591259686/chickpeas/spinach_vrly96.jpg"></a>
+  </div>
 {% for user in users %}
 <p>{{user}}</p>
 {% endfor %}

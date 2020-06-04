@@ -24,6 +24,16 @@ def home():
     return render_template('landing_page.html', users=mongo.db.users.find())
 
 
+@app.route('/recipes')
+def recipes():
+    return render_template('recipes.html', users=mongo.db.users.find())
+
+
+@app.route('/ingredients')
+def ingredients():
+    return render_template('ingredients.html', users=mongo.db.users.find())
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
