@@ -1,24 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <form method="POST" action="{{ url_for('login') }}">
-                <div class="form-group">
-                    <label for="exampleInputEmail">Username</label>
-                    <input type="text" class="form-control" name="username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword">Password</label>
-                    <input type="password" class="form-control" name="pass" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Log In</button>
-            </form>
-            <br>
-            <div>
-                Dont have an account? <a href="{{ url_for('register') }}">Sign up here</a>.
-            </div>
-        </div>
-    </div>
-</div>
+<h1>Login</h1>
+<form action="/login" method="post">
+  <p>Email</p>
+  {{ form.email }}
+  <p>Password</p>
+  {{ form.password }}
+  {{ form.hidden_tag() }}
+  <br>
+  <br>
+  <input type="submit" value="Login">
+</form>
 {% endblock %}

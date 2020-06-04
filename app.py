@@ -7,6 +7,11 @@ from os import path
 
 app = Flask(__name__)
 
+login_manager = LoginManager()
+
+login_manager.init_app(app)
+
+
 try:
     MONGO_URI
 except NameError:
@@ -17,6 +22,7 @@ except NameError:
 if path.exists("env.py"):
     import env
 
+    app.secret_key = SECRET
     app.config["MONGO_DBNAME"] = os.environ.get('MONGODB_NAME')
     app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 elif MONGO_URI is None:
@@ -48,37 +54,71 @@ def ingredients():
     return render_template('ingredients.html', users=mongo.db.users.find())
 
 
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    users = mongo.db.users
-    login_user = users.find_one({'name': request.form['username']})
-
-    if login_user:
-        if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password']) == login_user['password']:
-            session['username'] = request.form['username']
-            return redirect(url_for('index'))
-
-    return 'Invalid username or password'
-
-
-@app.route('/register', methods=['POST', 'GET'])
-def register():
+    if current_user.is_authenticated == True:
+        return redirect(url_for('dashboard'))
+    form = RegForm()
     if request.method == 'POST':
-        users = mongo.db.users
-        existing_user = users.find_one({'name' : request.form['username']})
+        if form.validate():
+            check_user = User.objects(email=form.email.data).first()
+            if check_user:
+                if check_password_hash(check_user['password'], form.password.data):
+                    login_user(check_user)
+                    return redirect(url_for('dashboard'))
+    return render_template('login.html', form=form)
 
-        if existing_user is None:
-            hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
-            users.insert({'name':request.form['username'], 'password': hashpass})
-            session['username'] = request.form['username']
-            return redirect(url_for('index'))
 
-        return 'That username already exists!'
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegForm()
+    if request.method == 'POST':
+        if form.validate():
+            existing_user = User.objects(email=form.email.data).first()
+            if existing_user is None:
+                hashpass = generate_password_hash(
+                    form.password.data, method='sha256')
+                hey = User(form.email.data, hashpass).save()
+                login_user(hey)
+                return redirect(url_for('dashboard'))
+    return render_template('register.html', form=form)
 
-    return render_template('register.html')
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.html', name=current_user.email)
+
+
+@app.route('/logout', methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
 
+
+class User(UserMixin, db.Document):
+    meta = {'collection': '<---YOUR_COLLECTION_NAME--->'}
+    email = db.StringField(max_length=30)
+    password = db.StringField()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.objects(pk=user_id).first()
+
+
+class RegForm(FlaskForm):
+    email = StringField('email',  validators=[InputRequired(), Email(message='Invalid email'), Length(max=30)])
+    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=20)])
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
