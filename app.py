@@ -48,7 +48,7 @@ def ingredients():
     return render_template('ingredients.html', users=mongo.db.users.find())
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     users = mongo.db.users
     login_user = users.find_one({'name': request.form['username']})
@@ -56,7 +56,7 @@ def login():
     if login_user:
         if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password']) == login_user['password']:
             session['username'] = request.form['username']
-            return redirect(url_for('home'))
+            return redirect(url_for('index'))
 
     return 'Invalid username or password'
 
@@ -65,13 +65,11 @@ def login():
 def register():
     if request.method == 'POST':
         users = mongo.db.users
-        existing_user = users.find_one({'name': request.form['username']})
+        existing_user = users.find_one({'name' : request.form['username']})
 
         if existing_user is None:
-            hashpass = bcrypt.hashpw(
-                request.form['pass'].encode('utf-8'), bcrypt.gensalt())
-            users.insert(
-                {'name': request.form['username'], 'password': hashpass})
+            hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
+            users.insert({'name':request.form['username'], 'password': hashpass})
             session['username'] = request.form['username']
             return redirect(url_for('index'))
 
@@ -79,8 +77,8 @@ def register():
 
     return render_template('register.html')
 
-
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
+
