@@ -29,7 +29,9 @@ def home():
 
 @app.route('/recipes')
 def recipes():
-    return render_template('recipes.html', users=mongo.db.users.find())
+    all_recipes = mongo.db.recipes.find()
+    return render_template('recipes.html', users=mongo.db.users.find(),
+                           recipes=all_recipes)
 
 
 @app.route('/ingredients')
@@ -61,4 +63,3 @@ if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
-

@@ -183,4 +183,8 @@ a:hover {
   background-color: #717171;
 }
 
+.col-md-5 img {
+    width: 100%;
+}
+
 
