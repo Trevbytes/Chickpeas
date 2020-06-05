@@ -1,9 +1,10 @@
-body{
-    background-color: green;
+body {
+  background-color: rgb(52, 175, 22);
 }
 
 /* Set height of body and the document to 100% to enable "full page tabs" */
-body, html {
+body,
+html {
   height: 100%;
   margin: 0;
   font-family: Arial;
@@ -35,7 +36,34 @@ body, html {
 }
 
 /* Style each tab content individually */
-#London {background-color:red;}
-#Paris {background-color:green;}
-#Tokyo {background-color:blue;}
-#Oslo {background-color:orange;}
+#London {
+  background-color: red;
+}
+#Paris {
+  background-color: green;
+}
+#Tokyo {
+  background-color: blue;
+}
+#Oslo {
+  background-color: orange;
+}
+
+.nav-wrapper {
+  background-color: #f1c241;
+  color: black;
+}
+
+nav .brand-logo {
+  color: black;
+  text-decoration: none;
+}
+
+nav ul a {
+  color: black;
+  text-decoration-color: black;
+}
+
+a:hover {
+    color: black;
+}

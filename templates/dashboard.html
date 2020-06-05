@@ -1,8 +1,8 @@
 {% extends 'base.html'%}
 {% block content %}
 <h1>Dashboard</h1>
-<p>You are currently logged in as {{ name }}</p>
-<a href='logout'>Logout</a>
+<p>You are currently logged in as</p>
+<a href="{{url_for('home')}}">Logout</a>
 {% for user in users %}
 <p>{{user}}</p>
 {% endfor %}

@@ -16,7 +16,7 @@
 <body>
 	<nav>
 		<div class="nav-wrapper">
-			<a href="{{url_for('home')}}" class="brand-logo">Chickpeas</a>
+			<a href="{{url_for('home')}}" class="brand-logo ml-4">Chickpeas</a>
 			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="{{url_for('recipes')}}">Browse Recipes</a></li>
@@ -29,7 +29,7 @@
 	<ul class="sidenav right" id="mobile-demo">
 		<li><a href="{{url_for('recipes')}}">Browse Recipes</a></li>
 		<li><a href="{{url_for('ingredients')}}">Search Substitutes</a></li>
-		<li><a href="#">Login</a></li>
+		<li><a href="{{url_for('login')}}">Login</a></li>
 	</ul>
 	{% block content %} {% endblock %}
 	<!--Bootstrap-->

@@ -1,14 +1,22 @@
-{% extends "layout.html" %}
-{% block body %}
+{% extends "base.html" %} {% block content %}
+<main class="container">
 <h1>Login</h1>
 <form action="/login" method="post">
   <p>Email</p>
-  {{ form.email }}
+
   <p>Password</p>
-  {{ form.password }}
-  {{ form.hidden_tag() }}
-  <br>
-  <br>
-  <input type="submit" value="Login">
+
+  <br />
+  <br />
+  <input class="btn btn-primary" type="submit" value="Login" />
 </form>
+<h4>Not a Member?</h4>
+<a
+  class="btn btn-primary"
+  href="{{url_for('register')}}"
+  role="button"
+>
+  Register</a
+>
+</main>
 {% endblock %}

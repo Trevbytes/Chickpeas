@@ -1,14 +1,13 @@
 {% extends "base.html" %}
-{% block body %}
+{% block content %}
+<main class="container">
 <h1>Registration</h1>
 <form action="/register" method="post">
   <p>Email</p>
-  {{ form.email }}
   <p>Password</p>
-  {{ form.password }}
-  {{ form.hidden_tag() }}
   <br>
   <br>
-  <input type="submit" value="Submit">
+  <input class="btn btn-primary" type="submit" value="Submit">
 </form>
+</main>
 {% endblock %}
