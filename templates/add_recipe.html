@@ -1,0 +1,102 @@
+{% extends 'base.html'%} {% block content %}
+<main class="container addRecipe">
+  <h1>Add Recipe</h1>
+  <form>
+    <div class="form-group">
+      <label for="recipe_name">Recipe Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="recipe_name"
+        placeholder="Name your recipe."
+      />
+    </div>
+    <div class="form-group">
+      <label for="meal_category">Meal Time</label>
+      <select class="form-control" id="meal_category">
+        <option>Breakfast</option>
+        <option>Lunch</option>
+        <option>Dinner</option>
+        <option>Dessert</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="meal_type">Meal Category</label>
+      <select class="form-control" id="meal_type">
+        <option>Meat</option>
+        <option>Fish</option>
+        <option>Vegetarian</option>
+        <option>Vegan</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="recipe_description">Recipe Description</label>
+      <textarea
+        class="form-control"
+        id="recipe_description"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <!--Add radio btn with option to upload link to image-->
+    <div class="form-group">
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="upload_img"
+          value="upload_img"
+        />
+        <label class="form-check-label" for="upload_img">Upload</label>
+      </div>
+      <div class="form-check form-check-inline form-group">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="img_link"
+          value="img_link"
+        />
+        <label class="form-check-label" for="img_link">Image Link</label>
+      </div>
+      <label for="recipe_image">Add Recipe Image</label>
+      <input type="file" class="form-control-file" id="recipe_image" />
+    </div>
+    <h3>Add Ingredient</h3>
+    <!-- Dropdown Trigger -->
+
+    <div class="dropdown-trigger form-group">
+      <a class="dropdown-trigger btn" href="#" data-target="myDropdown"
+        >Drop Me!</a
+      >
+      <button onclick="myFunction()" data-target="myDropdown" class="">
+        Dropdown
+      </button>
+      <div id="myDropdown" class="dropdown-content">
+        <!-- <input
+          type="text"
+          placeholder="Search.."
+          id="myInput"
+          onkeyup="filterFunction()"
+        /> -->
+        <ul>
+          <li>1 ingredient</li>
+          <li>2 ingredient</li>
+          <li>3 ingredient</li>
+        </ul>
+      </div>
+    </div>
+    <ul class="list-group form-group">
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        Sample Ingredient "ingredient_name" "measurement"
+        <button class="badge badge-primary badge-pill">Remove</button>
+      </li>
+    </ul>
+  </form>
+</main>
+{% for user in users %}
+<p>{{user}}</p>
+{% endfor %} {% endblock %}
