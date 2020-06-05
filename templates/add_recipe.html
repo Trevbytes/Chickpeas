@@ -37,33 +37,21 @@
         rows="3"
       ></textarea>
     </div>
-
-    <!--Add radio btn with option to upload link to image-->
+    <div class="input-field col s12">
+      <select>
+        <option value="" disabled selected>Upload type</option>
+        <option value="1">Local File</option>
+        <option value="2">Web Link</option>
+      </select>
+      <label>Upload Image</label>
+    </div>
     <div class="form-group">
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="inlineRadioOptions"
-          id="upload_img"
-          value="upload_img"
-        />
-        <label class="form-check-label" for="upload_img">Upload</label>
-      </div>
-      <div class="form-check form-check-inline form-group">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="inlineRadioOptions"
-          id="img_link"
-          value="img_link"
-        />
-        <label class="form-check-label" for="img_link">Image Link</label>
-      </div>
       <label for="recipe_image">Add Recipe Image</label>
       <input type="file" class="form-control-file" id="recipe_image" />
     </div>
+    <!--Add radio btn with option to upload link to image-->
     <h3>Add Ingredient</h3>
+
     <!-- Dropdown Trigger -->
 
     <div class="dropdown-trigger form-group">

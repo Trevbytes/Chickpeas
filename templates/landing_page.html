@@ -1,19 +1,44 @@
-{% extends 'base.html'%}
-{% block content %}
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-6">Chickpeas</h1>
-    <p class="lead">- and other creative cooking substitutes!</p>
+{% extends 'base.html'%} {% block content %}
+
+<!-- Slideshow container -->
+<div class="slideshow-container">
+  <!-- Full-width images with number and caption text -->
+  <div class="mySlides">
+    <div class="numbertext fade">1 / 3</div>
+    <img
+      src="https://res.cloudinary.com/chickpeas/image/upload/v1591259520/chickpeas/burrito_knzpkg.jpg"
+      style="width: 100%;"
+    />
+    <div class="text">Caption Text</div>
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">2 / 3</div>
+    <img
+      src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+      style="width: 100%;"
+    />
+    <div class="text">Caption Two</div>
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">3 / 3</div>
+    <img
+      src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/bananas_js7553.jpg"
+      style="width: 100%;"
+    />
+    <div class="text">Caption Three</div>
   </div>
 </div>
-  <div class="carousel">
-    <a class="carousel-item" href="#one!"><img src="https://res.cloudinary.com/chickpeas/image/upload/v1591259520/chickpeas/burrito_knzpkg.jpg"></a>
-    <a class="carousel-item" href="#two!"><img src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"></a>
-    <a class="carousel-item" href="#three!"><img src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/bananas_js7553.jpg"></a>
-    <a class="carousel-item" href="#four!"><img src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"></a>
-    <a class="carousel-item" href="#five!"><img src="https://res.cloudinary.com/chickpeas/image/upload/v1591259686/chickpeas/spinach_vrly96.jpg"></a>
-  </div>
+<br />
+
+<!-- The dots/circles -->
+<div style="text-align: center;">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
 {% for user in users %}
 <p>{{user}}</p>
-{% endfor %}
-{% endblock %}
+{% endfor %} {% endblock %}
