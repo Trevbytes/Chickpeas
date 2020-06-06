@@ -70,7 +70,7 @@ def insert_recipe():
 @app.route('/view_recipe')
 def view_recipe():
     all_recipes = mongo.db.recipes.find()
-    return render_template('recipes.html', recipes=all_recipes)
+    return render_template('view_recipe.html', recipes=all_recipes)
 
 
 if __name__ == '__main__':
