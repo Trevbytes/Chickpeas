@@ -1,7 +1,7 @@
 {% extends 'base.html'%} {% block content %}
 <main class="container addRecipe">
   <h1>Create Recipe</h1>
-  <form>
+  <form action="{{ url_for('insert_recipe') }}" method="POST">
     <div class="form-group">
       <label for="recipe_name">Recipe Name</label>
       <input
@@ -12,13 +12,16 @@
       />
     </div>
     <div class="form-group">
-      <label for="meal_category">Meal Time</label>
-      <select class="form-control" id="meal_category">
-        <option>Breakfast</option>
-        <option>Lunch</option>
-        <option>Dinner</option>
-        <option>Dessert</option>
-      </select>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">poll</i>
+        <select id="meal-time" name="meal_type">
+          <option value="" disabled selected>Meal Time</option>
+          {% for time in recipes %}
+          <option value="{{time.meal_type}}">{{time.meal_type}}</option>
+          {% endfor %}
+        </select>
+        <label>Task Category</label>
+      </div>
     </div>
     <div class="form-group">
       <label for="meal_type">Meal Category</label>
@@ -86,9 +89,7 @@
         rows="3"
       ></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Create Recipe</button>
+    <button type="submit" class="btn btn-primary" name= "action">Create Recipe</button>
   </form>
 </main>
-{% for user in users %}
-<p>{{user}}</p>
-{% endfor %} {% endblock %}
+{% endblock %}

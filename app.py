@@ -55,8 +55,22 @@ def dashboard():
 
 
 @app.route('/add_recipe', methods=['GET', 'POST'])
-def addRecipe():
-    return render_template('add_recipe.html')
+def add_recipe():
+    return render_template('add_recipe.html',
+                           recipes=mongo.db.recipes.find())
+
+
+@app.route('/insert_recipe', methods=['POST'])
+def insert_recipe():
+    recipes = mongo.db.recipes
+    recipes.insert_one(request.form.to_dict())
+    return redirect(url_for('view_recipe'))
+
+
+@app.route('/view_recipe')
+def view_recipe():
+    all_recipes = mongo.db.recipes.find()
+    return render_template('recipes.html', recipes=all_recipes)
 
 
 if __name__ == '__main__':
