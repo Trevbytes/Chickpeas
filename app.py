@@ -30,8 +30,11 @@ def home():
 @app.route('/recipes')
 def recipes():
     all_recipes = mongo.db.recipes.find()
+    all_recipes2 = mongo.db.recipes.find()
+    all_recipes3 = mongo.db.recipes.find()
+    all_recipes4 = mongo.db.recipes.find()
     return render_template('recipes.html', users=mongo.db.users.find(),
-                           recipes=all_recipes)
+                           recipes=all_recipes,recipes2=all_recipes2,recipes3=all_recipes3,recipes4=all_recipes4)
 
 
 @app.route('/ingredients')

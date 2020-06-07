@@ -13,24 +13,12 @@
       />
     </div>
     <div class="form-group">
-      <div class="input-field col s12">
-        <i class="material-icons prefix">poll</i>
-        <select id="meal-time" name="meal_type">
-          <option value="" disabled selected>Meal Time</option>
-          {% for time in recipes %}
-          <option value="{{time.meal_type}}">{{time.meal_type}}</option>
-          {% endfor %}
-        </select>
-        <label>Task Category</label>
-      </div>
-    </div>
-    <div class="form-group">
       <label for="meal_type">Meal Category</label>
-      <select class="form-control" id="meal_type">
-        <option>Meat</option>
-        <option>Fish</option>
-        <option>Vegetarian</option>
-        <option>Vegan</option>
+      <select class="form-control" id="meal_type" name="meal_type">
+        <option>Breakfast</option>
+        <option>Lunch</option>
+        <option>Dinner</option>
+        <option>Dessert</option>
       </select>
     </div>
     <div class="form-group">
@@ -39,6 +27,7 @@
         class="form-control"
         id="recipe_description"
         rows="3"
+        name="recipe_description"
       ></textarea>
     </div>
     <div class="form-group">
@@ -46,7 +35,16 @@
     </div>
     <div class="form-group">
       <label for="recipe_image">Add Recipe Image</label>
-      <input type="file" class="form-control-file" id="recipe_image" />
+      <input type="file" class="form-control-file" id="recipe_pic_url" />
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="recipe_image_link"
+          name="recipe_pic_url"
+          placeholder="Image Link"
+        />
+      </div>
     </div>
     <!--Add radio btn with option to upload link to image-->
     <h3>Add Ingredient</h3>
@@ -83,14 +81,17 @@
       </li>
     </ul>
     <div class="form-group">
-      <label for="recipe_description">Recipe Instructions</label>
+      <label for="recipe_instructions">Recipe Instructions</label>
       <textarea
         class="form-control"
-        id="recipe_description"
+        id="recipe_instructions"
+        name="recipe_instructions"
         rows="3"
       ></textarea>
     </div>
-    <button type="submit" class="btn btn-primary" name= "action">Create Recipe</button>
+    <button type="submit" class="btn btn-primary">
+      Create Recipe
+    </button>
   </form>
 </main>
 {% endblock %}
