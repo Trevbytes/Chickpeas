@@ -34,7 +34,7 @@ def recipes():
     all_recipes3 = mongo.db.recipes.find()
     all_recipes4 = mongo.db.recipes.find()
     return render_template('recipes.html', users=mongo.db.users.find(),
-                           recipes=all_recipes,recipes2=all_recipes2,recipes3=all_recipes3,recipes4=all_recipes4)
+                           recipes=all_recipes, recipes2=all_recipes2, recipes3=all_recipes3, recipes4=all_recipes4)
 
 
 @app.route('/ingredients')
@@ -74,6 +74,24 @@ def insert_recipe():
 def view_recipe():
     all_recipes = mongo.db.recipes.find()
     return render_template('view_recipe.html', recipes=all_recipes)
+
+
+@app.route('/edit_recipe/<recipe_id>')
+def edit_recipe(recipe_id):
+    the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    all_recipes = mongo.db.recipes.find()
+    return render_template('edit_recipe.html', task=the_recipe,
+                           recipes=all_recipes)
+
+
+@app.route('/update_recipe/<recipe_id>', methods=["POST"])
+def update_recipe(recipe_id):
+    recipes = mongo.db.recipes
+    recipes.update({'_id': ObjectId(recipe_id)},
+    {
+        'recipe_name': request.form.get('recipe_name')
+    })
+    return redirect(url_for('view_recipe'))
 
 
 if __name__ == '__main__':

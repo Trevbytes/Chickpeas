@@ -1,0 +1,98 @@
+{% extends 'base.html'%} {% block content %}
+<main class="container addRecipe">
+  <h1>Edit Recipe</h1>
+  <form action="{{ url_for('update_recipe', recipe_id=recipes._id) }}" method="POST">
+    <div class="form-group">
+      <label for="recipe_name">Recipe Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="recipe_name"
+        name="recipe_name"
+        placeholder="Name your recipe."
+        value="{{recipes.recipe_name}}"
+      />
+    </div>
+    <div class="form-group">
+      <label for="meal_type">Meal Category</label>
+      <select class="form-control" id="meal_type" name="meal_type">
+        <option>Breakfast</option>
+        <option>Lunch</option>
+        <option>Dinner</option>
+        <option>Dessert</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="recipe_description">Recipe Description</label>
+      <textarea
+        class="form-control"
+        id="recipe_description"
+        rows="3"
+        name="recipe_description"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      Recipe Image
+    </div>
+    <div class="form-group">
+      <label for="recipe_image">Add Recipe Image</label>
+      <input type="file" class="form-control-file" id="recipe_pic_url" />
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="recipe_image_link"
+          name="recipe_pic_url"
+          placeholder="Image Link"
+        />
+      </div>
+    </div>
+    <!--Add radio btn with option to upload link to image-->
+    <h3>Add Ingredient</h3>
+
+    <!-- Dropdown Trigger -->
+
+    <div class="dropdown-trigger form-group">
+      <a class="dropdown-trigger btn" href="#" data-target="myDropdown"
+        >Drop Me!</a
+      >
+      <button onclick="myFunction()" data-target="myDropdown" class="">
+        Dropdown
+      </button>
+      <div id="myDropdown" class="dropdown-content">
+        <!-- <input
+          type="text"
+          placeholder="Search.."
+          id="myInput"
+          onkeyup="filterFunction()"
+        /> -->
+        <ul>
+          <li>1 ingredient</li>
+          <li>2 ingredient</li>
+          <li>3 ingredient</li>
+        </ul>
+      </div>
+    </div>
+    <ul class="list-group form-group">
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        Sample Ingredient "ingredient_name" "measurement"
+        <button class="badge badge-primary badge-pill">Remove</button>
+      </li>
+    </ul>
+    <div class="form-group">
+      <label for="recipe_instructions">Recipe Instructions</label>
+      <textarea
+        class="form-control"
+        id="recipe_instructions"
+        name="recipe_instructions"
+        rows="3"
+      ></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">
+      Create Recipe
+    </button>
+  </form>
+</main>
+{% endblock %}

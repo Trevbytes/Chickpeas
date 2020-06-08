@@ -2,7 +2,7 @@
 
 <button
   class="tablink"
-  onclick="openCity('London', this, 'red')"
+  onclick="openCity('breakfast', this, 'red')"
   id="defaultOpen"
 >
   Breakfast
@@ -17,22 +17,23 @@
 <button class="tablink" onclick="openCity('Oslo', this, 'orange')">
   Dessert
 </button>
-<div id="London" class="tabcontent container-fluid">
+<div id="breakfast" class="tabcontent container-fluid">
   <h1>Breakfast</h1>
-  {% for breakfast in recipes %} {% if breakfast.meal_type == "Breakfast" %} {%
+  {% for cat in recipes %} {% if cat.meal_type == "Breakfast" %} {%
   if loop.index % 2 != 0 %}
   <div class="row featurette">
     <div class="col-md-7">
       <h3>
-        <a href="#">{{ loop.index }}. {{ breakfast.recipe_name }}</a>
+        <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
-      <p>{{ breakfast.cooking_instructions }}</p>
+      <p>{{ cat.cooking_instructions }}</p>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
     </div>
     <div class="col-md-5">
       <img
         class="featurette-image img-responsive"
-        src="{{ breakfast.recipe_pic_url }}"
-        alt="Picture of {{ breakfast.recipe_name }}"
+        src="{{ cat.recipe_pic_url }}"
+        alt="Picture of {{ cat.recipe_name }}"
       />
     </div>
   </div>
@@ -41,16 +42,17 @@
     <div class="col-md-5">
       <img
         class="featurette-image img-responsive"
-        src="{{ breakfast.recipe_pic_url }}"
-        alt="Picture of {{ breakfast.recipe_name }}"
+        src="{{ cat.recipe_pic_url }}"
+        alt="Picture of {{ cat.recipe_name }}"
       />
     </div>
     <div class="col-md-7">
       <h3>
-        <a href="#">{{ loop.index }}. {{ breakfast.recipe_name }}</a>
+        <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
-      <p>{{ breakfast.cooking_instructions }}</p>
+      <p>{{ cat.cooking_instructions }}</p>
     </div>
+    <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
   </div>
   {% endif %} {% if loop.index != 13 %}
   <hr class="featurette-divider" />
