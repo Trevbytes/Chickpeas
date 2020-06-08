@@ -80,7 +80,7 @@ def view_recipe():
 def edit_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     all_recipes = mongo.db.recipes.find()
-    return render_template('edit_recipe.html', task=the_recipe,
+    return render_template('edit_recipe.html', recipe=the_recipe,
                            recipes=all_recipes)
 
 
@@ -88,7 +88,7 @@ def edit_recipe(recipe_id):
 def update_recipe(recipe_id):
     recipes = mongo.db.recipes
     recipes.update({'_id': ObjectId(recipe_id)},
-    {
+                   {
         'recipe_name': request.form.get('recipe_name')
     })
     return redirect(url_for('view_recipe'))
