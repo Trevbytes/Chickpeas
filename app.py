@@ -1,6 +1,8 @@
 import os
+import json
 from flask import Flask, render_template, redirect, request, url_for, session
 from bson.objectid import ObjectId
+from bson import json_util
 from flask_pymongo import PyMongo
 import bcrypt
 from os import path
@@ -34,12 +36,13 @@ def recipes():
     all_recipes3 = mongo.db.recipes.find()
     all_recipes4 = mongo.db.recipes.find()
     return render_template('recipes.html', users=mongo.db.users.find(),
-                           recipes=all_recipes, recipes2=all_recipes2, recipes3=all_recipes3, recipes4=all_recipes4)
+                           recipes=all_recipes, recipes2=all_recipes2, 
+                           recipes3=all_recipes3, recipes4=all_recipes4)
 
 
 @app.route('/ingredients')
 def ingredients():
-    return render_template('ingredients.html', users=mongo.db.users.find())
+    return render_template('ingredients.html', ingredients=mongo.db.ingredients.find())
 
 
 @app.route('/login', methods=['GET', 'POST'])
