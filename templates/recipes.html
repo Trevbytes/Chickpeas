@@ -7,8 +7,7 @@
 >
   Breakfast
 </button>
-<button class="tablink" onclick="openCity('Paris', this, 'green')"
->
+<button class="tablink" onclick="openCity('Paris', this, 'green')">
   Lunch
 </button>
 <button class="tablink" onclick="openCity('Tokyo', this, 'blue')">
@@ -19,15 +18,17 @@
 </button>
 <div id="breakfast" class="tabcontent container-fluid">
   <h1>Breakfast</h1>
-  {% for cat in recipes %} {% if cat.meal_type == "Breakfast" %} {%
-  if loop.index % 2 != 0 %}
+  {% for cat in recipes %} {% if cat.meal_type == "Breakfast" %} {% if
+  loop.index % 2 != 0 %}
   <div class="row featurette">
     <div class="col-md-7">
       <h3>
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
       <p>{{ cat.cooking_instructions }}</p>
-      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
+        >Edit</a
+      >
     </div>
     <div class="col-md-5">
       <img
@@ -51,8 +52,10 @@
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
       <p>{{ cat.cooking_instructions }}</p>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
+        >Edit</a
+      >
     </div>
-    <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
   </div>
   {% endif %} {% if loop.index != 13 %}
   <hr class="featurette-divider" />
@@ -69,6 +72,9 @@
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
       <p>{{ cat.cooking_instructions }}</p>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
+        >Edit</a
+      >
     </div>
     <div class="col-md-5">
       <img
@@ -92,6 +98,9 @@
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
       <p>{{ cat.cooking_instructions }}</p>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
+        >Edit</a
+      >
     </div>
   </div>
   {% endif %} {% if loop.index != 13 %}
@@ -101,14 +110,17 @@
 
 <div id="Tokyo" class="tabcontent">
   <h1>Dinner</h1>
-  {% for cat in recipes3 %} {% if cat.meal_type == "Dinner" %} {% if loop.index %
-  2 != 0 %}
+  {% for cat in recipes3 %} {% if cat.meal_type == "Dinner" %} {% if loop.index
+  % 2 != 0 %}
   <div class="row featurette">
     <div class="col-md-7">
       <h3>
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
       <p>{{ cat.cooking_instructions }}</p>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
+        >Edit</a
+      >
     </div>
     <div class="col-md-5">
       <img
@@ -132,6 +144,9 @@
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
       <p>{{ cat.cooking_instructions }}</p>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
+        >Edit</a
+      >
     </div>
   </div>
   {% endif %} {% if loop.index != 13 %}
@@ -149,6 +164,9 @@
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
       <p>{{ cat.cooking_instructions }}</p>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
+        >Edit</a
+      >
     </div>
     <div class="col-md-5">
       <img
@@ -172,6 +190,9 @@
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
       <p>{{ cat.cooking_instructions }}</p>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
+        >Edit</a
+      >
     </div>
   </div>
   {% endif %} {% if loop.index != 13 %}

@@ -1,8 +1,17 @@
 $(document).ready(function () {
   M.AutoInit();
   document.getElementById("defaultOpen").click();
-  $('select').formSelect();
 });
+
+// function addToIngredientList() {
+//   $("select.ingredient_select").change(function () {
+//     var selectedIngredient = $(this).children("option:selected").val();
+//     alert("You have selected the country - " + selectedIngredient);
+//     $("#recipe_ingredient_list").append("<li>" + selectedIngredient + "</li>");
+//   });
+//   $("#recipe_ingredient_list").append("<li>" + selectedIngredient + "</li>");
+//   console.log(selectedIngredient);
+// }
 
 function openCity(cityName, elmnt, color) {
   // Hide all elements with class="tabcontent" by default */
@@ -32,7 +41,7 @@ console.log("Working js");
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+  document.getElementById("ingredient_select").classList.toggle("show");
   console.log("myFunction working");
 }
 
@@ -56,7 +65,7 @@ function filterFunction() {
 // Thumbnail image controls
 function currentSlide(n) {
   clearTimeout(slidetime);
-  showSlides(slideIndex = n);
+  showSlides((slideIndex = n));
 }
 
 var slideIndex = 0;
@@ -69,8 +78,9 @@ function showSlides() {
     slides[i].style.display = "none";
   }
   slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}
-  slides[slideIndex-1].style.display = "block";
+  if (slideIndex > slides.length) {
+    slideIndex = 1;
+  }
+  slides[slideIndex - 1].style.display = "block";
   slidetime = setTimeout(showSlides, 6000); // Change image every 2 seconds
 }
-

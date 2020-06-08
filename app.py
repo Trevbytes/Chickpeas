@@ -36,13 +36,14 @@ def recipes():
     all_recipes3 = mongo.db.recipes.find()
     all_recipes4 = mongo.db.recipes.find()
     return render_template('recipes.html', users=mongo.db.users.find(),
-                           recipes=all_recipes, recipes2=all_recipes2, 
+                           recipes=all_recipes, recipes2=all_recipes2,
                            recipes3=all_recipes3, recipes4=all_recipes4)
 
 
 @app.route('/ingredients')
 def ingredients():
-    return render_template('ingredients.html', ingredients=mongo.db.ingredients.find())
+    return render_template('ingredients.html', ingredients=mongo.db.ingredients.find(),
+                           ingredientstest=mongo.db.ingredients.find())
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -63,7 +64,8 @@ def dashboard():
 @app.route('/add_recipe', methods=['GET', 'POST'])
 def add_recipe():
     return render_template('add_recipe.html',
-                           recipes=mongo.db.recipes.find())
+                           recipes=mongo.db.recipes.find(),
+                           ingredients=mongo.db.ingredients.find())
 
 
 @app.route('/insert_recipe', methods=['POST'])

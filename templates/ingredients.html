@@ -1,14 +1,35 @@
 {% extends 'base.html'%} {% block content %}
 <main class="container">
   <h1>Substitute Search</h1>
+  <div class="row">
+    <div class="col-6">
+      <label for="ingredient_select">Select an Ingredient</label>
+      <select class="" id="ingredient_select">
+        <!-- <input
+          type="text"
+          placeholder="Search.."
+          id="myInput"
+          onkeyup="filterFunction()"
+        /> -->
+        {% for ing_name in ingredientstest %}
+        <option>{{ing_name.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-md-6">
       Common Substitutes
     </div>
   </div>
-    {% for ing_name in ingredients %}
-    <a href="https://en.wikipedia.org/wiki/{{ing_name.wikipedia_id}}" target="_blank">{{ing_name.name}}</a><div></div>
-    {% endfor %}
+  {% for ing_name in ingredients %}
+  <a
+    href="https://en.wikipedia.org/wiki/{{ing_name.wikipedia_id}}"
+    target="_blank"
+    >{{ing_name.name}}</a
+  >
+  <div></div>
+  {% endfor %}
 </main>
 {% endblock %}
