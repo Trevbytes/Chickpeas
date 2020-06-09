@@ -5,12 +5,6 @@
     <div class="col-6">
       <label for="ingredient_select">Select an Ingredient</label>
       <select class="" id="ingredient_select">
-        <!-- <input
-          type="text"
-          placeholder="Search.."
-          id="myInput"
-          onkeyup="filterFunction()"
-        /> -->
         {% for ing_name in ingredientstest %}
         <option>{{ing_name.name}}</option>
         {% endfor %}
