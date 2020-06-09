@@ -65,7 +65,7 @@ def dashboard():
 def add_recipe():
     return render_template('add_recipe.html',
                            recipes=mongo.db.recipes.find(),
-                           ingredients=mongo.db.ingredients.find())
+                           ingredients=mongo.db.ingredients.find().sort("name"))
 
 
 @app.route('/insert_recipe', methods=['POST'])

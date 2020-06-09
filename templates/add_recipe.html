@@ -50,16 +50,26 @@
     <h3>Add Ingredients</h3>
     <div class="row">
       <select class="ingredient_select" id="ingredient_select">
-        <!-- <input
-          type="text"
-          placeholder="Search.."
-          id="myInput"
-          onkeyup="filterFunction()"
-        /> -->
         {% for ing_name in ingredients %}
         <option>{{ing_name.name}}</option>
         {% endfor %}
       </select>
+      <label for="ingredient_measurement">Measurement</label>
+      <input
+        type="text"
+        class="form-control"
+        id="ingredient_measurement"
+        name="ingredient_measurement"
+        placeholder="ex. 200g, 1/2cup, 2dl"
+      />
+      <label for="ingredient_comment">Comment</label>
+      <input
+        type="text"
+        class="form-control"
+        id="ingredient_comment"
+        name="ingredient_comment"
+        placeholder="ex. Use fresh."
+      />
       <button type="button" onclick="addToIngredientList()">
         <i class="fas fa-plus-circle"></i>Add Ingredient
       </button>
@@ -95,20 +105,36 @@
   crossorigin="anonymous"
 ></script>
 <script>
-    var selectedIngredient;
+  var selectedIngredient;
   $("select.ingredient_select").change(function () {
     selectedIngredient = $(this).children("option:selected").val();
     alert("You have selected the country - " + selectedIngredient);
   });
   function addToIngredientList() {
+    var ingredient_measurement = $("#ingredient_measurement").val();
+    var commentlines = "";
+    var ingredient_comment = $("#ingredient_comment").val();
+    if (!!ingredient_comment) {
+      commentlines = "---";
+    } else {
+      commentlines = "";
+    }
     $("#recipe_ingredient_list").append(
-      "<li>" +
+      '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+        ingredient_measurement +
+        " " +
         selectedIngredient +
-        "ingredient_name" +
-        "measurement" +
-        '<button type="button" class="badge badge-primary badge-pill">Remove</li></button>'
+        commentlines +
+        ingredient_comment +
+        '<button type="button" onclick="removeLI()" class="badge badge-primary badge-pill right delete">Remove</button></li>'
     );
-    console.log(selectedIngredient);
+  }
+  function removeLI() {
+    $(".delete").on("click", function () {
+      $(this).parent().remove();
+    });
+    console.log(this);
+    console.log("function working");
   }
 </script>
 {% endblock %}
