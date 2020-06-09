@@ -1,6 +1,5 @@
 $(document).ready(function () {
   M.AutoInit();
-  document.getElementById("defaultOpen").click();
 });
 
 

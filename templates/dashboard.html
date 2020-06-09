@@ -1,11 +1,63 @@
-{% extends 'base.html'%}
-{% block content %}
+{% extends 'base.html'%}{% block css %}
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+  crossorigin="anonymous"
+/>
+{% endblock %} {% block content %}
 <h1>Dashboard</h1>
 <p>You are currently logged in as</p>
+<a href="{{url_for('home')}}">Logout</a>
 <a href="{{url_for('add_recipe')}}">Add Recipe</a>
 <h3>My Recipes</h3>
-<a href="{{url_for('home')}}">Logout</a>
-{% for user in users %}
-<p>{{user}}</p>
-{% endfor %}
+<div id="my_recipes" class="container-fluid">
+  {% for cat in my_recipes %} {% if loop.index % 2 != 0 %}
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h3>
+        <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
+      </h3>
+      <p>{{ cat.recipe_description }}</p>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
+        >Edit</a
+      >
+      <a href="{{url_for('delete_recipe', recipe_id=cat._id)}}" class="btn"
+        >Delete</a
+      >
+    </div>
+    <div class="col-md-5">
+      <img
+        class="featurette-image img-responsive"
+        src="{{ cat.recipe_pic_url }}"
+        alt="Picture of {{ cat.recipe_name }}"
+      />
+    </div>
+  </div>
+  {% else %}
+  <div class="row featurette">
+    <div class="col-md-5">
+      <img
+        class="featurette-image img-responsive"
+        src="{{ cat.recipe_pic_url }}"
+        alt="Picture of {{ cat.recipe_name }}"
+      />
+    </div>
+    <div class="col-md-7">
+      <h3>
+        <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
+      </h3>
+      <p>{{ cat.recipe_description }}</p>
+      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
+        >Edit</a
+      >
+      <a href="{{url_for('delete_recipe', recipe_id=cat._id)}}" class="btn"
+        >Delete</a
+      >
+    </div>
+  </div>
+  {% endif %} {% if loop.index != 13 %}
+  <hr class="featurette-divider" />
+  {% endif %} {% endfor %}
+</div>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends 'base.html'%} {% block content %}
-<main class="container">
+<main class="container ingredients-container">
   <h1>Substitute Search</h1>
   <div class="row">
     <div class="col-6">
@@ -17,13 +17,11 @@
       Common Substitutes
     </div>
   </div>
-  {% for ing_name in ingredients %}
-  <a
-    href="https://en.wikipedia.org/wiki/{{ing_name.wikipedia_id}}"
+
+  <!-- <a
+    href="https://en.wikipedia.org/wiki/ing_name.wikipedia_id"
     target="_blank"
-    >{{ing_name.name}}</a
-  >
-  <div></div>
-  {% endfor %}
+    >ing_name.name</a
+  > -->
 </main>
 {% endblock %}

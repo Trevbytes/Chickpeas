@@ -23,8 +23,11 @@
 <button class="tablink" onclick="openCity('Oslo', this, 'orange')">
   Dessert
 </button>
+<div class="center">
+<h4>^^Choose a Course^^</h4>
+</div>
+
 <div id="breakfast" class="tabcontent container-fluid">
-  <h1>Breakfast</h1>
   {% for cat in recipes %} {% if cat.meal_type == "Breakfast" %} {% if
   loop.index % 2 != 0 %}
   <div class="row featurette">
@@ -32,7 +35,7 @@
       <h3>
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
-      <p>{{ cat.cooking_instructions }}</p>
+      <p>{{ cat.recipe_description }}</p>
       <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
         >Edit</a
       >
@@ -58,7 +61,7 @@
       <h3>
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
-      <p>{{ cat.cooking_instructions }}</p>
+      <p>{{ cat.recipe_description }}</p>
       <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
         >Edit</a
       >
@@ -70,7 +73,6 @@
 </div>
 
 <div id="Paris" class="tabcontent">
-  <h1>Lunch</h1>
   {% for cat in recipes2 %} {% if cat.meal_type == "Lunch" %} {% if loop.index %
   2 != 0 %}
   <div class="row featurette">
@@ -78,7 +80,7 @@
       <h3>
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
-      <p>{{ cat.cooking_instructions }}</p>
+      <p>{{ cat.recipe_description }}</p>
       <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
         >Edit</a
       >
@@ -104,7 +106,7 @@
       <h3>
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
-      <p>{{ cat.cooking_instructions }}</p>
+      <p>{{ cat.recipe_description }}</p>
       <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
         >Edit</a
       >
@@ -116,7 +118,6 @@
 </div>
 
 <div id="Tokyo" class="tabcontent">
-  <h1>Dinner</h1>
   {% for cat in recipes3 %} {% if cat.meal_type == "Dinner" %} {% if loop.index
   % 2 != 0 %}
   <div class="row featurette">
@@ -124,7 +125,7 @@
       <h3>
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
-      <p>{{ cat.cooking_instructions }}</p>
+      <p>{{ cat.recipe_description }}</p>
       <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
         >Edit</a
       >
@@ -150,7 +151,7 @@
       <h3>
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
-      <p>{{ cat.cooking_instructions }}</p>
+      <p>{{ cat.recipe_description }}</p>
       <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
         >Edit</a
       >
@@ -162,7 +163,6 @@
 </div>
 
 <div id="Oslo" class="tabcontent">
-  <h1>Dessert</h1>
   {% for cat in recipes4 %} {% if cat.meal_type == "Dessert" %} {% if loop.index
   % 2 != 0 %}
   <div class="row featurette">
@@ -170,7 +170,7 @@
       <h3>
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
-      <p>{{ cat.cooking_instructions }}</p>
+      <p>{{ cat.recipe_description }}</p>
       <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
         >Edit</a
       >
@@ -196,7 +196,7 @@
       <h3>
         <a href="#">{{ loop.index }}. {{ cat.recipe_name }}</a>
       </h3>
-      <p>{{ cat.cooking_instructions }}</p>
+      <p>{{ cat.recipe_description }}</p>
       <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
         >Edit</a
       >

@@ -58,7 +58,8 @@ def register():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    return render_template('dashboard.html')
+    my_recipes = mongo.db.recipes.find()
+    return render_template('dashboard.html', my_recipes=my_recipes)
 
 
 @app.route('/add_recipe', methods=['GET', 'POST'])
@@ -97,6 +98,13 @@ def update_recipe(recipe_id):
         'recipe_name': request.form.get('recipe_name')
     })
     return redirect(url_for('view_recipe'))
+
+
+@app.route('/delete_recipe/<recipe_id>')
+def delete_recipe(recipe_id):
+    mongo.db.recipes.delete_one({'_id': ObjectId(recipe_id)})
+    print(recipe_id)
+    return redirect(url_for('dashboard'))
 
 
 if __name__ == '__main__':
