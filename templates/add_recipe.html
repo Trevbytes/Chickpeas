@@ -49,7 +49,7 @@
     <!--Add radio btn with option to upload link to image-->
     <h3>Add Ingredients</h3>
     <div class="row">
-      <select class="ingredient_select" id="ingredient_select">
+      <select class="ingredient_select" id="ingredient_select" required>
         {% for ing_name in ingredients %}
         <option>{{ing_name.name}}</option>
         {% endfor %}
@@ -61,6 +61,7 @@
         id="ingredient_measurement"
         name="ingredient_measurement"
         placeholder="ex. 200g, 1/2cup, 2dl"
+        required
       />
       <label for="ingredient_comment">Comment</label>
       <input
@@ -76,14 +77,7 @@
     </div>
 
     <ul class="list-group form-group" id="recipe_ingredient_list">
-      <li
-        class="list-group-item d-flex justify-content-between align-items-center"
-      >
-        Sample Ingredient "ingredient_name" "measurement"
-        <button type="button" class="badge badge-primary badge-pill">
-          Remove
-        </button>
-      </li>
+      <li class="list-group-item"></li>
     </ul>
     <div class="form-group">
       <label for="recipe_instructions">Recipe Instructions</label>
@@ -110,24 +104,22 @@
     selectedIngredient = $(this).children("option:selected").val();
     alert("You have selected the country - " + selectedIngredient);
   });
+  var ingredient_index = 1;
   function addToIngredientList() {
-    var ingredient_measurement = $("#ingredient_measurement").val();
-    var commentlines = "";
-    var ingredient_comment = $("#ingredient_comment").val();
-    if (!!ingredient_comment) {
-      commentlines = "---";
-    } else {
-      commentlines = "";
+    if (!!selectedIngredient) {
+      var ingredient_measurement = $("#ingredient_measurement").val();
+      var commentlines = "";
+      var ingredient_comment = $("#ingredient_comment").val();
+      if (!!ingredient_comment) {
+        commentlines = "---";
+      } else {
+        commentlines = "";
+      }
+      $("#recipe_ingredient_list").append(
+        `<li type="text" readonly class="list-group-item"><input type="text" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="badge badge-primary badge-pill right delete">Remove</button></li>`
+      );
+      ingredient_index++;
     }
-    $("#recipe_ingredient_list").append(
-      '<li class="list-group-item d-flex justify-content-between align-items-center">' +
-        ingredient_measurement +
-        " " +
-        selectedIngredient +
-        commentlines +
-        ingredient_comment +
-        '<button type="button" onclick="removeLI()" class="badge badge-primary badge-pill right delete">Remove</button></li>'
-    );
   }
   function removeLI() {
     $(".delete").on("click", function () {
