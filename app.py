@@ -85,9 +85,14 @@ def view_recipe():
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    the_recipe2 = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    ingredients = mongo.db.ingredients.find().sort("name")
+    ingredients_selected = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     all_recipes = mongo.db.recipes.find()
-    return render_template('edit_recipe.html', recipe=the_recipe,
-                           recipes=all_recipes)
+    return render_template('edit_recipe.html', recipe=the_recipe, recipe2=the_recipe2,
+                           recipes=all_recipes, 
+                           ingredients=ingredients, 
+                           ingredients_selected= ingredients_selected)
 
 
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
