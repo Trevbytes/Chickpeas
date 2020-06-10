@@ -75,14 +75,15 @@ def add_recipe():
 @app.route('/insert_recipe', methods=['POST'])
 def insert_recipe():
     recipes = mongo.db.recipes
-    recipes.insert_one(request.form.to_dict())
-    return redirect(url_for('view_recipe'))
+    new_recipe = request.form.to_dict()
+    recipes.insert_one(new_recipe)
+    return redirect(url_for('view_recipe'), recipe_id=new_recipe._id)
 
 
-@app.route('/view_recipe')
-def view_recipe():
-    all_recipes = mongo.db.recipes.find().sort("_id", -1)
-    return render_template('view_recipe.html', recipes=all_recipes)
+@app.route('/view_recipe/<recipe_id>')
+def view_recipe(recipe_id):
+    the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template('view_recipe.html', recipe=the_recipe)
 
 
 @app.route('/edit_recipe/<recipe_id>')
@@ -111,8 +112,8 @@ def edit_recipe(recipe_id):
 def update_recipe(recipe_id):
     recipes = mongo.db.recipes
     recipes.delete_one({'_id': ObjectId(recipe_id)})
-    recipes.insert_one(request.form.to_dict())
-    return redirect(url_for('view_recipe'))
+    recipe_id = recipes.insert_one(request.form.to_dict()).inserted_id
+    return redirect(url_for('view_recipe', recipe_id=recipe_id))
 
 
 @app.route('/delete_recipe/<recipe_id>')

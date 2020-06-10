@@ -81,7 +81,7 @@
 				</div>
 
 				<ul class="list-group form-group" id="recipe_ingredient_list">
-					<li class="list-group-item">{{ingredients_selected}}</li>
+					<li class="list-group-item"></li>
 					{% for ingID, ingredient in ingredients_selected.items() %} {% if ingredient_search(ingID) in ingID %}
 					<li type="text" readonly class="list-group-item">
 						<input type="text" readonly name="recipe_ingredient_id_{{ loop.index }}" value="{{ingredient}}"><button type="button" onclick="removeLI()" class="badge badge-primary badge-pill right delete">Remove</button>

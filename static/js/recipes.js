@@ -30,3 +30,11 @@ function currentSlide(n) {
   clearTimeout(slidetime);
   showSlides((slideIndex = n));
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  var elems = document.querySelectorAll(".fixed-action-btn");
+  var instances = M.FloatingActionButton.init(elems, {
+    direction: "left",
+    hoverEnabled: false,
+  });
+});

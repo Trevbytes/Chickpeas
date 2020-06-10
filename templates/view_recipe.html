@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <main class="container">
-<h1>Chosen Recipe</h1>
-{% for recipe in recipes %}
-<p>{{recipe}}</p>
-{% endfor %}
+<h1>{{recipe.recipe_name}}</h1>
+
 </main>
 {% endblock %}

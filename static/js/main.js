@@ -2,7 +2,6 @@ $(document).ready(function () {
   M.AutoInit();
 });
 
-
 // Thumbnail image controls
 function currentSlide(n) {
   clearTimeout(slidetime);
