@@ -11,15 +11,16 @@ from os import path
 
 app = Flask(__name__)
 
+guest = 'mongodb+srv://guest_user:vD2B9MF8A4JBu5Gx@myfirstclusterci-904s1.mongodb.net/chickpeas?retryWrites=false'
 
-if path.exists("env.py"):
+if os.path.exists("env.py"):
     import env
 
     app.config["MONGO_DBNAME"] = os.environ.get('MONGODB_NAME')
     app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 else:
     app.config["MONGO_DBNAME"] = 'chickpeas'
-    app.config["MONGO_URI"] = 'mongodb+srv://guest_user:vD2B9MF8A4JBu5Gx@myfirstclusterci-904s1.mongodb.net/chickpeas?retryWrites=true&w=majority'
+    app.config["MONGO_URI"] = guest
 
 
 mongo = PyMongo(app)
