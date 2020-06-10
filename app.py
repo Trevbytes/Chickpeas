@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from flask import Flask, render_template, redirect, request, url_for, session
 from bson.objectid import ObjectId
 from bson import json_util
@@ -89,19 +90,36 @@ def edit_recipe(recipe_id):
     ingredients = mongo.db.ingredients.find().sort("name")
     ingredients_selected = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     all_recipes = mongo.db.recipes.find()
-    return render_template('edit_recipe.html', recipe=the_recipe, recipe2=the_recipe2,
-                           recipes=all_recipes, 
-                           ingredients=ingredients, 
-                           ingredients_selected= ingredients_selected)
+    def ingredient_search(ingredient):
+        if re.search('recipe_ingredient_id_.+', ingredient) : 
+            recID = ingredient
+            return recID
+        return 'blank'
+    return render_template('edit_recipe.html', recipe=the_recipe,
+                           recipe2=the_recipe2,
+                           recipes=all_recipes,
+                           ingredients=ingredients,
+                           ingredients_selected=ingredients_selected,
+                           ingredient_search=ingredient_search)
 
 
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
     recipes = mongo.db.recipes
-    recipes.update({'_id': ObjectId(recipe_id)},
+    recipes.replace_one({'_id': ObjectId(recipe_id)},
                    {
-        'recipe_name': request.form.get('recipe_name')
+        'recipe_name': request.form.get('recipe_name'),
+        'meal_type': request.form.get('meal_type'),
+        'recipe_description': request.form.get('recipe_description'),
+        'recipe_pic_url': request.form.get('recipe_pic_url'),
+        'recipe_instructions': request.form.get('recipe_instructions')
+
     })
+    for i in range(50):
+        if request.form.get(f'recipe_ingredient_id_{i}'):
+            recipes.find_one_and_update({'_id': ObjectId(recipe_id)}, {
+                "$set": {f'recipe_ingredient_id_{i}': request.form.get(f'recipe_ingredient_id_{i}')}},upsert=True)
+                   
     return redirect(url_for('view_recipe'))
 
 

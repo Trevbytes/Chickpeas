@@ -12,19 +12,19 @@
         placeholder="Name your recipe."
         value="{{recipe.recipe_name}}"
       />
-    </div>
-			<div class="form-group">
+        </div>
+        <p>This recipe is currently saved as a {{recipe.meal_type}}, please select {{recipe.meal_type}} if this still a {{recipe.meal_type}}. </p> 
+	    <div class="form-group">
 				<label for="meal_type">Meal Category</label>
 				<select
         class="form-control"
         id="meal_type"
         name="meal_type"
-        value="{{recipe.meal_type}}"
       >
-        <option>Breakfast</option>
-        <option>Lunch</option>
-        <option>Dinner</option>
-        <option>Dessert</option>
+        <option {% if recipe.meal_type == Breakfast %} class= "selected" {% endif %} >Breakfast</option>
+        <option {% if recipe.meal_type == Lunch %} class= "selected" {% endif %} >Lunch</option>
+        <option {% if recipe.meal_type == Dinner %} class= "selected" {% endif %} >Dinner</option>
+        <option {% if recipe.meal_type == Dessert %} class= "selected" {% endif %} >Dessert</option>
       </select>
 			</div>
 			<div class="form-group">
@@ -34,8 +34,7 @@
         id="recipe_description"
         rows="3"
         name="recipe_description"
-        value="{{recipe2.recipe_description}}"
-      ></textarea>
+      >{{recipe.recipe_description}}</textarea>
 			</div>
 			<div class="form-group">
 				Recipe Image
@@ -50,14 +49,14 @@
           id="recipe_image_link"
           name="recipe_pic_url"
           placeholder="Image Link"
-          value="{{recipe.pic_url}}"
+          value="{{recipe.recipe_pic_url}}"
         />
       </div>
 				</div>
 				<!--Add radio btn with option to upload link to image-->
 				<h3>Add Ingredients</h3>
 				<div class="row">
-					<select class="ingredient_select" id="ingredient_select" required>
+					<select class="ingredient_select" id="ingredient_select">
         {% for ing_name in ingredients %}
         <option>{{ing_name.name}}</option>
         {% endfor %}
@@ -67,16 +66,13 @@
         type="text"
         class="form-control"
         id="ingredient_measurement"
-        name="ingredient_measurement"
         placeholder="ex. 200g, 1/2cup, 2dl"
-        required
       />
 					<label for="ingredient_comment">Comment</label>
 					<input
         type="text"
         class="form-control"
         id="ingredient_comment"
-        name="ingredient_comment"
         placeholder="ex. Use fresh."
       />
 					<button type="button" onclick="addToIngredientList()">
@@ -85,8 +81,8 @@
 				</div>
 
 				<ul class="list-group form-group" id="recipe_ingredient_list">
-					<li class="list-group-item"></li>
-					{% for ingredient in ingredients_selected.items() %} {% if 'recipe_ingredient_id_*' in ingredient %}
+					<li class="list-group-item">{{ingredients_selected}}</li>
+					{% for ingID, ingredient in ingredients_selected.items() %} {% if ingredient_search(ingID) in ingID %}
 					<li type="text" readonly class="list-group-item">
 						<input type="text" readonly name="recipe_ingredient_id_{{ loop.index }}" value="{{ingredient}}"><button type="button" onclick="removeLI()" class="badge badge-primary badge-pill right delete">Remove</button>
 					</li>
@@ -102,7 +98,7 @@
         id="recipe_instructions"
         name="recipe_instructions"
         rows="3"
-      ></textarea>
+      >{{recipe.recipe_instructions}}</textarea>
 				</div>
 				<button type="submit" class="btn btn-primary">
       Create Recipe
