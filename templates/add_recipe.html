@@ -1,83 +1,71 @@
-{% extends 'base.html'%} {% block content %}
+{% extends 'base.html'%}{% block content %}
 <main class="container addRecipe">
-  <h1>Create Recipe</h1>
+  <h1 class="center">Create Recipe</h1>
   <form action="{{ url_for('insert_recipe') }}" method="POST">
-    <div class="form-group">
-      <label for="recipe_name">Recipe Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="recipe_name"
-        name="recipe_name"
-        placeholder="Name your recipe."
-      />
+    <div class="row">
+      <div class="input-field col s6">
+        <input
+          type="text"
+          id="recipe_name"
+          name="recipe_name"
+        />
+        <label for="recipe_name">Recipe Name</label>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="meal_type">Meal Category</label>
-      <select class="form-control" id="meal_type" name="meal_type">
+    <div class="input-field">
+      <label class="active" for="meal_type">Meal Category</label>
+      <select id="meal_type" name="meal_type">
         <option>Breakfast</option>
         <option>Lunch</option>
         <option>Dinner</option>
         <option>Dessert</option>
       </select>
     </div>
-    <div class="form-group">
+    <div class="input-field">
       <label for="recipe_description">Recipe Description</label>
       <textarea
-        class="form-control"
         id="recipe_description"
         rows="3"
         name="recipe_description"
       ></textarea>
     </div>
-    <div class="form-group">
-      Recipe Image
+    <div>
+      <h3>Recipe Image</h3>
     </div>
-    <div class="form-group">
-      <label for="recipe_image">Add Recipe Image</label>
+    <div class="input-field">
       <input type="file" class="form-control-file" id="recipe_pic_url" />
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          id="recipe_image_link"
-          name="recipe_pic_url"
-          placeholder="Image Link"
-        />
-      </div>
     </div>
-    <!--Add radio btn with option to upload link to image-->
+    <div class="input-field">
+      <input type="text" id="recipe_image_link" name="recipe_pic_url" />
+      <label for="recipe_image">Image Link</label>
+    </div>
     <h3>Add Ingredients</h3>
-    <div class="row">
-      <select class="ingredient_select" id="ingredient_select" required>
+    <div class="row input-field">
+      <select class="ingredient_select" id="ingredient_select">
+        <option selected="true" disabled="disabled">Choose Ingredient</option>
         {% for ing_name in ingredients %}
         <option>{{ing_name.name}}</option>
         {% endfor %}
       </select>
-      <label for="ingredient_measurement">Measurement</label>
-      <input
-        type="text"
-        class="form-control"
-        id="ingredient_measurement"
-        placeholder="ex. 200g, 1/2cup, 2dl"
-        required
-      />
-      <label for="ingredient_comment">Comment</label>
-      <input
-        type="text"
-        class="form-control"
-        id="ingredient_comment"
-        placeholder="ex. Use fresh."
-      />
-      <button type="button" onclick="addToIngredientList()">
-        <i class="fas fa-plus-circle"></i>Add Ingredient
+    </div>
+    <div class="row input-field">
+      <input type="text" id="ingredient_measurement" />
+      <label for="ingredient_measurement"
+        >Measurement(ex. 200g, 1/2cup, 2dl)</label
+      >
+    </div>
+    <div class="row input-field">
+      <input type="text" id="ingredient_comment" />
+      <label for="ingredient_comment">Comment(ex. Use fresh.)</label>
+      <button type="button" class="btn" onclick="addToIngredientList()">
+        <i class="fas fa-plus-circle"></i>Add Selected Ingredient
       </button>
     </div>
 
-    <ul class="list-group form-group" id="recipe_ingredient_list">
+    <ul class="list-group" id="recipe_ingredient_list">
       <li class="list-group-item"></li>
     </ul>
-    <div class="form-group">
+    <div class="row input-field">
       <label for="recipe_instructions">Recipe Instructions</label>
       <textarea
         class="form-control"
@@ -86,9 +74,11 @@
         rows="3"
       ></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">
-      Create Recipe
-    </button>
+    <div class="row center">
+      <button type="submit" class="btn btn-primary">
+        Submit Recipe
+      </button>
+    </div>
   </form>
 </main>
 <script

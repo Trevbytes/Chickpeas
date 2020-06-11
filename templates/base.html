@@ -3,17 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% block css %}{% endblock %}
+
     <!-- Compiled and minified CSS -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    {% block css %}{% endblock %}
     <link
       rel="stylesheet"
       href="{{url_for('static', filename='css/style.css')}}"
       type="text/css"
     />
+
     <title>Chickpeas</title>
   </head>
 
@@ -41,8 +43,7 @@
       <li><a href="{{url_for('ingredients')}}">Search Substitutes</a></li>
       <li><a href="{{url_for('login')}}">Login</a></li>
     </ul>
-    {% block content %} {% endblock %}
-    {% block js %}{% endblock %}
+    {% block content %} {% endblock %} {% block js %}{% endblock %}
     <!--Bootstrap-->
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
