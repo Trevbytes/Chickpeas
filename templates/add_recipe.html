@@ -8,6 +8,7 @@
           type="text"
           id="recipe_name"
           name="recipe_name"
+          required
         />
         <label for="recipe_name">Recipe Name</label>
       </div>
@@ -27,6 +28,7 @@
         id="recipe_description"
         rows="3"
         name="recipe_description"
+        required
       ></textarea>
     </div>
     <div>
@@ -65,6 +67,7 @@
     <ul class="list-group" id="recipe_ingredient_list">
       <li class="list-group-item"></li>
     </ul>
+    <div class="row"></div>
     <div class="row input-field">
       <label for="recipe_instructions">Recipe Instructions</label>
       <textarea
@@ -103,7 +106,7 @@
         commentlines = "";
       }
       $("#recipe_ingredient_list").append(
-        `<li type="text" readonly class="list-group-item"><input type="text" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="badge badge-primary badge-pill right delete">Remove</button></li>`
+        `<li type="text" readonly class="list-group-item"><input type="text" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn right delete">Remove Ingredient</button></li>`
       );
       ingredient_index++;
     }
@@ -112,8 +115,6 @@
     $(".delete").on("click", function () {
       $(this).parent().remove();
     });
-    console.log(this);
-    console.log("function working");
   }
 </script>
 {% endblock %}

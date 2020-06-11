@@ -1,108 +1,103 @@
 {% extends 'base.html'%} {% block content %}
 <main class="container addRecipe">
-	<h1>Edit Recipe</h1>
+	<h1 class="center">Edit Recipe</h1>
 	<form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
-		<div class="form-group">
+		<div class="input-field">
 			<label for="recipe_name">Recipe Name</label>
 			<input
         type="text"
         class="form-control"
         id="recipe_name"
         name="recipe_name"
-        placeholder="Name your recipe."
         value="{{recipe.recipe_name}}"
       />
         </div>
-        <p>This recipe is currently saved as a {{recipe.meal_type}}, please select {{recipe.meal_type}} if this still a {{recipe.meal_type}}. </p> 
-	    <div class="form-group">
-				<label for="meal_type">Meal Category</label>
+			<p>This recipe is currently saved as a {{recipe.meal_type}}, please select {{recipe.meal_type}} if this
+				still a {{recipe.meal_type}}. </p>
+			<div class="input-field">
+				<label class="active" for="meal_type">Meal Category</label>
 				<select
-        class="form-control"
         id="meal_type"
         name="meal_type"
       >
-        <option {% if recipe.meal_type == Breakfast %} class= "selected" {% endif %} >Breakfast</option>
-        <option {% if recipe.meal_type == Lunch %} class= "selected" {% endif %} >Lunch</option>
-        <option {% if recipe.meal_type == Dinner %} class= "selected" {% endif %} >Dinner</option>
-        <option {% if recipe.meal_type == Dessert %} class= "selected" {% endif %} >Dessert</option>
+        <option {% if recipe.meal_type == Breakfast %} selected="true" {% endif %} >Breakfast</option>
+        <option {% if recipe.meal_type == Lunch %} selected="true" {% endif %} >Lunch</option>
+        <option {% if recipe.meal_type == Dinner %} selected="true" {% endif %} >Dinner</option>
+        <option {% if recipe.meal_type == Dessert %} selected="true" {% endif %} >Dessert</option>
       </select>
 			</div>
-			<div class="form-group">
+			<div class="input-field">
 				<label for="recipe_description">Recipe Description</label>
 				<textarea
-        class="form-control"
         id="recipe_description"
-        rows="3"
+        rows="4"
         name="recipe_description"
       >{{recipe.recipe_description}}</textarea>
 			</div>
-			<div class="form-group">
-				Recipe Image
+			<div>
+				<h3>Recipe Image</h3>
 			</div>
-			<div class="form-group">
+			<div class="input-field">
 				<label for="recipe_image">Add Recipe Image</label>
 				<input type="file" class="form-control-file" id="recipe_pic_url" />
-				<div class="form-group">
+				<div class="input-field">
 					<input
           type="text"
           class="form-control"
           id="recipe_image_link"
           name="recipe_pic_url"
-          placeholder="Image Link"
           value="{{recipe.recipe_pic_url}}"
         />
       </div>
 				</div>
-				<!--Add radio btn with option to upload link to image-->
 				<h3>Add Ingredients</h3>
-				<div class="row">
+				<div class="row input-field">
 					<select class="ingredient_select" id="ingredient_select">
+        <option selected="true" disabled="disabled">Choose Ingredient</option>
         {% for ing_name in ingredients %}
         <option>{{ing_name.name}}</option>
         {% endfor %}
       </select>
-					<label for="ingredient_measurement">Measurement</label>
-					<input
-        type="text"
-        class="form-control"
-        id="ingredient_measurement"
-        placeholder="ex. 200g, 1/2cup, 2dl"
-      />
-					<label for="ingredient_comment">Comment</label>
-					<input
-        type="text"
-        class="form-control"
-        id="ingredient_comment"
-        placeholder="ex. Use fresh."
-      />
-					<button type="button" onclick="addToIngredientList()">
-        <i class="fas fa-plus-circle"></i>Add Ingredient
+				</div>
+				<div class="row input-field">
+					<input type="text" id="ingredient_measurement" />
+					<label for="ingredient_measurement"
+        >Measurement(ex. 200g, 1/2cup, 2dl)</label>
+				</div>
+				<div class="row input-field">
+					<input type="text" id="ingredient_comment" />
+					<label for="ingredient_comment">Comment(ex. Use fresh.)</label>
+					<button type="button" class="btn" onclick="addToIngredientList()">
+        <i class="fas fa-plus-circle"></i>Add Selected Ingredient
       </button>
 				</div>
 
 				<ul class="list-group form-group" id="recipe_ingredient_list">
 					<li class="list-group-item"></li>
-					{% for ingID, ingredient in ingredients_selected.items() %} {% if ingredient_search(ingID) in ingID %}
+					{% for ingID, ingredient in ingredients_selected.items() %}
+					{% if ingredient_search(ingID) in ingID %}
 					<li type="text" readonly class="list-group-item">
 						<input type="text" readonly name="recipe_ingredient_id_{{ loop.index }}" value="{{ingredient}}"><button type="button" onclick="removeLI()" class="badge badge-primary badge-pill right delete">Remove</button>
 					</li>
-                    <script>
-                    ingredient_index++;
-                    </script>
+					<script>
+						ingredient_index++;
+					</script>
 					{% endif %}{% endfor %}
 				</ul>
-				<div class="form-group">
+                <div></div>
+				<div class="row input-field">
 					<label for="recipe_instructions">Recipe Instructions</label>
 					<textarea
-        class="form-control"
         id="recipe_instructions"
         name="recipe_instructions"
-        rows="3"
+        rows="12"
       >{{recipe.recipe_instructions}}</textarea>
 				</div>
-				<button type="submit" class="btn btn-primary">
-      Create Recipe
-    </button>
+				<div class="row center">
+					<button type="submit" class="btn btn-primary">
+        Submit Recipe
+      </button>
+				</div>
 	</form>
 </main>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -111,7 +106,6 @@
 	var selectedIngredient;
   $("select.ingredient_select").change(function () {
     selectedIngredient = $(this).children("option:selected").val();
-    alert("You have selected the country - " + selectedIngredient);
   });
   var ingredient_index ;
   function addToIngredientList() {
@@ -125,7 +119,7 @@
         commentlines = "";
       }
       $("#recipe_ingredient_list").append(
-        `<li type="text" readonly class="list-group-item"><input type="text" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="badge badge-primary badge-pill right delete">Remove</button></li>`
+        `<li type="text" readonly class="list-group-item"><input type="text" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn right delete">Remove Ingredient</button></li>`
       );
       ingredient_index++;
     }
@@ -134,8 +128,13 @@
     $(".delete").on("click", function () {
       $(this).parent().remove();
     });
-    console.log(this);
-    console.log("function working");
   }
+  /*-- For text area resizing --*/
+  $('textarea').each(function () {
+  this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+}).on('input', function () {
+  this.style.height = 'auto';
+  this.style.height = (this.scrollHeight) + 'px';
+});
 </script>
 {% endblock %}
