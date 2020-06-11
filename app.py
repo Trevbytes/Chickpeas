@@ -127,7 +127,7 @@ def delete_recipe(recipe_id):
 def view_ingredient(ingredient_id):
     the_ingredient = mongo.db.ingredients.find_one({"id": ingredient_id})
     return render_template('ingredients.html', ingredient=the_ingredient, 
-                            ingredientstest=mongo.db.ingredients.find())
+                            ingredientstest=mongo.db.ingredients.find().sort("name"))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
