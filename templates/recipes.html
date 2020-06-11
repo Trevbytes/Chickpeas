@@ -1,10 +1,6 @@
 {% extends 'base.html'%}{% block css %}
-<link
-  rel="stylesheet"
-  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-  crossorigin="anonymous"
-/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
 {% endblock %} {% block content %}
 
 <button
@@ -17,7 +13,7 @@
 <button class="tablink" onclick="openCity('Paris', this, 'green')">
   Lunch
 </button>
-<button class="tablink" onclick="openCity('Tokyo', this, 'blue')">
+<button class="tablink" onclick="openCity('Tokyo', this, 'purple')">
   Dinner
 </button>
 <button class="tablink" onclick="openCity('Oslo', this, 'orange')">
@@ -25,192 +21,269 @@
 </button>
 
 <div id="breakfast" class="tabcontent container-fluid">
-  {% for cat in recipes %} {% if cat.meal_type == "Breakfast" %} {% if
+	{% for cat in recipes %} {% if cat.meal_type == "Breakfast" %} {% if
   loop.index % 2 != 0 %}
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h3>
-        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">{{ loop.index }}. {{ cat.recipe_name }}</a>
-      </h3>
-      <p>{{ cat.recipe_description }}</p>
-      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
-        >Edit</a
-      >
+	<div class="row featurette">
+		<div class="col-md-7">
+			<h3>
+				<a href="{{url_for('view_recipe', recipe_id=cat._id)}}">{{ loop.index }}. {{ cat.recipe_name }}</a>
+			</h3>
+			<p>{{ cat.recipe_description }}</p>
+			<div class="edit-delete-right">
+				<a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
+			</div>
+		</div>
+		<div class="col-md-5">
+			{% if cat.recipe_pic_url %}
+			<img
+          class="featurette-image img-responsive"
+          src="{{ cat.recipe_pic_url }}"
+          alt="Picture of {{ cat.recipe_name }}"
+        />
+                {% else %}
+			<img
+          class="featurette-image img-responsive"
+          src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+          alt="Default Pic"
+        />
+                {% endif %}
     </div>
-    <div class="col-md-5">
-      <img
-        class="featurette-image img-responsive"
-        src="{{ cat.recipe_pic_url }}"
-        alt="Picture of {{ cat.recipe_name }}"
-      />
+		</div>
+		{% else %}
+		<div class="row featurette">
+			<div class="col-md-5">
+				{% if cat.recipe_pic_url %}
+				<img
+          class="featurette-image img-responsive"
+          src="{{ cat.recipe_pic_url }}"
+          alt="Picture of {{ cat.recipe_name }}"
+        />
+                {% else %}
+				<img
+          class="featurette-image img-responsive"
+          src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+          alt="Default Pic"
+        />
+                {% endif %}
     </div>
-  </div>
-  {% else %}
-  <div class="row featurette">
-    <div class="col-md-5">
-      <img
-        class="featurette-image img-responsive"
-        src="{{ cat.recipe_pic_url }}"
-        alt="Picture of {{ cat.recipe_name }}"
-      />
-    </div>
-    <div class="col-md-7">
-      <h3>
-        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">{{ loop.index }}. {{ cat.recipe_name }}</a>
-      </h3>
-      <p>{{ cat.recipe_description }}</p>
-      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
-        >Edit</a
-      >
-    </div>
-  </div>
-  {% endif %} {% if loop.index != 13 %}
-  <hr class="featurette-divider" />
-  {% endif %} {% endif %} {% endfor %}
-</div>
+				<div class="col-md-7">
+					<h3>
+						<a href="{{url_for('view_recipe', recipe_id=cat._id)}}">{{ loop.index }}.
+							{{ cat.recipe_name }}</a>
+					</h3>
+					<p>{{ cat.recipe_description }}</p>
+					<div class="edit-delete-left">
+						<a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
+					</div>
+				</div>
+			</div>
+			{% endif %} 
+			<hr class="featurette-divider" />
+			 {% endif %} {% endfor %}
+		</div>
 
-<div id="Paris" class="tabcontent">
-  {% for cat in recipes2 %} {% if cat.meal_type == "Lunch" %} {% if loop.index %
+		<div id="Paris" class="tabcontent">
+			{% for cat in recipes2 %} {% if cat.meal_type == "Lunch" %} {% if loop.index %
   2 != 0 %}
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h3>
-        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">{{ loop.index }}. {{ cat.recipe_name }}</a>
-      </h3>
-      <p>{{ cat.recipe_description }}</p>
-      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
-        >Edit</a
-      >
+			<div class="row featurette">
+				<div class="col-md-7">
+					<h3>
+						<a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+							{{ cat.recipe_name }}</a>
+					</h3>
+					<p>{{ cat.recipe_description }}</p>
+										<div class="edit-delete-right">
+						<a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
+					</div>
+				</div>
+				<div class="col-md-5">
+					{% if cat.recipe_pic_url %}
+					<img
+          class="featurette-image img-responsive"
+          src="{{ cat.recipe_pic_url }}"
+          alt="Picture of {{ cat.recipe_name }}"
+        />
+                {% else %}
+					<img
+          class="featurette-image img-responsive"
+          src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+          alt="Default Pic"
+        />
+                {% endif %}
     </div>
-    <div class="col-md-5">
-      <img
-        class="featurette-image img-responsive"
-        src="{{ cat.recipe_pic_url }}"
-        alt="Picture of {{ cat.recipe_name }}"
-      />
+				</div>
+				{% else %}
+				<div class="row featurette">
+					<div class="col-md-5">
+						{% if cat.recipe_pic_url %}
+						<img
+          class="featurette-image img-responsive"
+          src="{{ cat.recipe_pic_url }}"
+          alt="Picture of {{ cat.recipe_name }}"
+        />
+                {% else %}
+						<img
+          class="featurette-image img-responsive"
+          src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+          alt="Default Pic"
+        />
+                {% endif %}
     </div>
-  </div>
-  {% else %}
-  <div class="row featurette">
-    <div class="col-md-5">
-      <img
-        class="featurette-image img-responsive"
-        src="{{ cat.recipe_pic_url }}"
-        alt="Picture of {{ cat.recipe_name }}"
-      />
-    </div>
-    <div class="col-md-7">
-      <h3>
-        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">{{ loop.index }}. {{ cat.recipe_name }}</a>
-      </h3>
-      <p>{{ cat.recipe_description }}</p>
-      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
-        >Edit</a
-      >
-    </div>
-  </div>
-  {% endif %} {% if loop.index != 13 %}
-  <hr class="featurette-divider" />
-  {% endif %} {% endif %} {% endfor %}
-</div>
+						<div class="col-md-7">
+							<h3>
+								<a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+									{{ cat.recipe_name }}</a>
+							</h3>
+							<p>{{ cat.recipe_description }}</p>
+												<div class="edit-delete-left">
+						<a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
+					</div>
+						</div>
+					</div>
+					{% endif %} {% if loop.index != 13 %}
+					<hr class="featurette-divider" />
+					{% endif %} {% endif %} {% endfor %}
+				</div>
 
-<div id="Tokyo" class="tabcontent">
-  {% for cat in recipes3 %} {% if cat.meal_type == "Dinner" %} {% if loop.index
+				<div id="Tokyo" class="tabcontent">
+					{% for cat in recipes3 %} {% if cat.meal_type == "Dinner" %} {% if loop.index
   % 2 != 0 %}
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h3>
-        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">{{ loop.index }}. {{ cat.recipe_name }}</a>
-      </h3>
-      <p>{{ cat.recipe_description }}</p>
-      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
-        >Edit</a
-      >
+					<div class="row featurette">
+						<div class="col-md-7">
+							<h3>
+								<a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+									{{ cat.recipe_name }}</a>
+							</h3>
+							<p>{{ cat.recipe_description }}</p>
+												<div class="edit-delete-right">
+						<a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
+					</div>
+						</div>
+						<div class="col-md-5">
+							{% if cat.recipe_pic_url %}
+							<img
+          class="featurette-image img-responsive"
+          src="{{ cat.recipe_pic_url }}"
+          alt="Picture of {{ cat.recipe_name }}"
+        />
+                {% else %}
+							<img
+          class="featurette-image img-responsive"
+          src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+          alt="Default Pic"
+        />
+                {% endif %}
     </div>
-    <div class="col-md-5">
-      <img
-        class="featurette-image img-responsive"
-        src="{{ cat.recipe_pic_url }}"
-        alt="Picture of {{ cat.recipe_name }}"
-      />
+						</div>
+						{% else %}
+						<div class="row featurette">
+							<div class="col-md-5">
+								{% if cat.recipe_pic_url %}
+								<img
+          class="featurette-image img-responsive"
+          src="{{ cat.recipe_pic_url }}"
+          alt="Picture of {{ cat.recipe_name }}"
+        />
+                {% else %}
+								<img
+          class="featurette-image img-responsive"
+          src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+          alt="Default Pic"
+        />
+                {% endif %}
     </div>
-  </div>
-  {% else %}
-  <div class="row featurette">
-    <div class="col-md-5">
-      <img
-        class="featurette-image img-responsive"
-        src="{{ cat.recipe_pic_url }}"
-        alt="Picture of {{ cat.recipe_name }}"
-      />
-    </div>
-    <div class="col-md-7">
-      <h3>
-        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">{{ loop.index }}. {{ cat.recipe_name }}</a>
-      </h3>
-      <p>{{ cat.recipe_description }}</p>
-      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
-        >Edit</a
-      >
-    </div>
-  </div>
-  {% endif %} {% if loop.index != 13 %}
-  <hr class="featurette-divider" />
-  {% endif %} {% endif %} {% endfor %}
-</div>
+								<div class="col-md-7">
+									<h3>
+										<a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+											{{ cat.recipe_name }}</a>
+									</h3>
+									<p>{{ cat.recipe_description }}</p>
+														<div class="edit-delete-left">
+						<a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
+					</div>
+								</div>
+							</div>
+							{% endif %} {% if loop.index != 13 %}
+							<hr class="featurette-divider" />
+							{% endif %} {% endif %} {% endfor %}
+						</div>
 
-<div id="Oslo" class="tabcontent">
-  {% for cat in recipes4 %} {% if cat.meal_type == "Dessert" %} {% if loop.index
+						<div id="Oslo" class="tabcontent">
+							{% for cat in recipes4 %} {% if cat.meal_type == "Dessert" %} {% if loop.index
   % 2 != 0 %}
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h3>
-        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">{{ loop.index }}. {{ cat.recipe_name }}</a>
-      </h3>
-      <p>{{ cat.recipe_description }}</p>
-      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
-        >Edit</a
-      >
+							<div class="row featurette">
+								<div class="col-md-7">
+									<h3>
+										<a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+											{{ cat.recipe_name }}</a>
+									</h3>
+									<p>{{ cat.recipe_description }}</p>
+														<div class="edit-delete-right">
+						<a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
+					</div>
+								</div>
+								<div class="col-md-5">
+									{% if cat.recipe_pic_url %}
+									<img
+          class="featurette-image img-responsive"
+          src="{{ cat.recipe_pic_url }}"
+          alt="Picture of {{ cat.recipe_name }}"
+        />
+                {% else %}
+									<img
+          class="featurette-image img-responsive"
+          src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+          alt="Default Pic"
+        />
+                {% endif %}
     </div>
-    <div class="col-md-5">
-      <img
-        class="featurette-image img-responsive"
-        src="{{ cat.recipe_pic_url }}"
-        alt="Picture of {{ cat.recipe_name }}"
-      />
+								</div>
+								{% else %}
+								<div class="row featurette">
+									<div class="col-md-5">
+										{% if cat.recipe_pic_url %}
+										<img
+          class="featurette-image img-responsive"
+          src="{{ cat.recipe_pic_url }}"
+          alt="Picture of {{ cat.recipe_name }}"
+        />
+                {% else %}
+										<img
+          class="featurette-image img-responsive"
+          src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+          alt="Default Pic"
+        />
+                {% endif %}
     </div>
-  </div>
-  {% else %}
-  <div class="row featurette">
-    <div class="col-md-5">
-      <img
-        class="featurette-image img-responsive"
-        src="{{ cat.recipe_pic_url }}"
-        alt="Picture of {{ cat.recipe_name }}"
-      />
-    </div>
-    <div class="col-md-7">
-      <h3>
-        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">{{ loop.index }}. {{ cat.recipe_name }}</a>
-      </h3>
-      <p>{{ cat.recipe_description }}</p>
-      <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn"
-        >Edit</a
-      >
-    </div>
-  </div>
-  {% endif %} {% if loop.index != 13 %}
-  <hr class="featurette-divider" />
-  {% endif %} {% endif %} {% endfor %}
-</div>
-<div class="fixed-action-btn">
-    <a class="btn-floating btn-large red" href="#"> ^</a>
-</div>
-{% endblock %}
-{% block js %}
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<script src="{{url_for('static', filename='js/recipes.js')}}"></script>
-<!-- Bootstrap js-->
-{% endblock %}
+										<div class="col-md-7">
+											<h3>
+												<a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+													{{ cat.recipe_name }}</a>
+											</h3>
+											<p>{{ cat.recipe_description }}</p>
+																<div class="edit-delete-left">
+						<a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn">Edit</a>
+					</div>
+										</div>
+									</div>
+									{% endif %} {% if loop.index != 13 %}
+									<hr class="featurette-divider" />
+									{% endif %} {% endif %} {% endfor %}
+								</div>
+								<div class="fixed-action-btn">
+									<a class="btn-floating btn-large red" href="#"> ^</a>
+								</div>
+								{% endblock %}
+								{% block js %}
+								<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+									integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+									crossorigin="anonymous"></script>
+								<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+									integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+									crossorigin="anonymous"></script>
+								<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+									integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+									crossorigin="anonymous"></script>
+								<script src="{{url_for('static', filename='js/recipes.js')}}"></script>
+								<!-- Bootstrap js-->
+								{% endblock %}

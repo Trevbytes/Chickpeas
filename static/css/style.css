@@ -136,3 +136,20 @@ a:hover {
 .tab_choice {
     margin: 0 auto;
 }
+
+#my_recipes a {
+    text-decoration: none;
+}
+
+#my_recipes .btn {
+background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
+} 
+
+.edit-delete-right{
+ position: absolute; bottom: 0; right: 0;   
+}
+
+.edit-delete-left{
+ position: absolute; bottom: 0; left: 0;   
+}
+
