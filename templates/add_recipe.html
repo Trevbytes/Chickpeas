@@ -90,7 +90,6 @@
   var selectedIngredient;
   $("select.ingredient_select").change(function () {
     selectedIngredient = $(this).children("option:selected").val();
-    alert("You have selected the country - " + selectedIngredient);
   });
   var ingredient_index = 1;
   function addToIngredientList() {

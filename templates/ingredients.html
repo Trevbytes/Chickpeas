@@ -4,9 +4,9 @@
   <div class="row">
     <div class="col-6">
       <label for="ingredient_select">Select an Ingredient</label>
-      <select class="" id="ingredient_select">
+      <select class="" id="ingredient_select" onchange="location = this.value;">
         {% for ing_name in ingredientstest %}
-        <option>{{ing_name.name}}</option>
+        <option value="{{url_for('view_ingredient', ingredient_id = ing_name.id)}}">{{ing_name.name}}</option>
         {% endfor %}
       </select>
     </div>
@@ -15,13 +15,22 @@
   <div class="row">
     <div class="col-md-6">
       Common Substitutes
-    </div>
+    </div>  
   </div>
-
-  <!-- <a
-    href="https://en.wikipedia.org/wiki/ing_name.wikipedia_id"
-    target="_blank"
-    >ing_name.name</a
-  > -->
+    {% if ingredient %}                
+  <div>
+    <h2>{{ingredient.name}}</h2>
+  </div>
+    <div>
+    <p>{{ingredient.food_group}}</p>
+  </div>
+    <div>
+    <p>{{ingredient.description}}</p>
+  </div>
+    <div>
+    <p><a href="https://en.wikipedia.org/wiki/{{ingredient.wikipedia_id}}" target="_blank">Wikipedia Article</a></p>
+  </div>
+    {% endif %}
 </main>
+
 {% endblock %}

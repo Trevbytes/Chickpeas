@@ -123,6 +123,11 @@ def delete_recipe(recipe_id):
     print(recipe_id)
     return redirect(url_for('dashboard'))
 
+@app.route('/view_ingredient/<ingredient_id>')
+def view_ingredient(ingredient_id):
+    the_ingredient = mongo.db.ingredients.find_one({"id": ingredient_id})
+    return render_template('ingredients.html', ingredient=the_ingredient, 
+                            ingredientstest=mongo.db.ingredients.find())
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
