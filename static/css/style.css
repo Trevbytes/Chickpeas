@@ -67,7 +67,7 @@ a:hover {
 }
 
 .ingredients-container {
-    background-color: white;
+
 }
 
 .addRecipe {
@@ -141,7 +141,7 @@ a:hover {
     text-decoration: none;
 }
 
-#my_recipes .btn {
+.btn {
 background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
 } 
 
