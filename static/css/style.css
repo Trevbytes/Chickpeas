@@ -60,13 +60,11 @@ html {
 nav .brand-logo {
   color: black;
   text-decoration: none;
+  margin-left: .6rem;
 }
 
 a:hover {
   color: black;
-}
-
-.ingredients-container {
 }
 
 .addRecipe {
