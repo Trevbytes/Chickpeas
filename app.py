@@ -84,7 +84,17 @@ def insert_recipe():
 @app.route('/view_recipe/<recipe_id>')
 def view_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    return render_template('view_recipe.html', recipe=the_recipe)
+    ingredients_selected = mongo.db.recipes.find_one({"_id":
+                                                      ObjectId(recipe_id)})
+
+    def ingredient_search(ingredient):
+        if re.search('recipe_ingredient_id_.+', ingredient):
+            recID = ingredient
+            return recID
+        return 'blank'
+    return render_template('view_recipe.html', recipe=the_recipe,
+                           ingredients_selected=ingredients_selected,
+                           ingredient_search=ingredient_search)
 
 
 @app.route('/edit_recipe/<recipe_id>')
@@ -123,11 +133,13 @@ def delete_recipe(recipe_id):
     print(recipe_id)
     return redirect(url_for('dashboard'))
 
+
 @app.route('/view_ingredient/<ingredient_id>')
 def view_ingredient(ingredient_id):
     the_ingredient = mongo.db.ingredients.find_one({"id": ingredient_id})
-    return render_template('ingredients.html', ingredient=the_ingredient, 
-                            ingredientstest=mongo.db.ingredients.find().sort("name"))
+    return render_template('ingredients.html', ingredient=the_ingredient,
+                           ingredientstest=mongo.db.ingredients.find().sort("name"))
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

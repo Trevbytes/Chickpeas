@@ -32,7 +32,7 @@ html {
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
-  color: white;
+  color: rgb(3, 3, 3);
   display: none;
   padding: 100px 20px;
   height: 100%;
