@@ -42,13 +42,13 @@ html {
 #breakfast {
   background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
 }
-#Paris {
+#lunch {
   background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
 }
-#Tokyo {
+#dinner {
   background-image: linear-gradient(to top, #0250c5 0%, #d43f8d 100%);
 }
-#Oslo {
+#dessert {
   background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
 }
 
@@ -140,12 +140,12 @@ a:hover {
 }
 
 .btn {
-  background-image: radial-gradient(
-    circle 248px at center,
-    #16d9e3 0%,
-    #30c7ec 47%,
-    #46aef7 100%
-  );
+background-image: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
+color: white;
+}
+
+.edit-recipe {
+ height: 1.5rem;   
 }
 
 .edit-delete-right {

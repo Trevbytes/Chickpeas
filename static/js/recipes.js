@@ -3,7 +3,7 @@ $(document).ready(function () {
   document.getElementById("defaultOpen").click();
 });
 
-function openCity(cityName, elmnt, color) {
+function openCity(mealType, elmnt, color) {
   // Hide all elements with class="tabcontent" by default */
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -18,7 +18,7 @@ function openCity(cityName, elmnt, color) {
   }
 
   // Show the specific tab content
-  document.getElementById(cityName).style.display = "block";
+  document.getElementById(mealType).style.display = "block";
 
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = color;
