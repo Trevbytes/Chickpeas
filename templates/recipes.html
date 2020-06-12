@@ -37,21 +37,25 @@
   <div class="row">
     {% endif %}
     <div
-      class=" row column featurette no-gutters"
+      class=" row column featurette no-gutters shadow"
     >
       <div class="col-md-5">
         {% if cat.recipe_pic_url %}
+        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
         <img
           class="featurette-image img-responsive"
           src="{{ cat.recipe_pic_url }}"
           alt="Picture of {{ cat.recipe_name }}"
         />
+        </a>
         {% else %}
+        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
         <img
           class="featurette-image img-responsive"
           src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
           alt="Default Pic"
         />
+        </a>
         {% endif %}
                 <div class="edit-delete-left">
           <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn btn-sm fas fa-cogs center"
