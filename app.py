@@ -33,20 +33,21 @@ def home():
 
 @app.route('/recipes')
 def recipes():
-    all_recipes = mongo.db.recipes.find()
-    all_recipes2 = mongo.db.recipes.find()
-    all_recipes3 = mongo.db.recipes.find()
-    all_recipes4 = mongo.db.recipes.find()
-    return render_template('recipes.html', users=mongo.db.users.find(),
+    all_recipes = mongo.db.recipes.find({"meal_type": "Breakfast"})
+    all_recipes2 = mongo.db.recipes.find({"meal_type": "Lunch"})
+    all_recipes3 = mongo.db.recipes.find({"meal_type": "Dinner"})
+    all_recipes4 = mongo.db.recipes.find({"meal_type": "Dessert"})
+    return render_template('recipes.html',
                            recipes=all_recipes, recipes2=all_recipes2,
-                           recipes3=all_recipes3, recipes4=all_recipes4)
+                           recipes3=all_recipes3, recipes4=all_recipes4,
+                           )
 
 
 @app.route('/ingredients')
 def ingredients():
     return render_template('ingredients.html',
                            ingredients=mongo.db.ingredients.find(),
-                           ingredientstest=mongo.db.ingredients.find())
+                           ingredientstest=mongo.db.ingredients.find().sort("name"))
 
 
 @app.route('/login', methods=['GET', 'POST'])

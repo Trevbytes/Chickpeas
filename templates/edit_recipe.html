@@ -12,18 +12,16 @@
         value="{{recipe.recipe_name}}"
       />
         </div>
-			<p>This recipe is currently saved as a {{recipe.meal_type}}, please select {{recipe.meal_type}} if this
-				still a {{recipe.meal_type}}. </p>
 			<div class="input-field">
 				<label class="active" for="meal_type">Meal Category</label>
 				<select
         id="meal_type"
         name="meal_type"
       >
-        <option {% if recipe.meal_type == Breakfast %} selected="true" {% endif %} >Breakfast</option>
-        <option {% if recipe.meal_type == Lunch %} selected="true" {% endif %} >Lunch</option>
-        <option {% if recipe.meal_type == Dinner %} selected="true" {% endif %} >Dinner</option>
-        <option {% if recipe.meal_type == Dessert %} selected="true" {% endif %} >Dessert</option>
+        <option {% if recipe.meal_type == 'Breakfast' %} selected="true" {% endif %} >Breakfast</option>
+        <option {% if recipe.meal_type == 'Lunch' %} selected="true" {% endif %} >Lunch</option>
+        <option {% if recipe.meal_type == 'Dinner' %} selected="true" {% endif %} >Dinner</option>
+        <option {% if recipe.meal_type == 'Dessert' %} selected="true" {% endif %} >Dessert</option>
       </select>
 			</div>
 			<div class="input-field">
