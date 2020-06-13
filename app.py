@@ -17,9 +17,13 @@ guest = 'mongodb+srv://guest_user:vD2B9MF8A4JBu5Gx@myfirstclusterci-904s1.mongod
 if os.path.exists("env.py"):
     import env
 
-app.config["MONGO_DBNAME"] = os.environ.get('MONGODB_NAME')
-app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+    app.config["MONGO_DBNAME"] = os.environ.get('MONGODB_NAME')
+    app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+else:
+    app.config["MONGO_DBNAME"] = 'chickpeas'
+    app.config["MONGO_URI"] = guest
+    app.config['SECRET_KEY'] = 'secretguest'
 
 
 mongo = PyMongo(app)
