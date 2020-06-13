@@ -2,7 +2,7 @@ import os
 import json
 import re
 from flask import Flask, render_template, redirect, request, url_for,\
-     session, flash
+    session, flash
 from bson.objectid import ObjectId
 from bson import json_util
 from flask_pymongo import PyMongo
@@ -83,7 +83,8 @@ def register():
             users.insert_one({'username': request.form.get('username'),
                               'user_password': hashpw})
             session['username'] = request.form.get('username')
-            flash('Thanks for registering! You are now logged in as ' + session['username'])
+            flash('Thanks for registering! You are now logged in as ' +
+                  session['username'])
             return redirect(url_for('dashboard'))
         flash('That username already exists, please try again')
 
@@ -109,6 +110,13 @@ def add_recipe():
     return render_template('add_recipe.html',
                            recipes=mongo.db.recipes.find(),
                            ingredients=ingredients)
+
+
+@app.route('/copy_recipe', methods=['POST'])
+def copy_recipe(recipe_id):
+    the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    new_recipe_id = recipes.insert_one(request.form.to_dict()).inserted_id
+    return redirect(url_for('view_recipe', recipe_id=new_recipe_id))
 
 
 @app.route('/insert_recipe', methods=['POST'])

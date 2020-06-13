@@ -1,81 +1,98 @@
 {% extends 'base.html'%}{% block css %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
-<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+  crossorigin="anonymous"
+/>
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/style.css')}}"
+  type="text/css"
+/>
 {% endblock %} {% block content %}
 <header class="container">
-	<h1 class="center">{{session.username}}'s Cookbook</h1>
-	<p class="center">Welcome {{session.username}}, what's cooking?</p>
-	<div class="row justify-content-end">
-		<a href="{{url_for('add_recipe')}}" class="btn mr-1">Add Recipe</a>
-		<a href="{{url_for('logout')}}" class="btn">Logout</a>
-	</div>
+  <h1 class="center">{{session.username}}'s Cookbook</h1>
+  <p class="center">Welcome {{session.username}}, what's cooking?</p>
 </header>
 <main>
-		<h3 class="center">My Recipes</h3>
-<div class="container-fluid">
-  <div class="row">
-    <button class="btn mr-1 ml-2" onclick="listView()">
-      <i class="fa fa-bars"></i>
-    </button>    
-    <button class="btn" onclick="gridView()">
-      <i class="fa fa-th-large"></i>
-    </button>
-  </div>
-  {% for cat in my_recipes %} {% if loop.index % 2 != 0 %}
-  <div class="row">
-    {% endif %}
-    <div
-      class=" row column featurette no-gutters shadow"
-    >
-      <div class="col-md-5">
-        {% if cat.recipe_pic_url %}
-        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
-        <img
-          class="featurette-image img-responsive"
-          src="{{ cat.recipe_pic_url }}"
-          alt="Picture of {{ cat.recipe_name }}"
-        />
-        </a>
-        {% else %}
-        <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
-        <img
-          class="featurette-image img-responsive"
-          src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-          alt="Default Pic"
-        />
-        </a>
-        {% endif %}
-                <div class="edit-delete-left">
-          <a href="{{url_for('edit_recipe', recipe_id=cat._id)}}" class="btn btn-sm fas fa-cogs center edit-recipe"
-            >Edit</a
-          >
+  <h3 class="center">My Recipes</h3>
+  <div class="container">
+    <div class="row justify-content-end">
+      <a href="{{url_for('add_recipe')}}" class="btn mr-1">Add Recipe</a>
+      <a href="{{url_for('logout')}}" class="btn">Logout</a>
+    </div>
+    <div class="row">
+      <button class="btn mr-1 ml-2" onclick="listView()">
+        <i class="fa fa-bars"></i>
+      </button>
+      <button class="btn" onclick="gridView()">
+        <i class="fa fa-th-large"></i>
+      </button>
+    </div>
+    {% set my_index = 1 %} {% for cat in my_recipes %} {% if cat.added_by ==
+    session.username or cat.edited_by == session.username %} {% if loop.index %
+    2 != 0 %}
+    <div class="row">
+      {% endif %}
+      <div class="row column featurette no-gutters shadow">
+        <div class="col-md-5">
+          {% if cat.recipe_pic_url %}
+          <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+            <img
+              class="featurette-image img-responsive"
+              src="{{ cat.recipe_pic_url }}"
+              alt="Picture of {{ cat.recipe_name }}"
+            />
+          </a>
+          {% else %}
+          <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+            <img
+              class="featurette-image img-responsive"
+              src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+              alt="Default Pic"
+            />
+          </a>
+          {% endif %}
+          <div class="edit-delete-left">
+            <a
+              href="{{url_for('edit_recipe', recipe_id=cat._id)}}"
+              class="btn btn-sm fas fa-cogs center edit-recipe"
+              >Edit</a
+            >
+            <a
+              onclick="return confirmDelete()"
+              href="{{url_for('delete_recipe', recipe_id=cat._id)}}"
+              class="btn btn-sm fas center edit-recipe"
+              >Delete</a
+            >
+          </div>
+        </div>
+        <div class="col-md-7">
+          <h3>
+            <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+              {{ cat.recipe_name }}</a
+            >
+          </h3>
+          <p>{{ cat.recipe_description }}</p>
         </div>
       </div>
-      <div class="col-md-7">
-        <h3>
-          <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
-            {{ cat.recipe_name }}</a
-          >
-        </h3>
-        <p>{{ cat.recipe_description }}</p>
-      </div>
+      {% if loop.index % 2 == 0 or loop.index == loop.length %}
     </div>
-    {% if loop.index % 2 == 0 or loop.index == loop.length %}
+    {% endif %} {% set my_index = my_index + 1 %} {% endif %} {% endfor %}
   </div>
-  {% endif %} {% endfor %}
-</div>
 </main>
 <div class="fixed-action-btn">
-	<a class="btn-floating btn-large red" href="#"> ^</a>
+  <a class="btn-floating btn-large red" href="#"> ^</a>
 </div>
 <script>
-function confirmDelete() {
-if (confirm("Do you want to delete this recipe?") == false) {
-    return false
-}else{
-    return true
-}};
+  function confirmDelete() {
+    if (confirm("Do you want to delete this recipe?") == false) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   // Get the elements with class="column"
   var elements = document.getElementsByClassName("column");

@@ -4,12 +4,7 @@
   <form action="{{ url_for('insert_recipe') }}" method="POST">
     <div class="row">
       <div class="input-field col s6">
-        <input
-          type="text"
-          id="recipe_name"
-          name="recipe_name"
-          required
-        />
+        <input type="text" id="recipe_name" name="recipe_name" required />
         <label for="recipe_name">Recipe Name</label>
       </div>
     </div>
@@ -76,6 +71,12 @@
         name="recipe_instructions"
         rows="3"
       ></textarea>
+    </div>
+    <div class="row">
+      <div class="input-field" hidden>
+        <input type="text" readonly id="added_by" name="added_by" value="{{session.username}}" />
+        <label for="added_by">Added by:</label>
+      </div>
     </div>
     <div class="row center">
       <button type="submit" class="btn btn-primary">

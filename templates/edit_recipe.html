@@ -91,6 +91,12 @@
         rows="12"
       >{{recipe.recipe_instructions}}</textarea>
 				</div>
+                    <div class="row">
+      <div class="input-field" hidden>
+        <input type="text" readonly id="edited_by" name="edited_by" value="{{session.username}}" />
+        <label for="edited_by">Edited by:</label>
+      </div>
+    </div>
 				<div class="row center">
 					<button type="submit" class="btn btn-primary">
         Submit Recipe
