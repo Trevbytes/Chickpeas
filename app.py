@@ -20,10 +20,7 @@ if os.path.exists("env.py"):
     app.config["MONGO_DBNAME"] = os.environ.get('MONGODB_NAME')
     app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-else:
-    app.config["MONGO_DBNAME"] = 'chickpeas'
-    app.config["MONGO_URI"] = guest
-    app.config['SECRET_KEY'] = 'secretguest'
+
 
 
 mongo = PyMongo(app)
