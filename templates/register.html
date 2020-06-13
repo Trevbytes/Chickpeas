@@ -1,17 +1,17 @@
 {% extends "base.html" %} {% block content %}
 <main class="container">
   <h1>Registration</h1>
-  <form action="/register" method="post">
+  <form action="{{url_for('register')}}" method="post">
     <div class="row">
       <div class="input-field col s6">
-        <input type="text" id="user_name" name="user_name" required />
-        <label for="recipe_name">User Name</label>
+        <input type="text" id="username" name="username" class="validate" required />
+        <label for="username">Username</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <input type="text" id="user_password" name="user_password" required />
-        <label for="recipe_name">User Password</label>
+        <input type="text" id="user_password" name="user_password" class="validate" required />
+        <label for="user_password">User Password</label>
       </div>
     </div>
     <div class="row">
@@ -20,13 +20,29 @@
           type="text"
           id="confirm_password"
           name="confirm_password"
+          oninput="check(this)"
+          class="validate"
           required
         />
         <label for="recipe_name">Confirm Password</label>
       </div>
     </div>
     <div class="row"></div>
-    <input class="btn btn-primary" type="submit" value="Submit" />
+    <div class="row center">
+      <button type="submit" class="btn btn-primary">
+        Register
+      </button>
+    </div>
   </form>
 </main>
+<script>
+function check(input) {
+        if (input.value != document.getElementById('user_password').value) {
+            input.setCustomValidity('Password Must be Matching.');
+        } else {
+            // input is valid -- reset the error message
+            input.setCustomValidity('');
+        }
+    }
+</script>
 {% endblock %}

@@ -22,26 +22,38 @@
   <body>
     <nav>
       <div class="nav-wrapper">
-        <a href="{{url_for('home')}}" class="brand-logo"><img  alt="Chickpeas" src="https://res.cloudinary.com/chickpeas/image/upload/v1591961075/chickpeas/chickpeas_dcvoee.png"  height="60" ></a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
-          >Menu</a
-        >
+        <a href="{{url_for('home')}}" class="brand-logo"
+          ><img
+            alt="Chickpeas"
+            src="https://res.cloudinary.com/chickpeas/image/upload/v1591961075/chickpeas/chickpeas_dcvoee.png"
+            height="60"
+        /></a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">Menu</a>
+
         <ul class="right hide-on-med-and-down ml-8">
-          <li><a href="{{url_for('dashboard')}}">User Cookbook</a></li>
+          {% if 'username' not in session %}
+          <li><a href="{{url_for('login')}}" class="btn">Login/Signup</a></li>
+          {% else %}
+          <li>
+            <a href="{{url_for('dashboard')}}">{{session.username}}'s Cookbook</a>
+          </li>
+          {% endif %}
         </ul>
         <ul class="right hide-on-med-and-down">
           <li><a href="{{url_for('recipes')}}">Browse Recipes</a></li>
           <li><a href="{{url_for('ingredients')}}">Browse Ingredients</a></li>
-          <li><a href="{{url_for('login')}}">Login</a></li>
         </ul>
       </div>
     </nav>
 
     <ul class="sidenav right" id="mobile-demo">
-      <li><a href="{{url_for('dashboard')}}">User Cookbook</a></li>
+      {% if 'username' not in session %}
+      <li><a href="{{url_for('login')}}" class="btn">Login/Signup</a></li>
+      {% else %}
+      <li><a href="{{url_for('dashboard')}}">{{username}}'s Cookbook</a></li>
+      {% endif %}
       <li><a href="{{url_for('recipes')}}">Browse Recipes</a></li>
       <li><a href="{{url_for('ingredients')}}">Search Substitutes</a></li>
-      <li><a href="{{url_for('login')}}">Login</a></li>
     </ul>
     {% block content %} {% endblock %} {% block js %}{% endblock %}
     <!--Bootstrap-->

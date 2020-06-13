@@ -1,23 +1,27 @@
 import os
 import json
 import re
-from flask import Flask, render_template, redirect, request, url_for, session
+from flask import Flask, render_template, redirect, request, url_for,\
+     session, flash
 from bson.objectid import ObjectId
 from bson import json_util
 from flask_pymongo import PyMongo
 import bcrypt
 from os import path
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
 
-guest = 'mongodb+srv://guest_user:vD2B9MF8A4JBu5Gx@myfirstclusterci-904s1.mongodb.net/chickpeas?retryWrites=false'
+guest = 'mongodb+srv://guest_user:vD2B9MF8A4JBu5Gx@\
+    myfirstclusterci-904s1.mongodb.net/chickpeas?retryWrites=false'
 
 if os.path.exists("env.py"):
     import env
 
     app.config["MONGO_DBNAME"] = os.environ.get('MONGODB_NAME')
     app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 else:
     app.config["MONGO_DBNAME"] = 'chickpeas'
     app.config["MONGO_URI"] = guest
@@ -28,7 +32,7 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def home():
-    return render_template('landing_page.html', users=mongo.db.users.find())
+    return render_template('landing_page.html')
 
 
 @app.route('/recipes')
@@ -52,12 +56,45 @@ def ingredients():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    if request.method == 'POST':
+        users = mongo.db.users
+        user_login = users.find_one({'username': request.form.get('username')})
+
+        if user_login:
+            if check_password_hash(user_login['user_password'],
+                                   request.form.get('user_password')):
+                session['username'] = request.form.get('username')
+                flash('Welcome back ' + session['username'])
+                return redirect(url_for('dashboard'))
+            flash('Invalid username or password.')
+    return render_template('login.html', is_index=True)
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['POST', 'GET'])
 def register():
-    return render_template('register.html')
+
+    if request.method == 'POST':
+        users = mongo.db.users
+        existing_user = users.find_one(
+            {'username': request.form.get('username')})
+
+        if not existing_user:
+            hashpw = generate_password_hash(request.form.get('user_password'))
+            users.insert_one({'username': request.form.get('username'),
+                              'user_password': hashpw})
+            session['username'] = request.form.get('username')
+            flash('Thanks for registering! You are now logged in as ' + session['username'])
+            return redirect(url_for('dashboard'))
+        flash('That username already exists, please try again')
+
+    return render_template('register.html', is_index=True)
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You have been logged out.')
+    return redirect(url_for('home'))
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])

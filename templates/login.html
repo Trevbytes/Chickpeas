@@ -1,29 +1,29 @@
 {% extends "base.html" %} {% block content %}
 <main class="container">
-<h1>Login</h1>
+  <h1>Login</h1>
   <form action="/login" method="post">
     <div class="row">
       <div class="input-field col s6">
-        <input type="text" id="user_name" name="user_name" required />
-        <label for="recipe_name">User Name</label>
+        <input type="text" id="username" name="username" required />
+        <label for="user_name">Username</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s6">
         <input type="text" id="user_password" name="user_password" required />
-        <label for="recipe_name">Password</label>
+        <label for="user_password">Password</label>
       </div>
     </div>
     <div class="row"></div>
-    <input class="btn btn-primary" type="submit" value="Submit" />
+    <div class="row center">
+      <button type="submit" class="btn btn-primary">
+        Login
+      </button>
+    </div>
   </form>
-<h4>Not a Member?</h4>
-<a
-  class="btn btn-primary"
-  href="{{url_for('register')}}"
-  role="button"
->
-  Register</a
->
+  <h4>Not a Member?</h4>
+  <a class="btn btn-primary" href="{{url_for('register')}}" role="button">
+    Register</a
+  >
 </main>
 {% endblock %}
