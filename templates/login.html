@@ -1,15 +1,22 @@
 {% extends "base.html" %} {% block content %}
 <main class="container">
 <h1>Login</h1>
-<form action="/login" method="post">
-  <p>Email</p>
-
-  <p>Password</p>
-
-  <br />
-  <br />
-  <input class="btn btn-primary" type="submit" value="Login" />
-</form>
+  <form action="/login" method="post">
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="text" id="user_name" name="user_name" required />
+        <label for="recipe_name">User Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="text" id="user_password" name="user_password" required />
+        <label for="recipe_name">Password</label>
+      </div>
+    </div>
+    <div class="row"></div>
+    <input class="btn btn-primary" type="submit" value="Submit" />
+  </form>
 <h4>Not a Member?</h4>
 <a
   class="btn btn-primary"
