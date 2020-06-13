@@ -10,7 +10,6 @@ import bcrypt
 from os import path
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 app = Flask(__name__)
 
 guest = 'mongodb+srv://guest_user:vD2B9MF8A4JBu5Gx@myfirstclusterci-904s1.mongodb.net/chickpeas?retryWrites=false'
@@ -18,13 +17,9 @@ guest = 'mongodb+srv://guest_user:vD2B9MF8A4JBu5Gx@myfirstclusterci-904s1.mongod
 if os.path.exists("env.py"):
     import env
 
-    app.config["MONGO_DBNAME"] = os.environ.get('MONGODB_NAME')
-    app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-else:
-    app.config["MONGO_DBNAME"] = 'chickpeas'
-    app.config["MONGO_URI"] = guest
-    app.config['SECRET_KEY'] = 'secretguest'
+app.config["MONGO_DBNAME"] = os.environ.get('MONGODB_NAME')
+app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 
 mongo = PyMongo(app)
