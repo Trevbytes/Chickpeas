@@ -13,8 +13,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
-guest = 'mongodb+srv://guest_user:vD2B9MF8A4JBu5Gx@\
-    myfirstclusterci-904s1.mongodb.net/chickpeas?retryWrites=false'
+guest = 'mongodb+srv://guest_user:vD2B9MF8A4JBu5Gx@myfirstclusterci-904s1.mongodb.net/chickpeas?retryWrites=false'
 
 if os.path.exists("env.py"):
     import env
