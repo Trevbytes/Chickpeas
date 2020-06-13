@@ -2,37 +2,47 @@
 <main class="container">
   <div>
     {% if recipe.recipe_pic_url %}
-      <img
-        class="featurette-image img-responsive"
-        src="{{ recipe.recipe_pic_url }}"
-        alt="Picture of {{ recipe.recipe_name }}"
-        height="500"
-        width="500"
-      />
+    <img
+      class="featurette-image img-responsive"
+      src="{{ recipe.recipe_pic_url }}"
+      alt="Picture of {{ recipe.recipe_name }}"
+      height="500"
+      width="500"
+    />
     {% else %}
-      <img
-        class="featurette-image img-responsive"
-        src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-        alt="Default Pic"
-        height="300"
-        width="600"
-      />
+    <img
+      class="featurette-image img-responsive"
+      src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+      alt="Default Pic"
+      height="300"
+      width="600"
+    />
     {% endif %}
   </div>
   <h1>{{recipe.recipe_name}}</h1>
+    <a
+      href="{{url_for('add_to_cookbook', recipe_id=recipe_id, username=session.username)}}"
+      class="btn btn-sm center edit-recipe"
+      >Save a Copy</a
+    >  
   <div>{{recipe.recipe_description}}</div>
   <div>{{recipe.meal_type}}</div>
   <div>
-  				<ul class="list-group form-group" id="recipe_ingredient_list">
-					<li class="list-group-item"></li>
-					{% for ingID, ingredient in ingredients_selected.items() %}
-					{% if ingredient_search(ingID) in ingID %}
-					<li type="text" readonly class="list-group-item">
-						<input type="text" readonly name="recipe_ingredient_id_{{ loop.index }}" value="{{ingredient}}">
-					</li>
-					{% endif %}{% endfor %}
-				</ul>
-    </div>
-    <div>{{recipe.recipe_instructions}}</div>            
+    <ul class="list-group form-group" id="recipe_ingredient_list">
+      <li class="list-group-item"></li>
+      {% for ingID, ingredient in ingredients_selected.items() %} {% if
+      ingredient_search(ingID) in ingID %}
+      <li type="text" readonly class="list-group-item">
+        <input
+          type="text"
+          readonly
+          name="recipe_ingredient_id_{{ loop.index }}"
+          value="{{ingredient}}"
+        />
+      </li>
+      {% endif %}{% endfor %}
+    </ul>
+  </div>
+  <div>{{recipe.recipe_instructions}}</div>
 </main>
 {% endblock %}

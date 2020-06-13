@@ -31,7 +31,7 @@
       </button>
     </div>
     {% set my_index = 1 %} {% for cat in my_recipes %} {% if cat.added_by ==
-    session.username or cat.edited_by == session.username %} {% if loop.index %
+    session.username or cat.edited_by == session.username or saved_search(cat,session.username) %} {% if loop.index %
     2 != 0 %}
     <div class="row">
       {% endif %}

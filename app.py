@@ -49,9 +49,10 @@ def recipes():
 
 @app.route('/ingredients')
 def ingredients():
+    ingredients = mongo.db.ingredients
     return render_template('ingredients.html',
-                           ingredients=mongo.db.ingredients.find(),
-                           ingredientstest=mongo.db.ingredients.find().sort("name"))
+                           ingredients=ingredients.find(),
+                           ingredientstest=ingredients.find().sort("name"))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -100,8 +101,13 @@ def logout():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
+    def saved_search(recipe, username):
+        if 'saved_by_'+username in recipe:
+            return True
+        return False
     my_recipes = mongo.db.recipes.find().sort("_id", -1)
-    return render_template('dashboard.html', my_recipes=my_recipes)
+    return render_template('dashboard.html', my_recipes=my_recipes,
+                           saved_search=saved_search)
 
 
 @app.route('/add_recipe', methods=['GET', 'POST'])
@@ -112,11 +118,15 @@ def add_recipe():
                            ingredients=ingredients)
 
 
-@app.route('/copy_recipe', methods=['POST'])
-def copy_recipe(recipe_id):
-    the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    new_recipe_id = recipes.insert_one(request.form.to_dict()).inserted_id
-    return redirect(url_for('view_recipe', recipe_id=new_recipe_id))
+@app.route('/add_to_cookbook/<recipe_id>/<username>', methods=['GET', 'POST'])
+def add_to_cookbook(recipe_id, username):
+    recipes = mongo.db.recipes
+    recipes.find_one_and_update({'_id': ObjectId(recipe_id)},
+                                {"$set":
+                                 {'saved_by_' + username: 'saved'}},
+                                upsert=True)
+
+    return redirect(url_for('dashboard'))
 
 
 @app.route('/insert_recipe', methods=['POST'])
@@ -139,7 +149,8 @@ def view_recipe(recipe_id):
         return 'blank'
     return render_template('view_recipe.html', recipe=the_recipe,
                            ingredients_selected=ingredients_selected,
-                           ingredient_search=ingredient_search)
+                           ingredient_search=ingredient_search,
+                           recipe_id=recipe_id)
 
 
 @app.route('/edit_recipe/<recipe_id>')
@@ -167,8 +178,10 @@ def edit_recipe(recipe_id):
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
     recipes = mongo.db.recipes
-    recipes.delete_one({'_id': ObjectId(recipe_id)})
-    recipe_id = recipes.insert_one(request.form.to_dict()).inserted_id
+    recipes.find_one_and_update({'_id': ObjectId(recipe_id)},
+                                {"$set":
+                                 (request.form.to_dict())},
+                                upsert=True)
     return redirect(url_for('view_recipe', recipe_id=recipe_id))
 
 
