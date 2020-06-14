@@ -3,7 +3,7 @@ $(document).ready(function () {
   document.getElementById("defaultOpen").click();
 });
 
-function openCity(mealType, elmnt, color) {
+function openCourse(mealType, elmnt, color) {
   // Hide all elements with class="tabcontent" by default */
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -38,3 +38,23 @@ document.addEventListener("DOMContentLoaded", function () {
     hoverEnabled: false,
   });
 });
+
+  // Get the elements with class="column"
+  var elements = document.getElementsByClassName("column");
+
+  // Declare a loop variable
+  var i;
+
+  // List View
+  function listView() {
+    for (i = 0; i < elements.length; i++) {
+      elements[i].style.width = "100%";
+    }
+  }
+
+  // Grid View
+  function gridView() {
+    for (i = 0; i < elements.length; i++) {
+      elements[i].style.width = "50%";
+    }
+  }
