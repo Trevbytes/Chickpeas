@@ -14,14 +14,14 @@
 <header class="container">
   <h1 class="center">{{session.username}}'s Cookbook</h1>
   <p class="center">Welcome {{session.username}}, what's cooking?</p>
+    <div class="row justify-content-center">
+      <a href="{{url_for('add_recipe')}}" class="btn mr-1 center edit-recipe">Add Recipe</a>
+      <a href="{{url_for('logout')}}" class="btn center edit-recipe">Logout</a>
+    </div>  
 </header>
 <main>
   <h3 class="center">My Recipes</h3>
-  <div class="container">
-    <div class="row justify-content-end">
-      <a href="{{url_for('add_recipe')}}" class="btn mr-1 center edit-recipe">Add Recipe</a>
-      <a href="{{url_for('logout')}}" class="btn center edit-recipe">Logout</a>
-    </div>
+  <div class="container-fluid">
     <div class="row">
       <button class="btn mr-1 ml-2" onclick="listView()">
         <i class="fa fa-bars"></i>
