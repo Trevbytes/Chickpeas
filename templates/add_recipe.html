@@ -30,7 +30,12 @@
       <h3>Recipe Image</h3>
     </div>
     <div class="input-field">
-      <input type="file" class="form-control-file" id="recipe_pic_url" />
+      <input
+        type="file"
+        class="form-control-file"
+        id="recipe_pic_url"
+        disabled
+      />
     </div>
     <div class="input-field">
       <input type="text" id="recipe_image_link" name="recipe_pic_url" />
@@ -86,6 +91,15 @@
         />
         <label for="added_by">Added by:</label>
       </div>
+    </div>
+    <!-- Privacy Switch -->
+    <div class="switch">
+      <label>
+        Private Recipe
+        <input type="checkbox" name="public" />
+        <span class="lever"></span>
+        Public Recipe
+      </label>
     </div>
     <div class="row center">
       <button type="submit" class="btn btn-primary">

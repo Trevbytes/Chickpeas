@@ -1,20 +1,34 @@
 {% extends 'base.html'%} {% block content %}
 <main class="container addRecipe">
-	<h1 class="center">Create a Copy</h1>
     <!-- If createad by user, value="{{recipe.recipe_name}}"-->
-	<form action="{{ url_for('insert_recipe', recipe_id=recipe._id) }}" method="POST">
+    {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+    <h1 class="center">Update Recipe</h1>
+	<form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
+    {% else %}
+    <h1 class="center">Create a Copy</h1>
+    <form action="{{ url_for('insert_recipe', recipe_id=recipe._id) }}" method="POST">
+    {% endif %}
 		<div class="input-field row">
-            <!-- If createad by user, value="{{recipe.recipe_name}}"-->
+            <!-- If created by user, value="{{recipe.recipe_name}}"-->
 			<input
             type="text"
             class="form-control"
             id="recipe_name"
             name="recipe_name"
+            {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+            value="{{recipe.recipe_name}}"
+            required
+            />
+            <!-- If added or edited by user, edit-->
+			<label for="recipe_name">Recipe Name</label> 
+            {% else %}           
             placeholder="Copy of {{recipe.recipe_name}}"
             required
             />
-            <!-- If createad by user, edit-->
-			<label for="recipe_name">New Name for copied Recipe</label>            
+            <!-- If not added or edited by user , New name-->
+			<label for="recipe_name">New Name for copied Recipe</label>                                     
+            {% endif %}            
+           
         </div>
 		<div class="input-field row">
 			<select
@@ -106,11 +120,26 @@
                 <label for="edited_by">Edited by:</label>
             </div>
         </div>
+          <!-- Switch -->
+        <div class="switch">
+            <label>
+            Private Recipe
+            <input type="checkbox" name="public">
+            <span class="lever"></span>
+            Public Recipe
+            </label>
+        </div>
         <!-- If creator, Update recipe-->
 		<div class="row center">
+            {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+			<button type="submit" class="btn btn-primary">
+            Update Recipe
+            </button>
+            {% else %}
 			<button type="submit" class="btn btn-primary">
             Create Copy of Recipe
             </button>
+            {% endif %}
 		</div>
 	</form>
 </main>
