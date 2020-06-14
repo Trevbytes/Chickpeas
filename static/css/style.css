@@ -199,6 +199,11 @@ a:hover {
     background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
 }
 
+.col-md-7 {
+    background-image: url("https://res.cloudinary.com/chickpeas/image/upload/v1592175517/marble-surface-2341290_gtphsy.jpg");
+    background-repeat: no-repeat;   
+}
+
 .become-member-container {
     padding-top: 2rem;
 }
