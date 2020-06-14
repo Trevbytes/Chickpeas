@@ -1,107 +1,114 @@
 {% extends 'base.html'%} {% block content %}
 <main class="container addRecipe">
-	<h1 class="center">Edit Recipe</h1>
+	<h1 class="center">Create a Copy</h1>
 	<form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
-		<div class="input-field">
-			<label for="recipe_name">Recipe Name</label>
+		<div class="input-field row">
+            <!-- If createad by user, value="{{recipe.recipe_name}}"-->
 			<input
-        type="text"
-        class="form-control"
-        id="recipe_name"
-        name="recipe_name"
-        value="{{recipe.recipe_name}}"
-      />
+            type="text"
+            class="form-control"
+            id="recipe_name"
+            name="recipe_name"
+            placeholder="Copy of {{recipe.recipe_name}}"
+            required
+            />
+            <!-- If createad by user, edit-->
+			<label for="recipe_name">New Name for copied Recipe</label>            
         </div>
-			<div class="input-field">
-				<label class="active" for="meal_type">Meal Category</label>
-				<select
-        id="meal_type"
-        name="meal_type"
-      >
+		<div class="input-field row">
+			<select
+            id="meal_type"
+            name="meal_type"
+            >
         <option {% if recipe.meal_type == 'Breakfast' %} selected="true" {% endif %} >Breakfast</option>
         <option {% if recipe.meal_type == 'Lunch' %} selected="true" {% endif %} >Lunch</option>
         <option {% if recipe.meal_type == 'Dinner' %} selected="true" {% endif %} >Dinner</option>
         <option {% if recipe.meal_type == 'Dessert' %} selected="true" {% endif %} >Dessert</option>
-      </select>
-			</div>
-			<div class="input-field">
-				<label for="recipe_description">Recipe Description</label>
-				<textarea
-        id="recipe_description"
-        rows="4"
-        name="recipe_description"
-      >{{recipe.recipe_description}}</textarea>
-			</div>
-			<div>
-				<h3>Recipe Image</h3>
-			</div>
-			<div class="input-field">
-				<label for="recipe_image">Add Recipe Image</label>
-				<input type="file" class="form-control-file" id="recipe_pic_url" />
-				<div class="input-field">
-					<input
-          type="text"
-          class="form-control"
-          id="recipe_image_link"
-          name="recipe_pic_url"
-          value="{{recipe.recipe_pic_url}}"
-        />
-      </div>
-				</div>
-				<h3>Add Ingredients</h3>
-				<div class="row input-field">
-					<select class="ingredient_select" id="ingredient_select">
-        <option selected="true" disabled="disabled">Choose Ingredient</option>
-        {% for ing_name in ingredients %}
-        <option>{{ing_name.name}}</option>
-        {% endfor %}
-      </select>
-				</div>
-				<div class="row input-field">
-					<input type="text" id="ingredient_measurement" />
-					<label for="ingredient_measurement"
-        >Measurement(ex. 200g, 1/2cup, 2dl)</label>
-				</div>
-				<div class="row input-field">
-					<input type="text" id="ingredient_comment" />
-					<label for="ingredient_comment">Comment(ex. Use fresh.)</label>
-					<button type="button" class="btn" onclick="addToIngredientList()">
-        <i class="fas fa-plus-circle"></i>Add Selected Ingredient
-      </button>
-				</div>
-
-				<ul class="list-group form-group" id="recipe_ingredient_list">
-					<li class="list-group-item"></li>
-					{% for ingID, ingredient in ingredients_selected.items() %}
-					{% if ingredient_search(ingID) in ingID %}
-					<li type="text" readonly class="list-group-item">
-						<input type="text" readonly name="recipe_ingredient_id_{{ loop.index }}" value="{{ingredient}}"><button type="button" onclick="removeLI()" class="badge badge-primary badge-pill right delete">Remove</button>
+            </select>
+			<label class="active" for="meal_type" id="meal_label">Meal Category</label>            
+		</div>
+		<div class="input-field row">
+			<textarea
+            id="recipe_description"
+            rows="4"
+            name="recipe_description"
+            >{{recipe.recipe_description}}</textarea>
+			<label for="recipe_description">Recipe Description</label>            
+		</div>
+		<h3>Recipe Image</h3>
+		<div class="input-field row">		
+			<input type="file" class="form-control-file" id="recipe_pic_url" disabled/>
+        </div>	    
+		<div class="input-field row">
+			<input
+            type="text"
+            class="form-control"
+            id="recipe_image_link"
+            name="recipe_pic_url"
+            value="{{recipe.recipe_pic_url}}"
+            />
+        </div>
+		<h3>Add Ingredients</h3>
+		<div class="row input-field">
+			<select class="ingredient_select" id="ingredient_select">
+                <option selected="true" disabled="disabled">Choose Ingredient</option>
+                {% for ing_name in ingredients %}
+                <option>{{ing_name.name}}</option>
+                {% endfor %}
+            </select>
+		</div>
+		<div class="row input-field">
+			<input type="text" id="ingredient_measurement" />
+			<label for="ingredient_measurement"
+            >Measurement(ex. 200g, 1/2cup, 2dl)</label>
+		</div>
+		<div class="row input-field">
+			<input type="text" id="ingredient_comment" />
+			<label for="ingredient_comment">Comment(ex. Use fresh.)</label>
+        </div>
+        <div class="row input-field">
+		    <button type="button" class="btn" onclick="addToIngredientList()">
+            <i class="fas fa-plus-circle"></i>Add Selected Ingredient
+            </button>        
+        </div>
+        <script>
+        var ingredient_index = 1 ;
+        </script>    
+        <div class="row input-field">			
+			<ul class="list-group form-group" id="recipe_ingredient_list">
+				<li class="list-group-item"></li>
+				{% for ingID, ingredient in ingredients_selected.items() %}
+				{% if ingredient_search(ingID) in ingID %}
+				    <li type="text" readonly class="list-group-item">
+					<input type="text" readonly name="recipe_ingredient_id_{{ loop.index }}" value="{{ingredient}}"><button type="button" onclick="removeLI()" class="badge badge-primary badge-pill right delete">Remove</button>
 					</li>
 					<script>
 						ingredient_index++;
 					</script>
 					{% endif %}{% endfor %}
-				</ul>
-                <div></div>
-				<div class="row input-field">
-					<label for="recipe_instructions">Recipe Instructions</label>
-					<textarea
-        id="recipe_instructions"
-        name="recipe_instructions"
-        rows="12"
-      >{{recipe.recipe_instructions}}</textarea>
-				</div>
-                    <div class="row">
-      <div class="input-field" hidden>
-        <input type="text" readonly id="edited_by" name="edited_by" value="{{session.username}}" />
-        <label for="edited_by">Edited by:</label>
-      </div>
-    </div>
-				<div class="row center">
-					<button type="submit" class="btn btn-primary">
-        Submit Recipe
-      </button>
-				</div>
+			</ul>
+        </div>	
+        <div class="row"></div>
+		<div class="row input-field">			
+			<textarea
+            id="recipe_instructions"
+            name="recipe_instructions"
+            rows="12"
+            >{{recipe.recipe_instructions}}</textarea>
+            <label for="recipe_instructions">Recipe Instructions</label>
+		</div>
+        <div class="row">
+            <div class="input-field" hidden>
+                <input type="text" readonly id="edited_by" name="edited_by" value="{{session.username}}" />
+                <label for="edited_by">Edited by:</label>
+            </div>
+        </div>
+        <!-- If creator, Update recipe-->
+		<div class="row center">
+			<button type="submit" class="btn btn-primary">
+            Create Copy of Recipe
+            </button>
+		</div>
 	</form>
 </main>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -111,7 +118,7 @@
   $("select.ingredient_select").change(function () {
     selectedIngredient = $(this).children("option:selected").val();
   });
-  var ingredient_index ;
+//   var ingredient_index ;
   function addToIngredientList() {
     if (!!selectedIngredient) {
       var ingredient_measurement = $("#ingredient_measurement").val();

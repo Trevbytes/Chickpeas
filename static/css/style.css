@@ -190,3 +190,7 @@ a:hover {
   display: table;
   clear: both;
 }
+
+#meal_label {
+    top: 0 ;
+}
