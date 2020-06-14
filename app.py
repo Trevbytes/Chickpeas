@@ -65,7 +65,7 @@ def login():
                                    request.form.get('user_password')):
                 session['username'] = request.form.get('username')
                 flash('Welcome back ' + session['username'])
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('dashboard', session['username']))
             flash('Invalid username or password.')
     return render_template('login.html', is_index=True)
 
@@ -85,7 +85,7 @@ def register():
             session['username'] = request.form.get('username')
             flash('Thanks for registering! You are now logged in as ' +
                   session['username'])
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('dashboard', session['username']))
         flash('That username already exists, please try again')
 
     return render_template('register.html', is_index=True)
@@ -98,15 +98,16 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route('/dashboard', methods=['GET', 'POST'])
-def dashboard():
-    def saved_search(recipe, username):
-        if 'saved_by_'+username in recipe:
-            return True
-        return False
-    my_recipes = mongo.db.recipes.find().sort("_id", -1)
-    return render_template('dashboard.html', my_recipes=my_recipes,
-                           saved_search=saved_search)
+@app.route('/dashboard/<username>', methods=['GET', 'POST'])
+def dashboard(username):
+    # def saved_search(recipe, username):
+    #     if 'saved_by_'+username in recipe:
+    #         return True
+    #     return False
+    my_recipes = mongo.db.recipes.find({"$or": [{"added_by": username},
+                                                {"edited_by": username}]}).sort("_id", -1)
+
+    return render_template('dashboard.html', my_recipes=my_recipes)
 
 
 @app.route('/add_recipe', methods=['GET', 'POST'])
@@ -125,7 +126,7 @@ def add_to_cookbook(recipe_id, username):
                                  {'saved_by_' + username: 'saved'}},
                                 upsert=True)
 
-    return redirect(url_for('dashboard'))
+    return redirect(url_for('dashboard', username))
 
 
 @app.route('/insert_recipe', methods=['POST'])
@@ -191,7 +192,7 @@ def update_recipe(recipe_id):
 def delete_recipe(recipe_id):
     mongo.db.recipes.delete_one({'_id': ObjectId(recipe_id)})
     print(recipe_id)
-    return redirect(url_for('dashboard'))
+    return redirect(url_for('dashboard', session['username']))
 
 
 @app.route('/view_ingredient/<ingredient_id>')

@@ -19,8 +19,8 @@
   <h3 class="center">My Recipes</h3>
   <div class="container">
     <div class="row justify-content-end">
-      <a href="{{url_for('add_recipe')}}" class="btn mr-1">Add Recipe</a>
-      <a href="{{url_for('logout')}}" class="btn">Logout</a>
+      <a href="{{url_for('add_recipe')}}" class="btn mr-1 center edit-recipe">Add Recipe</a>
+      <a href="{{url_for('logout')}}" class="btn center edit-recipe">Logout</a>
     </div>
     <div class="row">
       <button class="btn mr-1 ml-2" onclick="listView()">
@@ -30,8 +30,7 @@
         <i class="fa fa-th-large"></i>
       </button>
     </div>
-    {% set my_index = 1 %} {% for cat in my_recipes %} {% if cat.added_by ==
-    session.username or cat.edited_by == session.username or saved_search(cat,session.username) %} {% if loop.index %
+     {% for cat in my_recipes %} {% if loop.index %
     2 != 0 %}
     <div class="row">
       {% endif %}
@@ -54,19 +53,6 @@
             />
           </a>
           {% endif %}
-          <div class="edit-delete-left">
-            <a
-              href="{{url_for('edit_recipe', recipe_id=cat._id)}}"
-              class="btn btn-sm fas fa-cogs center edit-recipe"
-              >Edit</a
-            >
-            <a
-              onclick="return confirmDelete()"
-              href="{{url_for('delete_recipe', recipe_id=cat._id)}}"
-              class="btn btn-sm fas center edit-recipe"
-              >Delete</a
-            >
-          </div>
         </div>
         <div class="col-md-7">
           <h3>
@@ -75,11 +61,24 @@
             >
           </h3>
           <p>{{ cat.recipe_description }}</p>
+          <div class="edit-delete-left">
+            <a
+              href="{{url_for('edit_recipe', recipe_id=cat._id)}}"
+              class="btn btn-sm center edit-recipe"
+              >Update</a
+            >
+            <a
+              onclick="return confirmDelete()"
+              href="{{url_for('delete_recipe', recipe_id=cat._id)}}"
+              class="btn btn-sm center edit-recipe"
+              >Delete</a
+            >
+          </div>          
         </div>
       </div>
       {% if loop.index % 2 == 0 or loop.index == loop.length %}
     </div>
-    {% endif %} {% set my_index = my_index + 1 %} {% endif %} {% endfor %}
+    {% endif %} {% endfor %}
   </div>
 </main>
 <div class="fixed-action-btn">
