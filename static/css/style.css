@@ -198,3 +198,7 @@ a:hover {
 .recipe-container {
     background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
 }
+
+.become-member-container {
+    padding-top: 2rem;
+}

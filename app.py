@@ -65,7 +65,8 @@ def login():
                                    request.form.get('user_password')):
                 session['username'] = request.form.get('username')
                 flash('Welcome back ' + session['username'])
-                return redirect(url_for('dashboard', session['username']))
+                return redirect(url_for('dashboard',
+                                        username=session['username']))
             flash('Invalid username or password.')
     return render_template('login.html', is_index=True)
 
