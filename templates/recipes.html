@@ -76,20 +76,19 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           >
         </h3>
         <p>{{ recipe.recipe_description }}</p>
-        <div class="edit-delete-left">
-          <a
-            href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
-            class="btn btn-sm edit-recipe"
-            >Create a Copy</a
-          >
-        </div>
-        <!-- 'If' logic for buttons for logged in users-->
+        <!-- 'If' logic for buttons for logged in users-->        
         {% if 'username' in session %}
         <div class="edit-delete-left">
           <a
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             class="btn btn-sm edit-recipe"
-            >Create a Copy</a
+            >
+        {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+            Update
+        {% else %}
+            Create a Copy
+        {% endif %}            
+            </a
           >
         </div>
         {% endif %}
@@ -148,7 +147,13 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           <a
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             class="btn btn-sm edit-recipe"
-            >Create a Copy</a
+            >
+        {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+            Update
+        {% else %}
+            Create a Copy
+        {% endif %}            
+            </a
           >
         </div>
         {% endif %}
@@ -205,7 +210,13 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           <a
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             class="btn btn-sm edit-recipe"
-            >Create a Copy</a
+            >
+        {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+            Update
+        {% else %}
+            Create a Copy
+        {% endif %}            
+            </a
           >
         </div>
         {% endif %}
@@ -262,7 +273,13 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           <a
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             class="btn btn-sm edit-recipe"
-            >Create a Copy</a
+            >
+        {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+            Update
+        {% else %}
+            Create a Copy
+        {% endif %}            
+            </a
           >
         </div>
         {% endif %}
