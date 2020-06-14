@@ -1,38 +1,67 @@
-{% extends "base.html" %} {% block content %}
-<main class="container">
-  <div>
-    {% if recipe.recipe_pic_url %}
-    <img
-      class="featurette-image img-responsive"
-      src="{{ recipe.recipe_pic_url }}"
-      alt="Picture of {{ recipe.recipe_name }}"
-      height="500"
-      width="500"
-    />
-    {% else %}
-    <img
-      class="featurette-image img-responsive"
-      src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-      alt="Default Pic"
-      height="300"
-      width="600"
-    />
+{% extends "base.html" %}{% block css %}
+<!-- Bootstrap link to override other css code -->
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+  crossorigin="anonymous"
+/>
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/style.css')}}"
+  type="text/css"
+/>
+{% endblock %} {% block content %}
+<main class="container recipe-container pb-2 rounded shadow">
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-5 mt-4">
+      {% if recipe.recipe_pic_url %}
+      <img
+        class="featurette-image img-responsive"
+        src="{{ recipe.recipe_pic_url }}"
+        alt="Picture of {{ recipe.recipe_name }}"
+      />
+      {% else %}
+      <img
+        class="featurette-image img-responsive"
+        src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+        alt="Default Pic"
+      />
+      {% endif %}
+    </div>
+  </div>
+  <h1 class="row justify-content-center">{{recipe.recipe_name}}</h1>
+  <div class="row justify-content-center">
+    <p>{{recipe.recipe_description}}</p>
+  </div>
+  <div class="row justify-content-center">
+    {% if 'username' in session %}
+    <a
+      href="{{url_for('edit_recipe', recipe_id=recipe._id, username=session.username)}}"
+      class="btn btn-sm edit-recipe"
+    >
+      {% if recipe.added_by == session.username or recipe.edited_by ==
+      session.username %} Update
+    </a>       
+    <a
+    onclick="return confirmDelete()"
+    href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+    class="btn btn-sm edit-recipe ml-1"
+    >Delete
+    </a>
+      {% else %} 
+      Create a Copy      
+    </a>       
+      {% endif %}
     {% endif %}
   </div>
-  <h1>{{recipe.recipe_name}}</h1>
-    <a
-      href="{{url_for('add_to_cookbook', recipe_id=recipe_id, username=session.username)}}"
-      class="btn btn-sm center edit-recipe"
-      >Save a Copy</a
-    >  
-  <div>{{recipe.recipe_description}}</div>
-  <div>{{recipe.meal_type}}</div>
-  <div>
-    <ul class="list-group form-group" id="recipe_ingredient_list">
-      <li class="list-group-item"></li>
+  <div class="row ml-4">Course: {{recipe.meal_type}}</div>
+  <div class="row ml-4">
+    <ul class="" id="recipe_ingredient_list">
+      <li class=""></li>
       {% for ingID, ingredient in ingredients_selected.items() %} {% if
       ingredient_search(ingID) in ingID %}
-      <li type="text" readonly class="list-group-item">
+      <li type="text" readonly class="">
         <input
           type="text"
           readonly
@@ -43,6 +72,32 @@
       {% endif %}{% endfor %}
     </ul>
   </div>
-  <div>{{recipe.recipe_instructions}}</div>
+  <div class="row ml-4">{{recipe.recipe_instructions}}</div>
 </main>
+{% endblock %}{% block js %}
+<!-- Bootstrap js-->
+<script
+  src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+  integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+  crossorigin="anonymous"
+></script>
+<script>
+  function confirmDelete() {
+    if (confirm("Do you want to delete this recipe?") == false) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+</script>
 {% endblock %}

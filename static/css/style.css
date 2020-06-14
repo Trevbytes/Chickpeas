@@ -194,3 +194,7 @@ a:hover {
 #meal_label {
     top: 0 ;
 }
+
+.recipe-container {
+    background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+}
