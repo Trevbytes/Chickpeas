@@ -51,6 +51,9 @@
         >Measurement(ex. 200g, 1/2cup, 2dl)</label
       >
     </div>
+    <script>
+      var ingredient_index = 1;
+    </script>
     <div class="row input-field">
       <input type="text" id="ingredient_comment" />
       <label for="ingredient_comment">Comment(ex. Use fresh.)</label>
@@ -74,7 +77,13 @@
     </div>
     <div class="row">
       <div class="input-field" hidden>
-        <input type="text" readonly id="added_by" name="added_by" value="{{session.username}}" />
+        <input
+          type="text"
+          readonly
+          id="added_by"
+          name="added_by"
+          value="{{session.username}}"
+        />
         <label for="added_by">Added by:</label>
       </div>
     </div>
@@ -95,7 +104,6 @@
   $("select.ingredient_select").change(function () {
     selectedIngredient = $(this).children("option:selected").val();
   });
-  var ingredient_index = 1;
   function addToIngredientList() {
     if (!!selectedIngredient) {
       var ingredient_measurement = $("#ingredient_measurement").val();
