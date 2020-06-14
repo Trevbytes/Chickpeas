@@ -44,7 +44,9 @@
     <h3>Add Ingredients</h3>
     <div class="row input-field">
       <select class="ingredient_select" id="ingredient_select">
-        <option selected="true" disabled="disabled">Choose Ingredient</option>
+        <option selected="true" disabled="disabled"
+          >Choose Ingredient</option
+        >
         {% for ing_name in ingredients %}
         <option>{{ing_name.name}}</option>
         {% endfor %}
@@ -132,7 +134,15 @@
         `<li type="text" readonly class="list-group-item"><input type="text" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn right delete">Remove Ingredient</button></li>`
       );
       ingredient_index++;
+      clearAddIngredient();
     }
+  }
+  function clearAddIngredient() {
+      $('#ingredient_select').prop("selectedIndex", 1).val();
+      $('select.ingredient_select').val('selectedvalue').trigger('change');
+      $('#ingredient_comment').val("");
+      $('#ingredient_measurement').val("");
+
   }
   function removeLI() {
     $(".delete").on("click", function () {
