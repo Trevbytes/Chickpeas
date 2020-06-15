@@ -36,16 +36,10 @@ html {
   display: none;
   padding: 100px 20px;
   /* Temporary padding */
-  padding-bottom: 500px;
-
-  height: 100%;
+  padding-bottom: 43rem;
 }
 
-/* Possible backround image for featurettes */
-/* .featurette {
-    background-image: url("https://res.cloudinary.com/chickpeas/image/upload/v1592138418/marble-2362266_1920_dcomia.jpg");
-    background-repeat: no-repeat;    
-} */
+
 
 /* Style each tab content individually */
 #breakfast {
