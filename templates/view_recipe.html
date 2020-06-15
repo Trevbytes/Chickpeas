@@ -55,10 +55,11 @@
       {% endif %}
     {% endif %}
   </div>
-  <div class="row ml-4">Course: {{recipe.meal_type}}</div>
+  <div class="row ml-5">Course: {{recipe.meal_type}}</div>
   <div class="row ml-4">
+  <div class="col-12">
     <ul class="" id="recipe_ingredient_list">
-      <li class=""></li>
+      <li>Ingredients:</li>
       {% for ingID, ingredient in ingredients_selected.items() %} {% if
       ingredient_search(ingID) in ingID %}
       <li type="text" readonly class="">
@@ -71,6 +72,7 @@
       </li>
       {% endif %}{% endfor %}
     </ul>
+  </div>  
   </div>
   <div class="row ml-4">{{recipe.recipe_instructions}}</div>
 </main>
