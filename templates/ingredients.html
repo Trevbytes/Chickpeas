@@ -1,5 +1,5 @@
 {% extends 'base.html'%} {% block content %}
-<main class="container ingredients-container">
+<main onload="myFunction()" class="container ingredients-container">
   <h1>Ingredients</h1>
   <div class="row">
     <div class="col-6">
@@ -11,7 +11,9 @@
       </select>
     </div>
   </div>
-
+  <div class="progress" id="loader">
+      <div class="indeterminate"  ></div>
+  </div>
   <div class="row">
     <div class="col-md-6">
       Common Substitutes
@@ -33,4 +35,21 @@
     {% endif %}
 </main>
 
+<script>
+var myVar;
+
+function myFunction() {
+  myVar = setTimeout(showPage, 3000);
+}
+
+function showPage() {
+  $('#loader').hide()
+}
+
+document.body.onload = function(){
+setTimeout(function(){
+document.querySelector('.progress').classList.add('hidden');    
+},3000);    
+}
+</script>
 {% endblock %}

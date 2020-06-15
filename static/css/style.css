@@ -208,3 +208,7 @@ a:hover {
 .become-member-container {
     padding-top: 2rem;
 }
+
+.hidden {
+  display: none;
+}
