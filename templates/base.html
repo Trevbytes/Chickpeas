@@ -62,6 +62,12 @@
       <li><a href="{{url_for('recipes')}}">Browse Recipes</a></li>
       <li><a href="{{url_for('ingredients')}}">Search Substitutes</a></li>
     </ul>
+    <div class="hidden">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %}
+      <p class="message">{{ message }}</p>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
     {% block content %} {% endblock %} {% block js %}{% endblock %}
     <!--Bootstrap-->
     <!-- Compiled and minified JavaScript -->

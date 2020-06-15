@@ -64,7 +64,6 @@ def login():
             if check_password_hash(user_login['user_password'],
                                    request.form.get('user_password')):
                 session['username'] = request.form.get('username')
-                flash('Welcome back ' + session['username'])
                 return redirect(url_for('dashboard',
                                         username=session['username']))
             flash('Invalid username or password.')
@@ -86,7 +85,7 @@ def register():
             session['username'] = request.form.get('username')
             flash('Thanks for registering! You are now logged in as ' +
                   session['username'])
-            return redirect(url_for('dashboard', session['username']))
+            return redirect(url_for('dashboard', username=session['username']))
         flash('That username already exists, please try again')
 
     return render_template('register.html', is_index=True)
