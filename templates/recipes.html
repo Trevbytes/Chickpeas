@@ -43,7 +43,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
     </button>
   </div>
   <!-- 'For' loop for presorted recipes-->
-  {% for recipe in recipes %}
+  {% for recipe in breakfast %}
   <!-- 'If' logic to add a row opening tag every odd index for recipe loop. -->
   {% if loop.index % 2 != 0 %}
   <div class="row">
@@ -112,7 +112,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
       <i class="fa fa-th-large"></i>
     </button>
   </div>
-  {% for recipe in recipes2 %} {% if loop.index % 2 != 0 %}
+  {% for recipe in lunch %} {% if loop.index % 2 != 0 %}
   <div class="row">
     {% endif %}
     <div class="row column featurette no-gutters shadow">
@@ -175,7 +175,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
       <i class="fa fa-th-large"></i>
     </button>
   </div>
-  {% for recipe in recipes3 %} {% if loop.index % 2 != 0 %}
+  {% for recipe in dinner %} {% if loop.index % 2 != 0 %}
   <div class="row">
     {% endif %}
     <div class="row column featurette no-gutters shadow">
@@ -238,7 +238,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
       <i class="fa fa-th-large"></i>
     </button>
   </div>
-  {% for recipe in recipes4 %} {% if loop.index % 2 != 0 %}
+  {% for recipe in dessert %} {% if loop.index % 2 != 0 %}
   <div class="row">
     {% endif %}
     <div class="row column featurette no-gutters shadow">

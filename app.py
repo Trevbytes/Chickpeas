@@ -12,8 +12,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
-guest = 'mongodb+srv://guest_user:vD2B9MF8A4JBu5Gx@myfirstclusterci-904s1.mongodb.net/chickpeas?retryWrites=false'
-
 if os.path.exists("env.py"):
     import env
 
@@ -32,17 +30,17 @@ def home():
 
 @app.route('/recipes')
 def recipes():
-    all_recipes = mongo.db.recipes.find({"meal_type": "Breakfast",
-                                         "public": "on"})
-    all_recipes2 = mongo.db.recipes.find({"meal_type": "Lunch",
-                                          "public": "on"})
-    all_recipes3 = mongo.db.recipes.find({"meal_type": "Dinner",
-                                          "public": "on"})
-    all_recipes4 = mongo.db.recipes.find({"meal_type": "Dessert",
-                                          "public": "on"})
+    breakfast_recipes = mongo.db.recipes.find({"meal_type": "Breakfast",
+                                               "public": "on"})
+    lunch_recipes = mongo.db.recipes.find({"meal_type": "Lunch",
+                                           "public": "on"})
+    dinner_recipes = mongo.db.recipes.find({"meal_type": "Dinner",
+                                            "public": "on"})
+    dessert_recipes = mongo.db.recipes.find({"meal_type": "Dessert",
+                                             "public": "on"})
     return render_template('recipes.html',
-                           recipes=all_recipes, recipes2=all_recipes2,
-                           recipes3=all_recipes3, recipes4=all_recipes4,
+                           breakfast=breakfast_recipes, lunch=lunch_recipes,
+                           dinner=dinner_recipes, dessert=dessert_recipes,
                            )
 
 
@@ -83,8 +81,9 @@ def register():
             users.insert_one({'username': request.form.get('username'),
                               'user_password': hashpw})
             session['username'] = request.form.get('username')
-            flash('Thanks for registering! You are now logged in as ' +
-                  session['username'])
+            flash(
+                'Thanks for registering! Create a recipe or go make a copy \
+                from an existing recipe to get started')
             return redirect(url_for('dashboard', username=session['username']))
         flash('That username already exists, please try again')
 
@@ -100,12 +99,9 @@ def logout():
 
 @app.route('/dashboard/<username>', methods=['GET', 'POST'])
 def dashboard(username):
-    # def saved_search(recipe, username):
-    #     if 'saved_by_'+username in recipe:
-    #         return True
-    #     return False
     my_recipes = mongo.db.recipes.find({"$or": [{"added_by": username},
-                                                {"edited_by": username}]}).sort("_id", -1)
+                                                {"edited_by": username}
+                                                ]}).sort("_id", -1)
 
     return render_template('dashboard.html', my_recipes=my_recipes)
 
@@ -116,17 +112,6 @@ def add_recipe():
     return render_template('add_recipe.html',
                            recipes=mongo.db.recipes.find(),
                            ingredients=ingredients)
-
-
-@app.route('/add_to_cookbook/<recipe_id>/<username>', methods=['GET', 'POST'])
-def add_to_cookbook(recipe_id, username):
-    recipes = mongo.db.recipes
-    recipes.find_one_and_update({'_id': ObjectId(recipe_id)},
-                                {"$set":
-                                 {'saved_by_' + username: 'saved'}},
-                                upsert=True)
-
-    return redirect(url_for('dashboard', username))
 
 
 @app.route('/insert_recipe', methods=['POST'])
@@ -156,7 +141,6 @@ def view_recipe(recipe_id):
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    the_recipe2 = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     ingredients = mongo.db.ingredients.find().sort("name")
     ingredients_selected = mongo.db.recipes.find_one({"_id":
                                                       ObjectId(recipe_id)})
@@ -168,7 +152,6 @@ def edit_recipe(recipe_id):
             return recID
         return 'blank'
     return render_template('edit_recipe.html', recipe=the_recipe,
-                           recipe2=the_recipe2,
                            recipes=all_recipes,
                            ingredients=ingredients,
                            ingredients_selected=ingredients_selected,
@@ -181,18 +164,12 @@ def update_recipe(recipe_id):
     recipes.delete_one({'_id': ObjectId(recipe_id)})
     recipe_id = recipes.insert_one(request.form.to_dict()).inserted_id
     return redirect(url_for('view_recipe', recipe_id=recipe_id))
-    # recipes.find_one_and_update({'_id': ObjectId(recipe_id)},
-    #                             {"$set":
-    #                              (request.form.to_dict())},
-    #                             upsert=True)
-    # return redirect(url_for('view_recipe', recipe_id=recipe_id))
 
 
 @app.route('/delete_recipe/<recipe_id>')
 def delete_recipe(recipe_id):
     mongo.db.recipes.delete_one({'_id': ObjectId(recipe_id)})
-    print(recipe_id)
-    return redirect(url_for('dashboard', session['username']))
+    return redirect(url_for('dashboard', session=session['username']))
 
 
 @app.route('/view_ingredient/<ingredient_id>')
