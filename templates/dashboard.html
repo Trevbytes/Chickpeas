@@ -47,12 +47,12 @@
           {% endif %}
         </div>
         <div class="col-md-7 pl-2">
-          <h3 class="">
+          <h3 class=" col-md-9">
             <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
               {{ cat.recipe_name }}</a
             >
           </h3>
-          <p class="pl-2">{{ cat.recipe_description }}</p>
+          <p class="pl-2 col-md-9 pb-2"><strong>{{ cat.recipe_description }}</strong></p>
           <div class="edit-delete-left pl-2">
             <a
               href="{{url_for('edit_recipe', recipe_id=cat._id)}}"
@@ -132,6 +132,7 @@
               class="md-textarea form-control"
               rows="3"
               name="recipe_description"
+              maxlength="400"
               required
             ></textarea>
             <label for="recipe_description">Recipe Description</label>
