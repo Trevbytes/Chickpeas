@@ -13,6 +13,9 @@ html {
   font-family: Arial;
 } */
 
+.view {
+    height: 100%;
+}
 /* Style tab links */
 .tablink {
   background-color: #555;
@@ -34,11 +37,14 @@ html {
 .tabcontent {
   color: rgb(3, 3, 3);
   display: none;
-  padding: 100px 20px;
+  padding: 100px 1rem;
   /* Temporary padding */
   padding-bottom: 43rem;
 }
 
+.tab-container {
+    padding-top: 2.9rem;
+}
 
 
 /* Style each tab content individually */
@@ -83,13 +89,13 @@ a:hover {
 /* Slideshow container */
 .slideshow-container {
   max-width: 1000px;
-  position: relative;
 }
 
 /* Hide the images by default */
 .mySlides {
   display: none;
   width: 100%;
+  
 }
 
 /* Caption text */
@@ -101,15 +107,6 @@ a:hover {
   bottom: 8px;
   width: 100%;
   text-align: center;
-}
-
-/* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
 }
 
 /* The dots/bullets/indicators */
@@ -190,7 +187,9 @@ a:hover {
 
 .col-md-7 {
     background-image: url("https://res.cloudinary.com/chickpeas/image/upload/v1592175517/marble-surface-2341290_gtphsy.jpg");
-    background-repeat: no-repeat;   
+    background-repeat: no-repeat;
+    background-size: cover;
+     
 }
 
 .become-member-container {
@@ -199,4 +198,19 @@ a:hover {
 
 .hidden {
   display: none;
+}
+
+/* The overlay effect - lays on top of the container and over the image */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  width: 100%;
+  transition: .5s ease;
+  opacity:1;
+  font-size: 20px;
+  padding: 5px;
+  text-align: center;
 }

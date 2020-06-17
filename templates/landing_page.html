@@ -1,40 +1,40 @@
 {% extends 'base.html'%} {% block content %}
 <!-- Welcome info -->
-<div>
-<h1 class="text-center">Welcome to Chickpeas</h1>
-<h3 class="text-center">- and other creative cooking substitutes!</h3>  
+<div class="mt-5 pt-5">
+  <h1 class="text-center">Welcome to Chickpeas</h1>
+  <h3 class="text-center">- and other creative cooking substitutes!</h3>
 </div>
 <!-- Slideshow container -->
-<div class="slideshow-container text-center">
+<div class="text-center container">
   <!-- Full-width images with number and caption text (Future, nav through all public recipe images) -->
-  <div class="mySlides">
-    <img
-      src="https://res.cloudinary.com/chickpeas/image/upload/v1591259520/chickpeas/burrito_knzpkg.jpg"
-      style="width: 80%;"
-    />
-    <div class="text">Caption Text</div>
-  </div>
-
-  <div class="mySlides">
+  <div class="mySlides view text-center">
     <img
       src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-      style="width: 80%;"
+      style="width: 100%; max-height: 600px;"
     />
-    <div class="text">Caption Two</div>
+    <div class="overlay">Caption Text</div>
   </div>
 
-  <div class="mySlides">
+  <div class="mySlides view text-center">
+    <img
+      src="https://res.cloudinary.com/chickpeas/image/upload/v1591259520/chickpeas/burrito_knzpkg.jpg"
+      style="width: 100%; max-height: 600px;"
+    />
+    <div class="overlay">Caption Two</div>
+  </div>
+
+  <div class="mySlides view text-center">
     <img
       src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/bananas_js7553.jpg"
-      style="width: 80%;"
+      style="width: 100%; max-height: 600px;"
     />
-    <div class="text">Caption Three</div>
+    <div class="overlay">Caption Three</div>
   </div>
 </div>
 <br />
 
 <!-- The dots/circles -->
-<div style="text-align: center;">
+<div class="text-center">
   <span class="dot" onclick="currentSlide(1)"></span>
   <span class="dot" onclick="currentSlide(2)"></span>
   <span class="dot" onclick="currentSlide(3)"></span>

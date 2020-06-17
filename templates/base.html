@@ -36,7 +36,7 @@
   </head>
 
   <body>
-    <nav class="mb-1 navbar navbar-expand-lg nav-wrapper navbar-dark">
+    <nav class="mb-1 navbar navbar-expand-lg nav-wrapper navbar-dark fixed-top scrolling-navbar">
       <a href="{{url_for('home')}}" class="brand-logo navbar-brand"
         ><img
           alt="Chickpeas"
@@ -99,7 +99,7 @@
       {% endfor %} {% endif %} {% endwith %}
     </div>
     {% block content %} {% endblock %} {% block js %}{% endblock %}
-    <!--Bootstrap-->
+
     <!-- JQuery -->
     <script
       type="text/javascript"
@@ -120,7 +120,6 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/js/mdb.min.js"
     ></script>
-    <!-- Compiled and minified JavaScript -->
 
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
   </body>

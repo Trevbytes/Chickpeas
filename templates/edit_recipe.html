@@ -1,5 +1,5 @@
 {% extends 'base.html'%} {% block content %}
-<main class="container addRecipe">
+<main class="container addRecipe mt-5 pt-5">
     <!-- If createad by user, value="{{recipe.recipe_name}}"-->
     {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
     <h1 class="center">Update Recipe</h1>
@@ -89,7 +89,11 @@
         </div>
         <script>
         var ingredient_index = 0 ;
-        </script>  
+        </script>
+            <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>  
         <div class="row input-field">			
 			<ul class="list-group form-group" id="recipe_ingredient_list">
 				{% for ingID, ingredient in ingredients_selected.items() %}
