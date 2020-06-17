@@ -2,13 +2,11 @@
 <main class="container addRecipe mt-5 pt-5">
   <h1 class="center">Create Recipe</h1>
   <form action="{{ url_for('insert_recipe') }}" method="POST">
-    <div class="row">
-      <div class="input-field col s6">
-        <input type="text" id="recipe_name" name="recipe_name" required />
+      <div class="md-form">
+        <input type="text" id="recipe_name" name="recipe_name" class="form-control" required />
         <label for="recipe_name">Recipe Name</label>
       </div>
-    </div>
-    <div class="input-field">
+    <div class="input-group">
       <label class="active" for="meal_type">Meal Category</label>
       <select id="meal_type" name="meal_type">
         <option>Breakfast</option>
@@ -17,7 +15,7 @@
         <option>Dessert</option>
       </select>
     </div>
-    <div class="input-field">
+    <div class="input-group">
       <label for="recipe_description">Recipe Description</label>
       <textarea
         id="recipe_description"
@@ -29,7 +27,7 @@
     <div>
       <h3>Recipe Image</h3>
     </div>
-    <div class="input-field">
+    <div class="input-group">
       <input
         type="file"
         class="form-control-file"
@@ -37,12 +35,12 @@
         disabled
       />
     </div>
-    <div class="input-field">
+    <div class="input-group">
       <input type="text" id="recipe_image_link" name="recipe_pic_url" />
       <label for="recipe_image">Image Link</label>
     </div>
     <h3>Add Ingredients</h3>
-    <div class="row input-field">
+    <div class="row input-group">
       <select class="ingredient_select" id="ingredient_select">
         <option selected="true" disabled="disabled"
           >Choose Ingredient</option
@@ -52,7 +50,7 @@
         {% endfor %}
       </select>
     </div>
-    <div class="row input-field">
+    <div class="row input-group">
       <input type="text" id="ingredient_measurement" />
       <label for="ingredient_measurement"
         >Measurement(ex. 200g, 1/2cup, 2dl)</label
@@ -61,7 +59,7 @@
     <script>
       var ingredient_index = 1;
     </script>
-    <div class="row input-field">
+    <div class="row input-group">
       <input type="text" id="ingredient_comment" />
       <label for="ingredient_comment">Comment(ex. Use fresh.)</label>
       <button type="button" class="btn" onclick="addToIngredientList()">
@@ -73,7 +71,7 @@
       <li class="list-group-item"></li>
     </ul>
     <div class="row"></div>
-    <div class="row input-field">
+    <div class="row input-group">
       <label for="recipe_instructions">Recipe Instructions</label>
       <textarea
         class="form-control"
@@ -83,7 +81,7 @@
       ></textarea>
     </div>
     <div class="row">
-      <div class="input-field" hidden>
+      <div class="input-group" hidden>
         <input
           type="text"
           readonly

@@ -21,3 +21,7 @@ function showSlides() {
   slides[slideIndex - 1].style.display = "block";
   slidetime = setTimeout(showSlides, 6000); // Change image every 2 seconds
 }
+
+$('.carousel').carousel({
+interval: 1000
+})

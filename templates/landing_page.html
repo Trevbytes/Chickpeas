@@ -6,42 +6,65 @@
 </div>
 <!-- Slideshow container -->
 <div class="text-center container">
-  <!-- Full-width images with number and caption text (Future, nav through all public recipe images) -->
-  <div class="mySlides view text-center">
-    <img
-      src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-      style="width: 100%; max-height: 600px;"
-    />
-    <div class="overlay">Caption Text</div>
+<!--Carousel Wrapper-->
+<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+  <!--Indicators-->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-2" data-slide-to="1"></li>
+    <li data-target="#carousel-example-2" data-slide-to="2"></li>
+  </ol>
+  <!--/.Indicators-->
+  <!--Slides-->
+  <div class="carousel-inner" role="listbox">
+    <div class="carousel-item active">
+      <div class="view">
+        <img class="d-block w-100" src="https://res.cloudinary.com/chickpeas/image/upload/c_scale,h_1080,w_1920/v1591259686/chickpeas/spinach_vrly96.jpg"
+          alt="First slide">
+        <div class="mask rgba-black-slight"></div>
+      </div>
+      <div class="carousel-caption">
+        <h3 class="h3-responsive">Image 1</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <!--Mask color-->
+      <div class="view">
+        <img class="d-block w-100" src="https://res.cloudinary.com/chickpeas/image/upload/c_scale,h_1080,w_1920/v1591259691/chickpeas/bananas_js7553.jpg"
+          alt="Second slide">
+        <div class="mask rgba-black-slight"></div>
+      </div>
+      <div class="carousel-caption">
+        <h3 class="h3-responsive">Image 2</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <!--Mask color-->
+      <div class="view">
+        <img class="d-block w-100" src="http://res.cloudinary.com/chickpeas/image/upload/c_scale,h_1080,w_1920/v1591259693/chickpeas/variety-of-vegetables_vct2wh.jpg"
+          alt="Third slide">
+        <div class="mask rgba-black-slight"></div>
+      </div>
+      <div class="carousel-caption">
+        <h3 class="h3-responsive">Image 3</h3>
+      </div>
+    </div>
   </div>
-
-  <div class="mySlides view text-center">
-    <img
-      src="https://res.cloudinary.com/chickpeas/image/upload/v1591259520/chickpeas/burrito_knzpkg.jpg"
-      style="width: 100%; max-height: 600px;"
-    />
-    <div class="overlay">Caption Two</div>
-  </div>
-
-  <div class="mySlides view text-center">
-    <img
-      src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/bananas_js7553.jpg"
-      style="width: 100%; max-height: 600px;"
-    />
-    <div class="overlay">Caption Three</div>
-  </div>
+  <!--/.Slides-->
+  <!--Controls-->
+  <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+  <!--/.Controls-->
 </div>
-<br />
-
-<!-- The dots/circles -->
-<div class="text-center">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  <span class="dot" onclick="currentSlide(2)"></span>
-  <span class="dot" onclick="currentSlide(3)"></span>
+<!--/.Carousel Wrapper-->
 </div>
 
 {% endblock %} {% block js %}
-
-<script src="{{url_for('static', filename='js/landing_page.js')}}"></script>
 
 {% endblock %}

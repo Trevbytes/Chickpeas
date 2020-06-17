@@ -71,18 +71,20 @@ to add more types like snacks, baked goods, drinks, etc.               -->
         {% if 'username' in session %}
         <div class="edit-delete-left">
           <a
-            onclick="return confirmDelete()"
-            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-            class="btn edit-recipe"
-            >Delete</a
-          >
-          <a
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             class="btn"
           >
             {% if recipe.added_by == session.username or recipe.edited_by ==
-            session.username %} Update {% else %} Create a Copy {% endif %}
-          </a>
+            session.username %} Update 
+            </a>
+                      <a
+            onclick="return confirmDelete()"
+            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+            class="btn edit-recipe"
+            >Delete
+            {% else %} Create a Copy {% endif %}
+          </a
+          >
         </div>
         {% endif %}
       </div>

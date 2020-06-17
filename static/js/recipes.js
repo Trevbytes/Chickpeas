@@ -30,30 +30,22 @@ function currentSlide(n) {
   showSlides((slideIndex = n));
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  var elems = document.querySelectorAll(".fixed-action-btn");
-  var instances = M.FloatingActionButton.init(elems, {
-    direction: "left",
-    hoverEnabled: false,
-  });
-});
+// Get the elements with class="column"
+var elements = document.getElementsByClassName("column");
 
-  // Get the elements with class="column"
-  var elements = document.getElementsByClassName("column");
+// Declare a loop variable
+var i;
 
-  // Declare a loop variable
-  var i;
-
-  // List View
-  function listView() {
-    for (i = 0; i < elements.length; i++) {
-      elements[i].style.width = "100%";
-    }
+// List View
+function listView() {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].style.width = "100%";
   }
+}
 
-  // Grid View
-  function gridView() {
-    for (i = 0; i < elements.length; i++) {
-      elements[i].style.width = "50%";
-    }
+// Grid View
+function gridView() {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].style.width = "50%";
   }
+}
