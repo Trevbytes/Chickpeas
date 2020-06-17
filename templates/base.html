@@ -5,9 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Compiled and minified CSS -->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <!-- Bootstrap core CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Material Design Bootstrap -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css"
+      rel="stylesheet"
     />
     {% block css %}{% endblock %}
     <link
@@ -20,48 +36,62 @@
   </head>
 
   <body>
-    <div class="navbar-fixed">
-      <nav>
-        <div class="nav-wrapper">
-          <a href="{{url_for('home')}}" class="brand-logo"
-            ><img
-              alt="Chickpeas"
-              src="https://res.cloudinary.com/chickpeas/image/upload/v1591961075/chickpeas/chickpeas_dcvoee.png"
-              height="60"
-          /></a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger">Menu</a>
-
-          <ul class="right hide-on-med-and-down ml-8">
-            {% if 'username' not in session %}
-            <li><a href="{{url_for('login')}}" class="btn">Login/Signup</a></li>
-            {% else %}
-            <li>
-              <a href="{{url_for('dashboard', username=session.username)}}"
+    <nav class="mb-1 navbar navbar-expand-lg nav-wrapper navbar-dark">
+      <a href="{{url_for('home')}}" class="brand-logo navbar-brand"
+        ><img
+          alt="Chickpeas"
+          src="https://res.cloudinary.com/chickpeas/image/upload/v1591961075/chickpeas/chickpeas_dcvoee.png"
+          height="60"
+      /></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('recipes')}}">Browse Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('ingredients')}}">Browse Ingredients</a>
+          </li>
+          {% if 'username' not in session %}
+          <li class="nav-item">
+            <a class="nav-link btn" href="{{url_for('login')}}">Login/Signup</a>
+          </li>
+          {% else %}
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              id="navbarDropdownMenuLink-333"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              ><i class="fas fa-user"></i>
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right dropdown-default"
+              aria-labelledby="navbarDropdownMenuLink-333"
+            >
+              <a
+                class="dropdown-item"
+                href="{{url_for('dashboard', username=session.username)}}"
                 >{{session.username}}'s Cookbook</a
               >
-            </li>
-            {% endif %}
-          </ul>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="{{url_for('recipes')}}">Browse Recipes</a></li>
-            <li><a href="{{url_for('ingredients')}}">Browse Ingredients</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-    <ul class="sidenav right" id="mobile-demo">
-      {% if 'username' not in session %}
-      <li><a href="{{url_for('login')}}" class="btn">Login/Signup</a></li>
-      {% else %}
-      <li>
-        <a href="{{url_for('dashboard', username=session.username)}}"
-          >{{session.username}}'s Cookbook</a
-        >
-      </li>
-      {% endif %}
-      <li><a href="{{url_for('recipes')}}">Browse Recipes</a></li>
-      <li><a href="{{url_for('ingredients')}}">Search Substitutes</a></li>
-    </ul>
+              <a class="dropdown-item" href="{{url_for('logout')}}">Logout</a>
+            </div>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
     <div class="hidden">
       {% with messages = get_flashed_messages() %} {% if messages %} {% for
       message in messages %}
@@ -70,17 +100,28 @@
     </div>
     {% block content %} {% endblock %} {% block js %}{% endblock %}
     <!--Bootstrap-->
+    <!-- JQuery -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+    <!-- Bootstrap tooltips -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"
+    ></script>
+    <!-- Bootstrap core JavaScript -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"
+    ></script>
+    <!-- MDB core JavaScript -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/js/mdb.min.js"
+    ></script>
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.min.js"
-      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-      crossorigin="anonymous"
-    ></script>
+
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
-    <script
-      src="https://kit.fontawesome.com/e0af4595f7.js"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>

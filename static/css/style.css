@@ -60,11 +60,11 @@ html {
   color: black;
 }
 
-nav .brand-logo {
+/* nav .brand-logo {
   color: black;
   text-decoration: none;
   margin-left: 0.6rem;
-}
+} */
 
 a:hover {
   color: black;
@@ -84,7 +84,6 @@ a:hover {
 .slideshow-container {
   max-width: 1000px;
   position: relative;
-  margin: auto;
 }
 
 /* Hide the images by default */
@@ -151,11 +150,6 @@ a:hover {
   color: white;
   padding-top: 0;
   padding-bottom: 0;
-}
-
-.edit-recipe {
-  height: 1.5rem;
-  padding-top: 0;
 }
 
 .edit-delete-right {
