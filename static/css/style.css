@@ -1,7 +1,17 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Amarante&family=Roboto:wght@500&display=swap');
+
 body {
   background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+  font-family: 'Roboto', sans-serif;
 }
 
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Amarante', cursive;
+}
 a {
   text-decoration: none;
 }

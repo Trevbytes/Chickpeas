@@ -99,11 +99,13 @@ def logout():
 
 @app.route('/dashboard/<username>', methods=['GET', 'POST'])
 def dashboard(username):
+    ingredients = mongo.db.ingredients.find().sort("name")
     my_recipes = mongo.db.recipes.find({"$or": [{"added_by": username},
                                                 {"edited_by": username}
                                                 ]}).sort("_id", -1)
 
-    return render_template('dashboard.html', my_recipes=my_recipes)
+    return render_template('dashboard.html', my_recipes=my_recipes,
+                           ingredients=ingredients)
 
 
 @app.route('/add_recipe', methods=['GET', 'POST'])
