@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-6">
       <label for="ingredient_select">Select an Ingredient</label>
-      <select class="" id="ingredient_select" onchange="location = this.value;">
+      <select class="input-group" id="ingredient_select" onchange="location = this.value;">
         {% for ing_name in ingredientstest %}
         <option value="{{url_for('view_ingredient', ingredient_id = ing_name.id)}}">{{ing_name.name}}</option>
         {% endfor %}

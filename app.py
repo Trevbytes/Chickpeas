@@ -28,7 +28,7 @@ def home():
     return render_template('landing_page.html')
 
 
-@app.route('/recipes')
+@app.route('/recipes', methods=['GET', 'POST'])
 def recipes():
     breakfast_recipes = mongo.db.recipes.find({"meal_type": "Breakfast",
                                                "public": "on"})
