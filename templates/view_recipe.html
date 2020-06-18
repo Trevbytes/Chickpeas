@@ -2,8 +2,9 @@
 <!-- Bootstrap link to override other css code -->
 
 {% endblock %} {% block content %}
-<main class="container recipe-container pb-2 rounded shadow">
-  <div class="row justify-content-center mt-4">
+<div class="mt-4 pt-5 pb-4">
+<main class="container recipe-container pb-2 rounded shadow mt-5 pt-5 animated flipInY">
+  <div class="row justify-content-center">
     <div class="col-md-5 mt-4">
       {% if recipe.recipe_pic_url %}
       <img
@@ -66,6 +67,7 @@
   </div>
   <div class="row ml-4">{{recipe.recipe_instructions}}</div>
 </main>
+</div>
 {% endblock %}{% block js %}
 <!-- Bootstrap js-->
 

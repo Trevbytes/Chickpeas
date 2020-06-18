@@ -85,7 +85,7 @@
           </li>
           {% endif %}          
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('recipes')}}">Browse Recipes</a>
+            <a class="nav-link" href="{{url_for('recipes')}}">Browse Public Recipes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('ingredients')}}">Browse Ingredients</a>
@@ -99,8 +99,7 @@
       <p class="message">{{ message }}</p>
       {% endfor %} {% endif %} {% endwith %}
     </div>
-    {% block content %} {% endblock %} {% block js %}{% endblock %}
-
+    {% block content %} {% endblock %} 
     <!-- JQuery -->
     <script
       type="text/javascript"
@@ -121,7 +120,7 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/js/mdb.min.js"
     ></script>
-
+{% block js %}{% endblock %}
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
   </body>
 </html>

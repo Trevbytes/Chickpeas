@@ -4,26 +4,28 @@
 		<div class="modal-header text-center">
 			{% if recipe.added_by == session.username or recipe.edited_by == session.username %}
 			<h1 class="modal-title w-100 font-weight-bold ">Update Recipe</h1>
-			<!-- <button
+			 <button
             type="button"
             class="close custom-close"
+        
             aria-label="Close"
+            
+          >
             <span aria-hidden="true">&times;</span>
           </button>
-          > -->
-            
 		</div>
 		<form id="updateForm" class="modal-body mx-3" action="{{ url_for('update_recipe', recipe_id=recipe._id) }}"
 			method="POST">
 			{% else %}
 			<h1 class="modal-title w-100 font-weight-bold">Create a Copy</h1>
-			<!-- <button
+			 <button
             type="button"
-            class="close custom-close"        
+            class="close custom-close"
+                  
             aria-label="Close"
-            <span aria-hidden="true">&times;</span>
+                        
+          ><span aria-hidden="true">&times;</span>
             </button>
-          > -->
             
           </div>
 			<form id="updateForm" class="modal-body mx-3" action="{{ url_for('insert_recipe', recipe_id=recipe._id) }}"
@@ -114,9 +116,6 @@
 						<script>
 							var ingredient_index = 0 ;
 						</script>
-						<script type="text/javascript"
-							src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-						</script>
 						<div class="md-form">
 							<ul class="list-group" id="recipe_ingredient_list">
 								{% for ingID, ingredient in ingredients_selected.items() %}
@@ -194,7 +193,7 @@
       }
        ingredient_index++;     
       $("#recipe_ingredient_list").append(
-        `<li type="text" readonly class="list-group-item"><input type="text" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn right delete">Remove Ingredient</button></li>`
+        `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button></li>`
       );
       
     }
@@ -212,4 +211,12 @@
   this.style.height = 'auto';
   this.style.height = (this.scrollHeight) + 'px';
 });
+
+    $(".custom-close").on('click', function() {
+        
+         $('.modal-backdrop').remove();
+         $('#ajaxModal').remove();
+         console.log("custom-close")
+        /* any changes will be lost*/       
+    });  
 </script>
