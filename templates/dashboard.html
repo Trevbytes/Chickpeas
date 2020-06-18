@@ -55,7 +55,7 @@
           <p class="pl-2 col-md-9 pb-2"><strong>{{ cat.recipe_description }}</strong></p>
           <div class="edit-delete-left pl-2">
             <a
-              href="{{url_for('edit_recipe', recipe_id=cat._id)}}"
+              href="{{url_for('edit_recipe', recipe_id=cat._id)}}" data-remote="false" data-toggle="ajaxModal"
               class="btn edit-recipe"
               >Update</a
             >
@@ -132,7 +132,7 @@
               class="md-textarea form-control"
               rows="3"
               name="recipe_description"
-              maxlength="400"
+              maxlength="200"
               required
             ></textarea>
             <label for="recipe_description">Recipe Description</label>
@@ -228,6 +228,7 @@
               type="checkbox"
               class="custom-control-input"
               id="customSwitches"
+              name="public"
             />
             <label class="custom-control-label" for="customSwitches"
               >Toggle this switch to make your recipe visable to the
@@ -247,6 +248,8 @@
 <!-- <div class="fixed-action-btn">
   <a class="btn-floating btn-large red" href="#"> ^</a>
 </div> -->
+
+{% endblock %}{% block js %}
 <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -317,6 +320,29 @@
       $(this).parent().remove();
     });
   }
-</script>
 
+  $('[data-toggle="ajaxModal"]').on('click',
+              function(e) {
+                $('#ajaxModal').remove();
+                e.preventDefault();
+                var $this = $(this)
+                  , $remote = $this.data('remote') || $this.attr('href')
+                  , $modal = $('<div class="modal" id="ajaxModal"><div class="modal-body"></div></div>');
+                $('body').append($modal);
+                $modal.modal({backdrop: 'static', keyboard: false});
+                $modal.load($remote);
+
+// $(function () {
+//     $(".custom-close").on('click', function() {
+        
+//         $('#ajaxModal').modal('hide');
+//         $('.modal-backdrop').remove();
+//         $('#ajaxModal').remove();
+//         /* any changes will be lost*/
+        
+//     });
+// });                
+              }
+            );
+</script>
 {% endblock %}
