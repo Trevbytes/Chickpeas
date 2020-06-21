@@ -1,55 +1,72 @@
 {% extends 'base.html'%} {% block content %}
-<main onload="myFunction()" class="container ingredients-container mt-5 pt-5">
+<main class="container ingredients-container mt-5 pt-5">
   <h1>Ingredients</h1>
-  <div class="row">
-    <div class="col-6">
-      <label for="ingredient_select">Select an Ingredient</label>
-      <select class="input-group" id="ingredient_select" onchange="location = this.value;">
-        {% for ing_name in ingredientstest %}
-        <option value="{{url_for('view_ingredient', ingredient_id = ing_name.id)}}">{{ing_name.name}}</option>
-        {% endfor %}
-      </select>
+  <div class="dropdown">
+    <button onclick="myFunctiondrop()" class="dropbtn">
+      Search for Ingredient
+    </button>
+    <div id="myDropdown" class="dropdown-content">
+      <input
+        type="text"
+        placeholder="Search.."
+        id="myInput"
+        onkeyup="filterFunction()"
+      />
+      {% for ing_name in ingredientstest %}
+      <a href="{{url_for('view_ingredient', ingredient_id = ing_name.id)}}"
+        >{{ing_name.name}}</a
+      >
+      {% endfor %}
     </div>
-  </div>
-  <div class="progress" id="loader">
-      <div class="indeterminate"  ></div>
   </div>
   <div class="row">
     <div class="col-md-6">
       Common Substitutes
-    </div>  
+    </div>
   </div>
-    {% if ingredient %}                
+  {% if ingredient %}
   <div>
     <h2>{{ingredient.name}}</h2>
   </div>
-    <div>
+  <div>
     <p>{{ingredient.food_group}}</p>
   </div>
-    <div>
+  <div>
     <p>{{ingredient.description}}</p>
   </div>
-    <div>
-    <p><a href="https://en.wikipedia.org/wiki/{{ingredient.wikipedia_id}}" target="_blank">Wikipedia Article</a></p>
+  <div>
+    <p>
+      <a
+        href="https://en.wikipedia.org/wiki/{{ingredient.wikipedia_id}}"
+        target="_blank"
+        >Wikipedia Article</a
+      >
+    </p>
   </div>
-    {% endif %}
+  {% endif %}
 </main>
 
 <script>
-var myVar;
+  /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+  function myFunctiondrop() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
 
-function myFunction() {
-  myVar = setTimeout(showPage, 3000);
-}
-
-function showPage() {
-  $('#loader').hide()
-}
-
-document.body.onload = function(){
-setTimeout(function(){
-document.querySelector('.progress').classList.add('hidden');    
-},3000);    
-}
+  function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+      txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
+    }
+  }
 </script>
 {% endblock %}
