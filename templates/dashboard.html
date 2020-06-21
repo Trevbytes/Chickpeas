@@ -4,11 +4,11 @@
   <p class="text-center">Welcome {{session.username}}, what's cooking?</p>
   <div class="text-center">
     <a
-      href=""
+      href="{{url_for('add_recipe')}}"
       class="btn btn-default btn-rounded mb-4"
-      data-toggle="modal"
-      data-target="#modalSubscriptionForm"
-      >Create a Recipe</a
+      data-remote="false"
+      data-toggle="ajaxModal2"
+      >Create a Recipe</a           
     >
   </div>
 </header>
@@ -47,15 +47,19 @@
           {% endif %}
         </div>
         <div class="col-md-7 pl-2">
-          <h3 class=" col-md-9">
+          <h3 class="col-md-9">
             <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
               {{ cat.recipe_name }}</a
             >
           </h3>
-          <p class="pl-2 col-md-9 pb-2"><strong>{{ cat.recipe_description }}</strong></p>
+          <p class="pl-2 col-md-9 pb-2">
+            <strong>{{ cat.recipe_description }}</strong>
+          </p>
           <div class="edit-delete-left pl-2">
             <a
-              href="{{url_for('edit_recipe', recipe_id=cat._id)}}" data-remote="false" data-toggle="ajaxModal"
+              href="{{url_for('edit_recipe', recipe_id=cat._id)}}"
+              data-remote="false"
+              data-toggle="ajaxModal"
               class="btn edit-recipe"
               >Update</a
             >
@@ -72,178 +76,7 @@
     </div>
     {% endif %} {% endfor %}
   </div>
-  <div
-    class="modal fade"
-    id="modalSubscriptionForm"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="myModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header text-center">
-          <h4 class="modal-title w-100 font-weight-bold">
-            <i class="fas fa-pencil-alt"></i>Create a Recipe
-          </h4>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form
-            id="addForm"
-          class="modal-body mx-3"
-          action="{{ url_for('insert_recipe') }}"
-          method="POST"
-        >
-          <div class="md-form mb-5">
-            <input
-              type="text"
-              id="recipe_name"
-              name="recipe_name"
-              class="form-control validate"
-              required
-            />
-            <label data-error="wrong" data-success="right" for="recipe_name"
-              >Recipe Name</label
-            >
-          </div>
-          <div class="md-form">
-            <select
-              id="meal_type"
-              class="browser-default custom-select custom-select-lg mb-3"
-              name="meal_type"
-            >
-              <option value="" disabled selected>Choose the Meal Type</option>
-              <option>Breakfast</option>
-              <option>Lunch</option>
-              <option>Dinner</option>
-              <option>Dessert</option>
-            </select>
-          </div>
-          <div class="md-form">
-            <textarea
-              id="recipe_description"
-              class="md-textarea form-control"
-              rows="3"
-              name="recipe_description"
-              maxlength="200"
-              required
-            ></textarea>
-            <label for="recipe_description">Recipe Description</label>
-          </div>
-          <div>
-            <h3 class="md-form">Recipe Image</h3>
-          </div>
-          <div class="md-form">
-            <input
-              type="file"
-              class="form-control-file"
-              id="recipe_pic_url"
-              disabled
-            />
-          </div>
-          <div class="md-form">
-            <input
-              type="text"
-              class="form-control validate"
-              id="recipe_image_link"
-              name="recipe_pic_url"
-            />
-            <label for="recipe_image">Image Link</label>
-          </div>
-          <h3>Add Ingredients</h3>
-          <div class="md-form">
-            <select
-              class="ingredient_select browser-default custom-select custom-select-lg mb-3"
-              id="ingredient_select"
-            >
-              <option selected="true" disabled="disabled"
-                >Choose Ingredient</option
-              >
-              {% for ing_name in ingredients %}
-              <option>{{ing_name.name}}</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div class="md-form">
-            <input
-              type="text"
-              class="form-control validate"
-              id="ingredient_measurement"
-            />
-            <label for="ingredient_measurement"
-              >Measurement(ex. 200g, 1/2cup, 2dl)</label
-            >
-          </div>
-          <script>
-            var ingredient_index = 1;
-          </script>
-          <div class="md-form">
-            <input
-              type="text"
-              class="form-control validate"
-              id="ingredient_comment"
-            />
-            <label for="ingredient_comment">Comment(ex. Use fresh.)</label>
-          </div>
-          <div class="md-form">
-            <button type="button" class="btn" onclick="addToIngredientList()">
-              <i class="fas fa-plus-circle"></i>Add Selected Ingredient
-            </button>
-          </div>
-          <div class="md-form">
-            <ul class="list-group" id="recipe_ingredient_list">
-            </ul>
-          </div>
-          <div class="md-form">
-            <label for="recipe_instructions">Recipe Instructions</label>
-            <textarea
-              id="recipe_instructions"
-              class="md-textarea form-control"
-              name="recipe_instructions"
-              required
-            ></textarea>
-          </div>
-          <div>
-            <div class="input-group" hidden>
-              <input
-                type="text"
-                readonly
-                id="added_by"
-                name="added_by"
-                value="{{session.username}}"
-              />
-              <label for="added_by">Added by:</label>
-            </div>
-          </div>
-          <!-- Privacy Switch -->
-          <div class="custom-control custom-switch">
-            <input
-              type="checkbox"
-              class="custom-control-input"
-              id="customSwitches"
-              name="public"
-            />
-            <label class="custom-control-label" for="customSwitches"
-              >Toggle this switch to make your recipe visable to the
-              Public</label
-            >
-          </div>
-        </form>
-        <div class="modal-footer md-form d-flex justify-content-center">
-          <button type="submit" form="addForm" class="btn btn-indigo">
-            Submit Recipe <i class="fas fa-paper-plane-o ml-1"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+
 </main>
 <!-- <div class="fixed-action-btn">
   <a class="btn-floating btn-large red" href="#"> ^</a>
@@ -304,11 +137,10 @@
     }
   }
   function clearAddIngredient() {
-      $('#ingredient_select').prop("selectedIndex", 1).val();
-      $('select.ingredient_select').val('selectedvalue').trigger('change');
-      $('#ingredient_comment').val("");
-      $('#ingredient_measurement').val("");
-
+    $("#ingredient_select").prop("selectedIndex", 1).val();
+    $("select.ingredient_select").val("selectedvalue").trigger("change");
+    $("#ingredient_comment").val("");
+    $("#ingredient_measurement").val("");
   }
   function removeLI() {
     $(".delete").on("click", function () {
@@ -316,28 +148,30 @@
     });
   }
 
-  $('[data-toggle="ajaxModal"]').on('click',
-              function(e) {
-                $('#ajaxModal').remove();
-                e.preventDefault();
-                var $this = $(this)
-                  , $remote = $this.data('remote') || $this.attr('href')
-                  , $modal = $('<div class="modal" id="ajaxModal"><div class="modal-body"></div></div>');
-                $('body').append($modal);
-                $modal.modal({backdrop: 'static', keyboard: false});
-                $modal.load($remote);
+  $('[data-toggle="ajaxModal"]').on("click", function (e) {
+    $("#ajaxModal").remove();
+    e.preventDefault();
+    var $this = $(this),
+      $remote = $this.data("remote") || $this.attr("href"),
+      $modal = $(
+        '<div class="modal" id="ajaxModal"><div class="modal-body"></div></div>'
+      );
+    $("body").append($modal);
+    $modal.modal({ backdrop: "static", keyboard: false });
+    $modal.load($remote);
+  });
 
-// $(function () {
-//     $(".custom-close").on('click', function() {
-        
-//         $('#ajaxModal').modal('hide');
-//         $('.modal-backdrop').remove();
-//         $('#ajaxModal').remove();
-//         /* any changes will be lost*/
-        
-//     });
-// });                
-              }
-            );
+  $('[data-toggle="ajaxModal2"]').on("click", function (e) {
+    $("#ajaxModal2").remove();
+    e.preventDefault();
+    var $this = $(this),
+      $remote = $this.data("remote") || $this.attr("href"),
+      $modal = $(
+        '<div class="modal" id="ajaxModal2"><div class="modal-body"></div></div>'
+      );
+    $("body").append($modal);
+    $modal.modal({ backdrop: "static", keyboard: false });
+    $modal.load($remote);
+  });
 </script>
 {% endblock %}

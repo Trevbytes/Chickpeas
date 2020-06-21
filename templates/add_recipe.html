@@ -1,118 +1,162 @@
-{% extends 'base.html'%}{% block content %}
-<main class="container addRecipe mt-5 pt-5">
-  <h1 class="center">Create Recipe</h1>
-  <form action="{{ url_for('insert_recipe') }}" method="POST">
-      <div class="md-form">
-        <input type="text" id="recipe_name" name="recipe_name" class="form-control" required />
-        <label for="recipe_name">Recipe Name</label>
-      </div>
-    <div class="input-group">
-      <label class="active" for="meal_type">Meal Category</label>
-      <select id="meal_type" name="meal_type">
-        <option>Breakfast</option>
-        <option>Lunch</option>
-        <option>Dinner</option>
-        <option>Dessert</option>
-      </select>
-    </div>
-    <div class="input-group">
-      <label for="recipe_description">Recipe Description</label>
-      <textarea
-        id="recipe_description"
-        rows="3"
-        name="recipe_description"
-        required
-      ></textarea>
-    </div>
-    <div>
-      <h3>Recipe Image</h3>
-    </div>
-    <div class="input-group">
-      <input
-        type="file"
-        class="form-control-file"
-        id="recipe_pic_url"
-        disabled
-      />
-    </div>
-    <div class="input-group">
-      <input type="text" id="recipe_image_link" name="recipe_pic_url" />
-      <label for="recipe_image">Image Link</label>
-    </div>
-    <h3>Add Ingredients</h3>
-    <div class="row input-group">
-      <select class="ingredient_select" id="ingredient_select">
-        <option selected="true" disabled="disabled"
-          >Choose Ingredient</option
-        >
-        {% for ing_name in ingredients %}
-        <option>{{ing_name.name}}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <div class="row input-group">
-      <input type="text" id="ingredient_measurement" />
-      <label for="ingredient_measurement"
-        >Measurement(ex. 200g, 1/2cup, 2dl)</label
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header text-center">
+      <h4 class="modal-title w-100 font-weight-bold">
+        <i class="fas fa-pencil-alt"></i>Create a Recipe
+      </h4>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
       >
-    </div>
-    <script>
-      var ingredient_index = 1;
-    </script>
-    <div class="row input-group">
-      <input type="text" id="ingredient_comment" />
-      <label for="ingredient_comment">Comment(ex. Use fresh.)</label>
-      <button type="button" class="btn" onclick="addToIngredientList()">
-        <i class="fas fa-plus-circle"></i>Add Selected Ingredient
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-
-    <ul class="list-group" id="recipe_ingredient_list">
-      <li class="list-group-item"></li>
-    </ul>
-    <div class="row"></div>
-    <div class="row input-group">
-      <label for="recipe_instructions">Recipe Instructions</label>
-      <textarea
-        class="form-control"
-        id="recipe_instructions"
-        name="recipe_instructions"
-        rows="3"
-      ></textarea>
-    </div>
-    <div class="row">
-      <div class="input-group" hidden>
+    <form
+      id="addForm"
+      class="modal-body mx-3"
+      action="{{ url_for('insert_recipe') }}"
+      method="POST"
+    >
+      <div class="md-form mb-5">
         <input
           type="text"
-          readonly
-          id="added_by"
-          name="added_by"
-          value="{{session.username}}"
+          id="recipe_name"
+          name="recipe_name"
+          class="form-control validate"
+          required
         />
-        <label for="added_by">Added by:</label>
+        <label data-error="wrong" data-success="right" for="recipe_name"
+          >Recipe Name</label
+        >
       </div>
-    </div>
-    <!-- Privacy Switch -->
-    <div class="switch">
-      <label>
-        Private Recipe
-        <input type="checkbox" name="public" />
-        <span class="lever"></span>
-        Public Recipe
-      </label>
-    </div>
-    <div class="row center">
-      <button type="submit" class="btn btn-primary">
-        Submit Recipe
+      <div class="md-form">
+        <select
+          id="meal_type"
+          class="browser-default custom-select custom-select-lg mb-3"
+          name="meal_type"
+        >
+          <option value="" disabled selected>Choose the Meal Type</option>
+          <option>Breakfast</option>
+          <option>Lunch</option>
+          <option>Dinner</option>
+          <option>Dessert</option>
+        </select>
+      </div>
+      <div class="md-form">
+        <textarea
+          id="recipe_description"
+          class="md-textarea form-control"
+          rows="3"
+          name="recipe_description"
+          maxlength="200"
+          required
+        ></textarea>
+        <label for="recipe_description">Recipe Description</label>
+      </div>
+      <div>
+        <h3 class="md-form">Recipe Image</h3>
+      </div>
+      <div class="md-form">
+        <input
+          type="file"
+          class="form-control-file"
+          id="recipe_pic_url"
+          disabled
+        />
+      </div>
+      <div class="md-form">
+        <input
+          type="text"
+          class="form-control validate"
+          id="recipe_image_link"
+          name="recipe_pic_url"
+        />
+        <label for="recipe_image">Image Link</label>
+      </div>
+      <h3>Add Ingredients</h3>
+      <div class="md-form">
+        <select
+          class="ingredient_select browser-default custom-select custom-select-lg mb-3"
+          id="ingredient_select"
+        >
+          <option selected="true" disabled="disabled">Choose Ingredient</option>
+          {% for ing_name in ingredients %}
+          <option>{{ing_name.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="md-form">
+        <input
+          type="text"
+          class="form-control validate"
+          id="ingredient_measurement"
+        />
+        <label for="ingredient_measurement"
+          >Measurement(ex. 200g, 1/2cup, 2dl)</label
+        >
+      </div>
+      <script>
+        var ingredient_index = 1;
+      </script>
+      <div class="md-form">
+        <input
+          type="text"
+          class="form-control validate"
+          id="ingredient_comment"
+        />
+        <label for="ingredient_comment">Comment(ex. Use fresh.)</label>
+      </div>
+      <div class="md-form">
+        <button type="button" class="btn" onclick="addToIngredientList()">
+          <i class="fas fa-plus-circle"></i>Add Selected Ingredient
+        </button>
+      </div>
+      <div class="md-form">
+        <ul class="list-group" id="recipe_ingredient_list"></ul>
+      </div>
+      <div class="md-form">
+        <label for="recipe_instructions">Recipe Instructions</label>
+        <textarea
+          id="recipe_instructions"
+          class="md-textarea form-control"
+          name="recipe_instructions"
+          required
+        ></textarea>
+      </div>
+      <div>
+        <div class="input-group" hidden>
+          <input
+            type="text"
+            readonly
+            id="added_by"
+            name="added_by"
+            value="{{session.username}}"
+          />
+          <label for="added_by">Added by:</label>
+        </div>
+      </div>
+      <!-- Privacy Switch -->
+      <div class="custom-control custom-switch">
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          id="customSwitches"
+          name="public"
+        />
+        <label class="custom-control-label" for="customSwitches"
+          >Toggle this switch to make your recipe visable to the Public</label
+        >
+      </div>
+    </form>
+    <div class="modal-footer md-form d-flex justify-content-center">
+      <button type="submit" form="addForm" class="btn btn-indigo">
+        Submit Recipe <i class="fas fa-paper-plane-o ml-1"></i>
       </button>
     </div>
-  </form>
-</main>
-<script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"
-></script>
+  </div>
+</div>
 <script>
   var selectedIngredient;
   $("select.ingredient_select").change(function () {
@@ -136,16 +180,54 @@
     }
   }
   function clearAddIngredient() {
-      $('#ingredient_select').prop("selectedIndex", 1).val();
-      $('select.ingredient_select').val('selectedvalue').trigger('change');
-      $('#ingredient_comment').val("");
-      $('#ingredient_measurement').val("");
-
+    $("#ingredient_select").prop("selectedIndex", 1).val();
+    $("select.ingredient_select").val("selectedvalue").trigger("change");
+    $("#ingredient_comment").val("");
+    $("#ingredient_measurement").val("");
   }
   function removeLI() {
     $(".delete").on("click", function () {
       $(this).parent().remove();
     });
   }
+
+  var selectedIngredient;
+  $("select.ingredient_select").change(function () {
+    selectedIngredient = $(this).children("option:selected").val();
+  });
+  function addToIngredientList() {
+    if (!!selectedIngredient) {
+      var ingredient_measurement = $("#ingredient_measurement").val();
+      var commentlines = "";
+      var ingredient_comment = $("#ingredient_comment").val();
+      if (!!ingredient_comment) {
+        commentlines = "---";
+      } else {
+        commentlines = "";
+      }
+      $("#recipe_ingredient_list").append(
+        `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button></li>`
+      );
+      ingredient_index++;
+      clearAddIngredient();
+    }
+  }
+  function clearAddIngredient() {
+    $("#ingredient_select").prop("selectedIndex", 1).val();
+    $("select.ingredient_select").val("selectedvalue").trigger("change");
+    $("#ingredient_comment").val("");
+    $("#ingredient_measurement").val("");
+  }
+  function removeLI() {
+    $(".delete").on("click", function () {
+      $(this).parent().remove();
+    });
+  }
+
+  $(".custom-close").on("click", function () {
+    $(".modal-backdrop").remove();
+    $("#ajaxModal2").remove();
+    console.log("custom-close");
+    /* any changes will be lost*/
+  });
 </script>
-{% endblock %}
