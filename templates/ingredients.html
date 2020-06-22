@@ -2,18 +2,19 @@
 <main class="container ingredients-container mt-5 pt-5">
   <h1>Ingredients</h1>
   <div class="dropdown">
-    <button onclick="myFunctiondrop()" class="dropbtn">
+    <button onclick="myFunctiondrop()" class="dropbtn btn-sm blue">
       Search for Ingredient
     </button>
-    <div id="myDropdown" class="dropdown-content">
+    <div id="myDropdown" class="dropdown-content list-group">
       <input
         type="text"
+        class="list-group-item form-control"
         placeholder="Search.."
         id="myInput"
         onkeyup="filterFunction()"
       />
       {% for ing_name in ingredientstest %}
-      <a href="{{url_for('view_ingredient', ingredient_id = ing_name.id)}}"
+      <a class="list-group-item" href="{{url_for('view_ingredient', ingredient_id = ing_name.id)}}"
         >{{ing_name.name}}</a
       >
       {% endfor %}
