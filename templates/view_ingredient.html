@@ -1,0 +1,45 @@
+<div class="modal-dialog modal-md" role="document">
+  <div class="container modal-content">
+    <div class="modal-header text-center">
+      <h4 class="modal-title w-100 font-weight-bold">
+        {{ingredient.name}}
+      </h4>
+      <button type="button" class="close custom-close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body mx-3">
+      <div class="row">
+          Common Substitutes
+      </div>
+      <div>
+        <p>{{ingredient.food_group}}</p>
+      </div>
+      <div>
+        <p>{{ingredient.description}}</p>
+      </div>
+      <div>
+        <p>
+          <a
+            href="https://en.wikipedia.org/wiki/{{ingredient.wikipedia_id}}"
+            target="_blank"
+            >Wikipedia Article</a
+          >
+        </p>
+      </div>
+    </div>
+    <div class="modal-footer md-form d-flex justify-content-center">
+      <button type="button" class="btn btn-indigo custom-close">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+  $(".custom-close").on("click", function () {
+    $(".modal-backdrop").remove();
+    $("#ajaxModalIngredient").remove();
+    console.log("custom-close");
+    /* any changes will be lost*/
+  });
+</script>

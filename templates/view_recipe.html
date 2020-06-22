@@ -56,7 +56,11 @@
       
       {% for ingID, ingredient in ingredients_selected.items() %} {% if
       ingredient_search(ingID) in ingID %}
-      <li><i class="fas fa-leaf"></i> {{ingredient}}</li>
+      <li><a
+      href="{{url_for('view_ingredient2', ingredient_name='Angelica')}}"
+              data-remote="false"
+              data-toggle="ajaxModalIngredient"             
+      ><i class="fas fa-leaf"></i> {{ingredient}}</a></li>
       {% endif %}{% endfor %}
     </ul>
   </div>  
@@ -89,5 +93,19 @@
     $modal.modal({ backdrop: "static", keyboard: false });
     $modal.load($remote);
   });
+
+    $('[data-toggle="ajaxModalIngredient"]').on("click", function (e) {
+    $("#ajaxModalIngredient").remove();
+    e.preventDefault();
+    var $this = $(this),
+      $remote = $this.data("remote") || $this.attr("href"),
+      $modal = $(
+        '<div class="modal" id="ajaxModalIngredient"><div class="modal-body"></div></div>'
+      );
+    $("body").append($modal);
+    $modal.modal({ backdrop: "static", keyboard: false });
+    $modal.load($remote);
+  });
+
 </script>
 {% endblock %}
