@@ -16,7 +16,6 @@ a {
   text-decoration: none;
 }
 
-*:not([role="img"]) { font-family: Verdana, sans-serif !important; }
 
 /* Set height of body and the document to 100% to enable "full page tabs" */
 /* body,

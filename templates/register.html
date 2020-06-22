@@ -1,48 +1,52 @@
 {% extends "base.html" %} {% block content %}
-<main class="container mt-5 pt-5">
-  <h1>Registration</h1>
-  <form action="{{url_for('register')}}" method="post">
-    <div class="row">
-      <div class="input-field col s6">
-        <input type="text" id="username" name="username" class="validate" required />
-        <label for="username">Username</label>
-      </div>
+<main class="container col-md-6 mt-5 pt-5">
+  <form class="text-center p-5" action="{{url_for('register')}}" method="post">
+    <p class="h4 mb-4">Registration</p>
+    <div>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="form-control mb-4"
+        placeholder="Create Username"
+        required
+      />
     </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <input type="password" id="user_password" name="user_password" class="validate" required />
-        <label for="user_password">User Password</label>
-      </div>
+
+    <div>
+      <input
+        type="password"
+        id="user_password"
+        name="user_password"
+        class="form-control mb-4"
+        placeholder="Create Password"
+        required
+      />
     </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <input
-          type="password"
-          id="confirm_password"
-          name="confirm_password"
-          oninput="check(this)"
-          class="validate"
-          required
-        />
-        <label for="recipe_name">Confirm Password</label>
-      </div>
+    <div>
+      <input
+        type="password"
+        id="confirm_password"
+        name="confirm_password"
+        oninput="check(this)"
+        class="form-control mb-4"
+        placeholder="Confirm Password"
+        required
+      />
     </div>
-    <div class="row"></div>
-    <div class="row">
-      <button type="submit" class="btn btn-primary">
-        Register
-      </button>
-    </div>
+    <button type="submit" class="btn btn-primary">
+      Start Cooking!(Register)
+    </button>
   </form>
 </main>
 <script>
-function check(input) {
-        if (input.value != document.getElementById('user_password').value) {
-            input.setCustomValidity('Password Must be Matching.');
-        } else {
-            // input is valid -- reset the error message
-            input.setCustomValidity('');
-        }
+  function check(input) {
+    if (input.value != document.getElementById("user_password").value) {
+      input.setCustomValidity("Password Must be Matching.");
+    } else {
+      // input is valid -- reset the error message
+      input.setCustomValidity("");
     }
+  }
 </script>
 {% endblock %}

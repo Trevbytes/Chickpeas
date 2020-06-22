@@ -3,7 +3,7 @@
 		<!-- If createad by user, value="{{recipe.recipe_name}}"-->
 		<div class="modal-header text-center">
 			{% if recipe.added_by == session.username or recipe.edited_by == session.username %}
-			<h1 class="modal-title w-100 font-weight-bold "><i class="fas fa-pencil-alt"></i> Update Recipe</h1>
+			<h1 class="modal-title w-100 font-weight-bold "><i class="fas fa-pencil-alt" role="img"></i> Update Recipe</h1>
 			 <button
             type="button"
             class="close custom-close"        
@@ -15,7 +15,7 @@
 		<form id="updateForm" class="modal-body mx-3" action="{{ url_for('update_recipe', recipe_id=recipe._id) }}"
 			method="POST">
 			{% else %}
-			<h1 class="modal-title w-100 font-weight-bold"><i class="far fa-copy"></i> Edit Your Copy</h1>
+			<h1 class="modal-title w-100 font-weight-bold"><i class="far fa-copy" role="img"></i> Edit Your Copy</h1>
 			 <button
             type="button"
             class="close custom-close"
@@ -168,7 +168,7 @@
               name="public"
             />
 							<label class="custom-control-label" for="customSwitches"
-              ><strong>Toggle this switch to make your recipe visable to the Public </strong><i class="fas fa-users"></i></label>
+              ><strong>Toggle this switch to make your recipe visable to the Public </strong><i class="fas fa-users" role="img"></i></label>
 						</div>
 						<div class="row">
 							<div class="input-field" hidden>

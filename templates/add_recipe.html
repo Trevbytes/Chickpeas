@@ -1,9 +1,9 @@
 <div class="modal-dialog modal-fluid" role="document">
   <div class="container modal-content">
     <div class="modal-header text-center">
-      <h4 class="modal-title w-100 font-weight-bold">
-        <i class="fas fa-pencil-alt"></i>Create a Recipe
-      </h4>
+      <h1 class="modal-title w-100 font-weight-bold">
+        <i class="fas fa-pencil-alt" role="img"></i>Create a Recipe
+      </h1>
       <button type="button" class="close custom-close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -67,6 +67,7 @@
           class="form-control validate"
           id="recipe_image_link"
           name="recipe_pic_url"
+          placeholder="Add a link to an image here- Leave blank for a default image"
         />
         <label for="recipe_image">Image Link</label>
       </div>
@@ -77,7 +78,7 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Write the ingredient name here to filter your selection."
+              placeholder="...Write the ingredient name here to filter your selection..."
               id="myInput"
               onkeyup="filterFunction()"
             />
@@ -160,7 +161,7 @@
         <label class="custom-control-label" for="customSwitches"
           ><strong
             >Toggle this switch to make your recipe visible to the Public </strong
-          ><i class="fas fa-users"></i
+          ><i class="fas fa-users" role="img"></i
         ></label>
       </div>
     </form>
