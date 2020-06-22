@@ -130,7 +130,7 @@ def view_recipe(recipe_id):
                                                       ObjectId(recipe_id)})
 
     def ingredient_search(ingredient):
-        if re.search('recipe_ingredient_id_.+', ingredient):
+        if re.match('recipe_ingredient_id_.+', ingredient):
             recID = ingredient
             return recID
         return 'blank'
@@ -182,9 +182,12 @@ def view_ingredient(ingredient_id):
                            ingredientstest=ingredients.find().sort("name"))
 
 
-@app.route('/view_ingredient2/<ingredient_name>')
-def view_ingredient2(ingredient_name):
+@app.route('/view_ingredient2/<ingredient_name>/<recipe_id>', methods=['GET', 'POST'])
+def view_ingredient2(ingredient_name, recipe_id):
     ingredients = mongo.db.ingredients
+    print(ingredient_name)
+    test = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    print(test)
     the_ingredient = mongo.db.ingredients.find_one({"name": ingredient_name})
     return render_template('view_ingredient.html', ingredient=the_ingredient)
 

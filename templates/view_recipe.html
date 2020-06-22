@@ -55,9 +55,9 @@
     <ul class="" id="view_recipe_ingredient_list">
       
       {% for ingID, ingredient in ingredients_selected.items() %} {% if
-      ingredient_search(ingID) in ingID %}
+      ingredient_search(ingID) in ingID %}{% set recname = ("name_"+ingID) %}{% print(recipe.recname) %}
       <li><a
-      href="{{url_for('view_ingredient2', ingredient_name='Angelica')}}"
+      href="{{url_for('view_ingredient2', ingredient_name=recipe.name_recipe_ingredient_id_1, recipe_id=recipe._id)}}"
               data-remote="false"
               data-toggle="ajaxModalIngredient"             
       ><i class="fas fa-leaf"></i> {{ingredient}}</a></li>
