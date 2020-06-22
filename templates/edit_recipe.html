@@ -140,7 +140,7 @@
 								</li>
 								<script>
 									ingredient_index++;
-                        $('.{{ingID}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button>`)
+                        $('.{{ingID}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="${selectedIngredient}">`)
 						
 								</script>
 								{% endif %}{% endfor %}
