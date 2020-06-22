@@ -22,6 +22,7 @@
     </div>
   </div>
   <h1 class="row justify-content-center">{{recipe.recipe_name}}</h1>
+  <div class="row justify-content-center">Course: {{recipe.meal_type}}</div>
   <div class="row justify-content-center">
     <p>{{recipe.recipe_description}}</p>
   </div>
@@ -48,7 +49,7 @@
       {% endif %}
     {% endif %}
   </div>
-  <div class="row ml-5">Course: {{recipe.meal_type}}</div>
+  
   <div class="row ml-4">
   <div class="col-12">
     <ul class="" id="view_recipe_ingredient_list">
