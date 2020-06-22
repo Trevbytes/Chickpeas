@@ -27,17 +27,19 @@
   </div>
   <div class="row justify-content-center">
     {% if 'username' in session %}
-    <a
-      href="{{url_for('edit_recipe', recipe_id=recipe._id, username=session.username)}}"
-      class="btn btn-sm edit-recipe"
-    >
+            <a
+              href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+              data-remote="false"
+              data-toggle="ajaxModal"
+              class="btn edit-recipe"
+              >
       {% if recipe.added_by == session.username or recipe.edited_by ==
       session.username %} Update
     </a>       
     <a
     onclick="return confirmDelete()"
     href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-    class="btn btn-sm edit-recipe ml-1"
+    class="btn edit-recipe ml-1"
     >Delete
     </a>
       {% else %} 
@@ -49,18 +51,11 @@
   <div class="row ml-5">Course: {{recipe.meal_type}}</div>
   <div class="row ml-4">
   <div class="col-12">
-    <ul class="" id="recipe_ingredient_list">
-      <li>Ingredients:</li>
+    <ul class="" id="view_recipe_ingredient_list">
+      
       {% for ingID, ingredient in ingredients_selected.items() %} {% if
       ingredient_search(ingID) in ingID %}
-      <li type="text" readonly class="">
-        <input
-          type="text"
-          readonly
-          name="recipe_ingredient_id_{{ ingID }}"
-          value="{{ingredient}}"
-        />
-      </li>
+      <li><i class="fas fa-leaf"></i> {{ingredient}}</li>
       {% endif %}{% endfor %}
     </ul>
   </div>  
@@ -72,6 +67,7 @@
 <!-- Bootstrap js-->
 
 <script>
+
   function confirmDelete() {
     if (confirm("Do you want to delete this recipe?") == false) {
       return false;
@@ -79,5 +75,18 @@
       return true;
     }
   }
+
+    $('[data-toggle="ajaxModal"]').on("click", function (e) {
+    $("#ajaxModal").remove();
+    e.preventDefault();
+    var $this = $(this),
+      $remote = $this.data("remote") || $this.attr("href"),
+      $modal = $(
+        '<div class="modal" id="ajaxModal"><div class="modal-body"></div></div>'
+      );
+    $("body").append($modal);
+    $modal.modal({ backdrop: "static", keyboard: false });
+    $modal.load($remote);
+  });
 </script>
 {% endblock %}
