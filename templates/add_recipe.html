@@ -1,13 +1,12 @@
-<div class="modal-dialog modal-lg" role="document">
-  <div class="modal-content">
+<div class="modal-dialog modal-fluid" role="document">
+  <div class="container modal-content">
     <div class="modal-header text-center">
       <h4 class="modal-title w-100 font-weight-bold">
         <i class="fas fa-pencil-alt"></i>Create a Recipe
       </h4>
       <button
         type="button"
-        class="close"
-        data-dismiss="modal"
+        class="close custom-close"        
         aria-label="Close"
       >
         <span aria-hidden="true">&times;</span>
@@ -146,7 +145,7 @@
           name="public"
         />
         <label class="custom-control-label" for="customSwitches"
-          >Toggle this switch to make your recipe visable to the Public</label
+          ><strong>Toggle this switch to make your recipe visable to the Public</strong><i class="fas fa-users"></i></label
         >
       </div>
     </form>

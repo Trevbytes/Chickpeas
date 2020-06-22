@@ -3,13 +3,11 @@
 		<!-- If createad by user, value="{{recipe.recipe_name}}"-->
 		<div class="modal-header text-center">
 			{% if recipe.added_by == session.username or recipe.edited_by == session.username %}
-			<h1 class="modal-title w-100 font-weight-bold ">Update Recipe</h1>
+			<h1 class="modal-title w-100 font-weight-bold "><i class="fas fa-pencil-alt"></i> Update Recipe</h1>
 			 <button
             type="button"
-            class="close custom-close"
-        
-            aria-label="Close"
-            
+            class="close custom-close"        
+            aria-label="Close"           
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -17,7 +15,7 @@
 		<form id="updateForm" class="modal-body mx-3" action="{{ url_for('update_recipe', recipe_id=recipe._id) }}"
 			method="POST">
 			{% else %}
-			<h1 class="modal-title w-100 font-weight-bold">Create a Copy</h1>
+			<h1 class="modal-title w-100 font-weight-bold"><i class="far fa-copy"></i> Edit Your Copy</h1>
 			 <button
             type="button"
             class="close custom-close"
@@ -35,13 +33,13 @@
 				<div class="md-form mb-5">
 					<input
             type="text"
-            class="form-control"
+            class="form-control validate"
             id="recipe_name"
             name="recipe_name"
         {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
             value="{{recipe.recipe_name}}"
 		{% else %}
-			placeholder="Copy of {{recipe.recipe_name}}"
+			
 		{% endif %}
             required
             />
@@ -50,7 +48,7 @@
 					<label class="active" data-error="wrong" data-success="right" for="recipe_name">Recipe Name</label>
 					{% else %}
 					<!-- If not added or edited by user , New name-->
-					<label class="active" data-error="wrong" data-success="right" for="recipe_name">New Name for copied Recipe</label>
+					<label class="active" data-error="wrong" data-success="right" for="recipe_name">New Name for {{recipe.recipe_name}}</label>
 					{% endif %}
 				</div>
 				<div class="md-form">
@@ -149,8 +147,7 @@
               name="public"
             />
 							<label class="custom-control-label" for="customSwitches"
-              >Toggle this switch to make your recipe visable to the
-              Public</label>
+              ><strong>Toggle this switch to make your recipe visable to the Public</strong><i class="fas fa-users"></i></label>
 						</div>
 						<div class="row">
 							<div class="input-field" hidden>
