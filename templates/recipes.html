@@ -5,270 +5,299 @@
 <!-- Meal type buttons. Future idea: meal type hover tabs on left, ability
 to add more types like snacks, baked goods, drinks, etc.               -->
 <div class="mt-5 tab-container">
-	<button
+  <button
     class="tablink"
     onclick="openCourse('breakfast', this, 'red')"
     id="defaultOpen"
   >
     Breakfast
   </button>
-	<button class="tablink" onclick="openCourse('lunch', this, 'green')">
+  <button class="tablink" onclick="openCourse('lunch', this, 'green')">
     Lunch
   </button>
-	<button class="tablink" onclick="openCourse('dinner', this, 'purple')">
+  <button class="tablink" onclick="openCourse('dinner', this, 'purple')">
     Dinner
   </button>
-	<button class="tablink" onclick="openCourse('dessert', this, 'orange')">
+  <button class="tablink" onclick="openCourse('dessert', this, 'orange')">
     Dessert
   </button>
 </div>
 
 <!-- Breakfast tab -->
 <div id="breakfast" class="tabcontent container-fluid">
-	<!-- Gridview buttons js-->
-	<div class="row">
-		<button class="btn mr-1 ml-2" onclick="listView()">
+  <!-- Gridview buttons js-->
+  <div class="row">
+    <button class="btn mr-1 ml-2" onclick="listView()">
       <i class="fa fa-bars"></i>
     </button>
-		<button class="btn" onclick="gridView()">
+    <button class="btn" onclick="gridView()">
       <i class="fa fa-th-large"></i>
     </button>
-	</div>
-	<!-- 'For' loop for presorted recipes-->
-	{% for recipe in breakfast %}
-	<!-- 'If' logic to add a row opening tag every odd index for recipe loop. -->
-	{% if loop.index % 2 != 0 %}
-	<div class="row">
-		{% endif %}
-		<div class="row column no-gutters shadow">
-			<div class="col-md-5">
-				<!-- 'If logic to load a default image if no image is given - *Temporary* -->
-				{% if recipe.recipe_pic_url %}
-				<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-					<img
+  </div>
+  <!-- 'For' loop for presorted recipes-->
+  {% for recipe in breakfast %}
+  <!-- 'If' logic to add a row opening tag every odd index for recipe loop. -->
+  {% if loop.index % 2 != 0 %}
+  <div class="row">
+    {% endif %}
+    <div class="row column no-gutters shadow">
+      <div class="col-md-5">
+        <!-- 'If logic to load a default image if no image is given - *Temporary* -->
+        {% if recipe.recipe_pic_url %}
+        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+          <img
             class="featurette-image img-responsive"
             src="{{ recipe.recipe_pic_url }}"
             alt="Picture of {{ recipe.recipe_name }}"
           />
         </a>
-					{% else %}
-					<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-						<img
+        {% else %}
+        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+          <img
             class="featurette-image img-responsive"
             src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
             alt="Default Pic"
           />
         </a>
-						{% endif %}
-			</div>
-			<div class="col-md-7">
-				<h3 class="pl-2">
-					<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-						{{ recipe.recipe_name }}</a>
-				</h3>
-				<p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
-				<!-- 'If' logic for buttons for logged in users-->
-				{% if 'username' in session %}
-				<div class="edit-delete-left pl-2">
-                    <span id="appendTo"></span>
-					<a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}" data-remote="false"
-						data-toggle="ajaxModal" class="btn">
-						{% if recipe.added_by == session.username or recipe.edited_by ==
+        {% endif %}
+      </div>
+      <div class="col-md-7">
+        <!-- 'If' logic for buttons for logged in users-->
+        {% if 'username' in session %}
+        <div class="pl-2">
+          <span id="appendTo"></span>
+          <a
+            href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+            data-remote="false"
+            data-toggle="ajaxModal"
+            class="btn"
+          >
+            {% if recipe.added_by == session.username or recipe.edited_by ==
             session.username %} Update
-					</a>
-					<a onclick="return confirmDelete()" href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-						class="btn edit-recipe">Delete
-						{% else %} Create Copy for Cookbook {% endif %}
-					</a>
-				</div>
-				{% endif %}
-			</div>
-		</div>
-		<!-- 'If' logic to add closing tag for outer row, added every
+          </a>
+          <a
+            onclick="return confirmDelete()"
+            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+            class="btn edit-recipe"
+            >Delete {% else %} Create Copy for Cookbook {% endif %}
+          </a>
+        </div>
+        {% endif %}
+
+        <h3 class="pl-2 col-md-10">
+          <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+            {{ recipe.recipe_name }}</a
+          >
+        </h3>
+        <p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
+      </div>
+    </div>
+    <!-- 'If' logic to add closing tag for outer row, added every
     even index in recipe loop or at the end of the loop. -->
-		{% if loop.index % 2 == 0 or loop.index == loop.length %}
-	</div>
-	{% endif %} {% endfor %}
+    {% if loop.index % 2 == 0 or loop.index == loop.length %}
+  </div>
+  {% endif %} {% endfor %}
 </div>
 
 <!-- Lunch tab - COPY of breakfast tab using different recipes
  *Tabs could possibly be reworked to not repeat code.*     -->
 <div id="lunch" class="tabcontent">
-	<div class="row">
-		<button class="btn mr-1 ml-2" onclick="listView()">
+  <div class="row">
+    <button class="btn mr-1 ml-2" onclick="listView()">
       <i class="fa fa-bars"></i>
     </button>
-		<button class="btn" onclick="gridView()">
+    <button class="btn" onclick="gridView()">
       <i class="fa fa-th-large"></i>
     </button>
-	</div>
-	{% for recipe in lunch %} {% if loop.index % 2 != 0 %}
-	<div class="row">
-		{% endif %}
-		<div class="row column featurette no-gutters shadow">
-			<div class="col-md-5">
-				{% if recipe.recipe_pic_url %}
-				<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-					<img
+  </div>
+  {% for recipe in lunch %} {% if loop.index % 2 != 0 %}
+  <div class="row">
+    {% endif %}
+    <div class="row column featurette no-gutters shadow">
+      <div class="col-md-5">
+        {% if recipe.recipe_pic_url %}
+        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+          <img
             class="featurette-image img-responsive"
             src="{{ recipe.recipe_pic_url }}"
             alt="Picture of {{ recipe.recipe_name }}"
           />
         </a>
-					{% else %}
-					<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-						<img
+        {% else %}
+        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+          <img
             class="featurette-image img-responsive"
             src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
             alt="Default Pic"
           />
         </a>
-						{% endif %}
-			</div>
-			<div class="col-md-7">
-				<h3 class="pl-2">
-					<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-						{{ recipe.recipe_name }}</a>
-				</h3>
-				<p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
-				{% if 'username' in session %}
-				<div class="edit-delete-left pl-2">
-					<a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}" data-remote="false"
-						data-toggle="ajaxModal" class="btn">
-						{% if recipe.added_by == session.username or recipe.edited_by ==
+        {% endif %}
+      </div>
+      <div class="col-md-7">
+        {% if 'username' in session %}
+        <div class="pl-2">
+          <a
+            href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+            data-remote="false"
+            data-toggle="ajaxModal"
+            class="btn"
+          >
+            {% if recipe.added_by == session.username or recipe.edited_by ==
             session.username %} Update
-					</a>
-					<a onclick="return confirmDelete()" href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-						class="btn edit-recipe">Delete
-						{% else %} Create Copy for Cookbook {% endif %}
-					</a>
-				</div>
-				{% endif %}
-			</div>
-		</div>
-		{% if loop.index % 2 == 0 or loop.index == loop.length %}
-	</div>
-	{% endif %} {% endfor %}
+          </a>
+          <a
+            onclick="return confirmDelete()"
+            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+            class="btn edit-recipe"
+            >Delete {% else %} Create Copy for Cookbook {% endif %}
+          </a>
+        </div>
+        {% endif %}
+        <h3 class="pl-2 col-md-10">
+          <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+            {{ recipe.recipe_name }}</a
+          >
+        </h3>
+        <p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
+      </div>
+    </div>
+    {% if loop.index % 2 == 0 or loop.index == loop.length %}
+  </div>
+  {% endif %} {% endfor %}
 </div>
 
 <!-- Dinner tab - COPY of breakfast tab using different recipes
  *Tabs could possibly be reworked to not repeat code.*     -->
 <div id="dinner" class="tabcontent">
-	<div class="row">
-		<button class="btn mr-1 ml-2" onclick="listView()">
+  <div class="row">
+    <button class="btn mr-1 ml-2" onclick="listView()">
       <i class="fa fa-bars"></i>
     </button>
-		<button class="btn" onclick="gridView()">
+    <button class="btn" onclick="gridView()">
       <i class="fa fa-th-large"></i>
     </button>
-	</div>
-	{% for recipe in dinner %} {% if loop.index % 2 != 0 %}
-	<div class="row">
-		{% endif %}
-		<div class="row column featurette no-gutters shadow">
-			<div class="col-md-5">
-				{% if recipe.recipe_pic_url %}
-				<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-					<img
+  </div>
+  {% for recipe in dinner %} {% if loop.index % 2 != 0 %}
+  <div class="row">
+    {% endif %}
+    <div class="row column featurette no-gutters shadow">
+      <div class="col-md-5">
+        {% if recipe.recipe_pic_url %}
+        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+          <img
             class="featurette-image img-responsive"
             src="{{ recipe.recipe_pic_url }}"
             alt="Picture of {{ recipe.recipe_name }}"
           />
         </a>
-					{% else %}
-					<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-						<img
+        {% else %}
+        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+          <img
             class="featurette-image img-responsive"
             src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
             alt="Default Pic"
           />
         </a>
-						{% endif %}
-			</div>
-			<div class="col-md-7">
-				<h3 class="pl-2">
-					<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-						{{ recipe.recipe_name }}</a>
-				</h3>
-				<p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
-				{% if 'username' in session %}
-				<div class="edit-delete-left pl-2">
-					<a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}" data-remote="false"
-						data-toggle="ajaxModal" class="btn">
-						{% if recipe.added_by == session.username or recipe.edited_by ==
+        {% endif %}
+      </div>
+      <div class="col-md-7">
+        {% if 'username' in session %}
+        <div class="pl-2">
+          <a
+            href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+            data-remote="false"
+            data-toggle="ajaxModal"
+            class="btn"
+          >
+            {% if recipe.added_by == session.username or recipe.edited_by ==
             session.username %} Update
-					</a>
-					<a onclick="return confirmDelete()" href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-						class="btn edit-recipe">Delete
-						{% else %} Create Copy for Cookbook {% endif %}
-					</a>
-				</div>
-				{% endif %}
-			</div>
-		</div>
-		{% if loop.index % 2 == 0 or loop.index == loop.length %}
-	</div>
-	{% endif %} {% endfor %}
+          </a>
+          <a
+            onclick="return confirmDelete()"
+            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+            class="btn edit-recipe"
+            >Delete {% else %} Create Copy for Cookbook {% endif %}
+          </a>
+        </div>
+        {% endif %}
+        <h3 class="pl-2 col-md-10">
+          <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+            {{ recipe.recipe_name }}</a
+          >
+        </h3>
+        <p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
+      </div>
+    </div>
+    {% if loop.index % 2 == 0 or loop.index == loop.length %}
+  </div>
+  {% endif %} {% endfor %}
 </div>
 
 <!-- Dessert tab - COPY of breakfast tab using different recipes
  *Tabs could possibly be reworked to not repeat code.*     -->
 <div id="dessert" class="tabcontent">
-	<div class="row">
-		<button class="btn mr-1 ml-2" onclick="listView()">
+  <div class="row">
+    <button class="btn mr-1 ml-2" onclick="listView()">
       <i class="fa fa-bars"></i>
     </button>
-		<button class="btn" onclick="gridView()">
+    <button class="btn" onclick="gridView()">
       <i class="fa fa-th-large"></i>
     </button>
-	</div>
-	{% for recipe in dessert %} {% if loop.index % 2 != 0 %}
-	<div class="row">
-		{% endif %}
-		<div class="row column featurette no-gutters shadow">
-			<div class="col-md-5">
-				{% if recipe.recipe_pic_url %}
-				<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-					<img
+  </div>
+  {% for recipe in dessert %} {% if loop.index % 2 != 0 %}
+  <div class="row">
+    {% endif %}
+    <div class="row column featurette no-gutters shadow">
+      <div class="col-md-5">
+        {% if recipe.recipe_pic_url %}
+        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+          <img
             class="featurette-image img-responsive"
             src="{{ recipe.recipe_pic_url }}"
             alt="Picture of {{ recipe.recipe_name }}"
           />
         </a>
-					{% else %}
-					<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-						<img
+        {% else %}
+        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+          <img
             class="featurette-image img-responsive"
             src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
             alt="Default Pic"
           />
         </a>
-						{% endif %}
-			</div>
-			<div class="col-md-7">
-				<h3 class="pl-2">
-					<a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-						{{ recipe.recipe_name }}</a>
-				</h3>
-				<p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
-				{% if 'username' in session %}
-				<div class="edit-delete-left pl-2">
-					<a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}" data-remote="false"
-						data-toggle="ajaxModal" class="btn">
-						{% if recipe.added_by == session.username or recipe.edited_by ==
+        {% endif %}
+      </div>
+      <div class="col-md-7">
+        {% if 'username' in session %}
+        <div class="pl-2">
+          <a
+            href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+            data-remote="false"
+            data-toggle="ajaxModal"
+            class="btn"
+          >
+            {% if recipe.added_by == session.username or recipe.edited_by ==
             session.username %} Update
-					</a>
-					<a onclick="return confirmDelete()" href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-						class="btn edit-recipe">Delete
-						{% else %} Create Copy for Cookbook {% endif %}
-					</a>
-				</div>
-				{% endif %}
-			</div>
-		</div>
-		{% if loop.index % 2 == 0 or loop.index == loop.length %}
-	</div>
-	{% endif %} {% endfor %}
+          </a>
+          <a
+            onclick="return confirmDelete()"
+            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+            class="btn edit-recipe"
+            >Delete {% else %} Create Copy for Cookbook {% endif %}
+          </a>
+        </div>
+        {% endif %}
+        <h3 class="pl-2 col-md-10">
+          <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+            {{ recipe.recipe_name }}</a
+          >
+        </h3>
+        <p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
+      </div>
+    </div>
+    {% if loop.index % 2 == 0 or loop.index == loop.length %}
+  </div>
+  {% endif %} {% endfor %}
 </div>
 <!-- End of tabs-->
 <!-- Action button to return user to the top of the site. -->
@@ -279,29 +308,25 @@ to add more types like snacks, baked goods, drinks, etc.               -->
 <!-- My JS for recipes-->
 
 <script>
-	function confirmDelete() {
+  function confirmDelete() {
     if (confirm("Do you want to delete this recipe?") == false) {
       return false;
     } else {
       return true;
     }
   }
-$('[data-toggle="ajaxModal"]').on('click',
-              function(e) {
-                $('#ajaxModal').remove();
-                e.preventDefault();
-                var $this = $(this)
-                  , $remote = $this.data('remote') || $this.attr('href')
-                  , $modal = $('<div class="modal" id="ajaxModal"><div class="modal-body"></div></div>');
-                $('body').append($modal);
-                $modal.modal({backdrop: 'static', keyboard: false});
-                $modal.load($remote);
-
-              });
- 
-              
-            
-
+  $('[data-toggle="ajaxModal"]').on("click", function (e) {
+    $("#ajaxModal").remove();
+    e.preventDefault();
+    var $this = $(this),
+      $remote = $this.data("remote") || $this.attr("href"),
+      $modal = $(
+        '<div class="modal" id="ajaxModal"><div class="modal-body"></div></div>'
+      );
+    $("body").append($modal);
+    $modal.modal({ backdrop: "static", keyboard: false });
+    $modal.load($remote);
+  });
 </script>
 
 <script src="{{url_for('static', filename='js/recipes.js')}}"></script>

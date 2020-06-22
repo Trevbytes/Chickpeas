@@ -94,7 +94,7 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Write the ingredient name here to filter your selection."
+              placeholder="...Write the ingredient name here to filter your selection..."
               id="myInput"
               onkeyup="filterFunction()"
             />
@@ -135,13 +135,15 @@
 						<div class="md-form">
 							<ul class="list-group" id="recipe_ingredient_list">
 								{% for ingID, ingredient in ingredients_selected.items() %}
-								{% if ingredient_search(ingID) in ingID %}
+								{% if ingredient_search(ingID) in ingID %}{% set recname = ("name_"+ingID) %}
 								<li type="text" readonly class="list-group-item {{ingID}}">
 								</li>
 								<script>
-									ingredient_index++;
-                        $('.{{ingID}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="${selectedIngredient}">`)
-						
+                                    
+                                    $(document).ready(function () {
+                        ingredient_index++;
+                        $('.{{ingID}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="{{recipe[recname]}}">`)
+						});
 								</script>
 								{% endif %}{% endfor %}
 							</ul>
@@ -209,9 +211,8 @@
       }
        ingredient_index++;     
       $("#recipe_ingredient_list").append(
-        `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button></li>`
+        `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="${selectedIngredient}"></li>`
       );
-      
     }
   }
   function removeLI() {

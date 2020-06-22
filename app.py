@@ -149,7 +149,7 @@ def edit_recipe(recipe_id):
     all_recipes = mongo.db.recipes.find()
 
     def ingredient_search(ingredient):
-        if re.search('recipe_ingredient_id_.+', ingredient):
+        if re.match('recipe_ingredient_id_.+', ingredient):
             recID = ingredient
             return recID
         return 'blank'
@@ -182,7 +182,8 @@ def view_ingredient(ingredient_id):
                            ingredientstest=ingredients.find().sort("name"))
 
 
-@app.route('/view_ingredient2/<ingredient_name>/<recipe_id>', methods=['GET', 'POST'])
+@app.route('/view_ingredient2/<ingredient_name>/<recipe_id>', methods=['GET',
+                                                                       'POST'])
 def view_ingredient2(ingredient_name, recipe_id):
     ingredients = mongo.db.ingredients
     print(ingredient_name)
