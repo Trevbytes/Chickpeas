@@ -15,6 +15,9 @@ h4 {
 a {
   text-decoration: none;
 }
+
+*:not([role="img"]) { font-family: Verdana, sans-serif !important; }
+
 /* Set height of body and the document to 100% to enable "full page tabs" */
 /* body,
 html {
@@ -157,6 +160,8 @@ a:hover {
   color: white;
   padding-top: 0;
   padding-bottom: 0;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .edit-delete-right {

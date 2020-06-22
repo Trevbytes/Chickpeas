@@ -28,10 +28,10 @@ to add more types like snacks, baked goods, drinks, etc.               -->
   <!-- Gridview buttons js-->
   <div class="row">
     <button class="btn mr-1 ml-2" onclick="listView()">
-      <i class="fa fa-bars"></i>
+      <i class="fa fa-bars" role="img" aria-label="List View"></i>
     </button>
     <button class="btn" onclick="gridView()">
-      <i class="fa fa-th-large"></i>
+      <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
     </button>
   </div>
   <!-- 'For' loop for presorted recipes-->
@@ -73,13 +73,13 @@ to add more types like snacks, baked goods, drinks, etc.               -->
             class="btn"
           >
             {% if recipe.added_by == session.username or recipe.edited_by ==
-            session.username %} Update
+            session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
           </a>
           <a
             onclick="return confirmDelete()"
             href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-            class="btn edit-recipe"
-            >Delete {% else %} Create Copy for Cookbook {% endif %}
+            class="btn"
+            ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
           </a>
         </div>
         {% endif %}
@@ -104,10 +104,10 @@ to add more types like snacks, baked goods, drinks, etc.               -->
 <div id="lunch" class="tabcontent">
   <div class="row">
     <button class="btn mr-1 ml-2" onclick="listView()">
-      <i class="fa fa-bars"></i>
+      <i class="fa fa-bars" role="img" aria-label="List View"></i>
     </button>
     <button class="btn" onclick="gridView()">
-      <i class="fa fa-th-large"></i>
+      <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
     </button>
   </div>
   {% for recipe in lunch %} {% if loop.index % 2 != 0 %}
@@ -136,6 +136,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
       <div class="col-md-7">
         {% if 'username' in session %}
         <div class="pl-2">
+          <span id="appendTo"></span>
           <a
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             data-remote="false"
@@ -143,13 +144,13 @@ to add more types like snacks, baked goods, drinks, etc.               -->
             class="btn"
           >
             {% if recipe.added_by == session.username or recipe.edited_by ==
-            session.username %} Update
+            session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
           </a>
           <a
             onclick="return confirmDelete()"
             href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-            class="btn edit-recipe"
-            >Delete {% else %} Create Copy for Cookbook {% endif %}
+            class="btn"
+            ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
           </a>
         </div>
         {% endif %}
@@ -171,10 +172,10 @@ to add more types like snacks, baked goods, drinks, etc.               -->
 <div id="dinner" class="tabcontent">
   <div class="row">
     <button class="btn mr-1 ml-2" onclick="listView()">
-      <i class="fa fa-bars"></i>
+      <i class="fa fa-bars" role="img" aria-label="List View"></i>
     </button>
     <button class="btn" onclick="gridView()">
-      <i class="fa fa-th-large"></i>
+      <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
     </button>
   </div>
   {% for recipe in dinner %} {% if loop.index % 2 != 0 %}
@@ -203,6 +204,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
       <div class="col-md-7">
         {% if 'username' in session %}
         <div class="pl-2">
+          <span id="appendTo"></span>
           <a
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             data-remote="false"
@@ -210,13 +212,13 @@ to add more types like snacks, baked goods, drinks, etc.               -->
             class="btn"
           >
             {% if recipe.added_by == session.username or recipe.edited_by ==
-            session.username %} Update
+            session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
           </a>
           <a
             onclick="return confirmDelete()"
             href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-            class="btn edit-recipe"
-            >Delete {% else %} Create Copy for Cookbook {% endif %}
+            class="btn"
+            ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
           </a>
         </div>
         {% endif %}
@@ -238,10 +240,10 @@ to add more types like snacks, baked goods, drinks, etc.               -->
 <div id="dessert" class="tabcontent">
   <div class="row">
     <button class="btn mr-1 ml-2" onclick="listView()">
-      <i class="fa fa-bars"></i>
+      <i class="fa fa-bars" role="img" aria-label="List View"></i>
     </button>
     <button class="btn" onclick="gridView()">
-      <i class="fa fa-th-large"></i>
+      <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
     </button>
   </div>
   {% for recipe in dessert %} {% if loop.index % 2 != 0 %}
@@ -270,6 +272,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
       <div class="col-md-7">
         {% if 'username' in session %}
         <div class="pl-2">
+          <span id="appendTo"></span>
           <a
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             data-remote="false"
@@ -277,13 +280,13 @@ to add more types like snacks, baked goods, drinks, etc.               -->
             class="btn"
           >
             {% if recipe.added_by == session.username or recipe.edited_by ==
-            session.username %} Update
+            session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
           </a>
           <a
             onclick="return confirmDelete()"
             href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-            class="btn edit-recipe"
-            >Delete {% else %} Create Copy for Cookbook {% endif %}
+            class="btn"
+            ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
           </a>
         </div>
         {% endif %}
