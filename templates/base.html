@@ -60,7 +60,7 @@
             <a class="nav-link" href="{{url_for('recipes')}}">Browse Public Recipes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('ingredients')}}">Browse Ingredients</a>
+            <a class="nav-link" href="{{url_for('ingredients')}}">Ingredients</a>
           </li>
           {% if 'username' not in session %}
           <li class="nav-item">
@@ -95,10 +95,22 @@
         </ul>
       </div>
     </nav>
-    <div class="hidden">
+    <div style="position: absolute; top: 6.5rem; right: 0;">
       {% with messages = get_flashed_messages() %} {% if messages %} {% for
       message in messages %}
-      <p class="message">{{ message }}</p>
+<div aria-live="polite" class="toast-margin" aria-atomic="true" style="position: relative; min-height: 200px;">
+  <div class="toast" style="position: relative;" data-autohide="true" data-delay="5000">
+    <div class="toast-header">
+      <strong class="mr-auto">Chickpeas</strong>      
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      {{message}}
+    </div>
+  </div>
+</div>
       {% endfor %} {% endif %} {% endwith %}
     </div>
     {% block content %} {% endblock %} 

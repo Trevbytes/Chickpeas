@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-fluid" role="document">
 	<main class="container modal-content addRecipe">
-		<!-- If createad by user, value="{{recipe.recipe_name}}"-->
+		<!-- If createad by user, value="recipe.recipe_name"-->
 		<div class="modal-header text-center">
 			{% if recipe.added_by == session.username or recipe.edited_by == session.username %}
 			<h1 class="modal-title w-100 font-weight-bold "><i class="fas fa-pencil-alt" role="img"></i> Update Recipe</h1>
@@ -29,7 +29,7 @@
 			<form id="updateForm" class="modal-body mx-3" action="{{ url_for('insert_recipe', recipe_id=recipe._id) }}"
 				method="POST">
 				{% endif %}
-				<!-- If created by user, value="{{recipe.recipe_name}}"-->
+				<!-- If created by user, value="recipe.recipe_name"-->
 				<div class="md-form mb-5">
 					<input
             type="text"
