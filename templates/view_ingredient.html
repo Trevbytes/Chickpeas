@@ -1,7 +1,9 @@
-<div class="modal-dialog modal-md" role="document">
+{% extends "base.html" %}
+ {% block content %}
+<div class="modal-dialog modal-md pt-5 mt-5" role="document">
   <div class="container modal-content">
     <div class="modal-header text-center">
-      <h4 class="modal-title w-100 font-weight-bold">
+      <h4 class="modal-title w-100 font-weight-bold">       
         {{ingredient.name}}
       </h4>
       <button type="button" class="close custom-close" aria-label="Close">
@@ -13,7 +15,11 @@
          <p>Common Substitutes</p> 
       </div>
       <div>
+        {% if ingredient.food_group %}
         <p>Food Group: {{ingredient.food_group}}</p>
+        {% else %}
+        <p>User Submitted Ingredient</p>
+        {% endif %}
       </div>
       <div>
         <p>{{ingredient.description}}</p>
@@ -35,6 +41,7 @@
     </div>
   </div>
 </div>
+{% endblock %}{% block js %}
 <script>
   $(".custom-close").on("click", function () {
     $(".modal-backdrop").remove();
@@ -43,3 +50,4 @@
     /* any changes will be lost*/
   });
 </script>
+{% endblock %}

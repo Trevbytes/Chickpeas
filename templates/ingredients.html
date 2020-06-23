@@ -14,12 +14,19 @@
         onkeyup="filterFunction()"
       />
       {% for ing_name in ingredientstest %}
-      <a class="list-group-item" href="{{url_for('view_ingredient', ingredient_id = ing_name.id)}}"
+      <a class="list-group-item" href="{{url_for('view_ingredient', ingredient_id = ing_name._id)}}"
         >{{ing_name.name}}</a
       >
       {% endfor %}
     </div>
   </div>
+      <a
+      href="{{url_for('submit_ingredient')}}"
+      class="btn btn-default btn-rounded mb-4"
+      data-remote="false"
+      data-toggle="ajaxModal3"
+      >Create a Recipe</a           
+    >
   <div class="row">
     <div class="col-md-6">
       Common Substitutes
@@ -46,7 +53,7 @@
   </div>
   {% endif %}
 </main>
-
+{% endblock %}{% block js %}
 <script>
   /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
@@ -69,5 +76,33 @@ toggle between hiding and showing the dropdown content */
       }
     }
   }
+
+    $('[data-toggle="ajaxModal3"]').on("click", function (e) {
+    $("#ajaxModal3").remove();
+    e.preventDefault();
+    var $this = $(this),
+      $remote = $this.data("remote") || $this.attr("href"),
+      $modal = $(
+        '<div class="modal" id="ajaxModal3"><div class="modal-body"></div></div>'
+      );
+    $("body").append($modal);
+    $modal.modal({ backdrop: "static", keyboard: false });
+    $modal.load($remote);
+  });
+
+      $('[data-toggle="ajaxModal4"]').on("click", function (e) {
+    $("#ajaxModal4").remove();
+    e.preventDefault();
+    var $this = $(this),
+      $remote = $this.data("remote") || $this.attr("href"),
+      $modal = $(
+        '<div class="modal" id="ajaxModal4"><div class="modal-body"></div></div>'
+      );
+    $("body").append($modal);
+    $modal.modal({ backdrop: "static", keyboard: false });
+    $modal.load($remote);
+  });
+
+
 </script>
 {% endblock %}

@@ -116,11 +116,29 @@ def add_recipe():
                            ingredients=ingredients)
 
 
+@app.route('/submit_ingredient', methods=['GET', 'POST'])
+def submit_ingredient():
+    ingredients = mongo.db.ingredients.find().sort("name")
+    return render_template('submit_ingredient.html',
+                           recipes=mongo.db.recipes.find(),
+                           ingredients=ingredients)
+
+
 @app.route('/insert_recipe', methods=['POST'])
 def insert_recipe():
     recipes = mongo.db.recipes
     new_recipe_id = recipes.insert_one(request.form.to_dict()).inserted_id
     return redirect(url_for('view_recipe', recipe_id=new_recipe_id))
+
+
+@app.route('/insert_ingredient', methods=['POST'])
+def insert_ingredient():
+    ingredients = mongo.db.ingredients
+    new_ingredient_id = ingredients.insert_one(request.form.to_dict()).inserted_id
+    new_ingredient = ingredients.find_one({"_id": ObjectId(new_ingredient_id)})
+    print(new_ingredient)
+    return redirect(url_for('view_ingredient2',
+                            ingredient_name=new_ingredient['name']))
 
 
 @app.route('/view_recipe/<recipe_id>')
@@ -177,19 +195,18 @@ def delete_recipe(recipe_id):
 @app.route('/view_ingredient/<ingredient_id>')
 def view_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients
-    the_ingredient = mongo.db.ingredients.find_one({"id": ingredient_id})
+    the_ingredient = ingredients.find_one({"_id": ObjectId(ingredient_id)})
     return render_template('ingredients.html', ingredient=the_ingredient,
                            ingredientstest=ingredients.find().sort("name"))
 
 
-@app.route('/view_ingredient2/<ingredient_name>/<recipe_id>', methods=['GET',
-                                                                       'POST'])
-def view_ingredient2(ingredient_name, recipe_id):
+@app.route('/view_ingredient2/<ingredient_name>', methods=['GET', 'POST'])
+def view_ingredient2(ingredient_name):
     ingredients = mongo.db.ingredients
-    print(ingredient_name)
-    test = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    print(test)
-    the_ingredient = mongo.db.ingredients.find_one({"name": ingredient_name})
+    if isinstance(ingredient_name, dict):
+        the_ingredient = ingredient_name
+    else:
+        the_ingredient = ingredients.find_one({"name": ingredient_name})
     return render_template('view_ingredient.html', ingredient=the_ingredient)
 
 
