@@ -21,6 +21,7 @@
       clearAddIngredient();
     }
   }
+
   function clearAddIngredient() {
     $("#ingredient_select").prop("selectedIndex", 1).val();
     $("select.ingredient_select").val("selectedvalue").trigger("change");
@@ -35,9 +36,7 @@
 
   $(".custom-close").on("click", function () {
     $(".modal-backdrop").remove();
-    $("#ajaxModal2").remove();
-    console.log("custom-close");
-    /* any changes will be lost*/
+    $("#addRecipeModal").remove();
   });
 
   function myFunctiondrop() {
