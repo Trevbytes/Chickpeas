@@ -190,14 +190,12 @@
           </button>
 			</div>
 	</main>
-
 </div>
 <script>
 	var selectedIngredient;
   $("select.ingredient_select").change(function () {
     selectedIngredient = $(this).children("option:selected").val();
   });
-//   var ingredient_index ;
   function addToIngredientList() {
     if (!!selectedIngredient) {
       var ingredient_measurement = $("#ingredient_measurement").val();
@@ -225,23 +223,13 @@
   function removeLI() {
     $(".delete").on("click", function () {
       $(this).parent().remove();
-    //   ingredient_index--;
     });
   }
-  /*-- For text area resizing --*/
-  $('textarea').each(function () {
-  this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-}).on('input', function () {
-  this.style.height = 'auto';
-  this.style.height = (this.scrollHeight) + 'px';
-});
 
     $(".custom-close").on('click', function() {
         
          $('.modal-backdrop').remove();
-         $('#ajaxModal').remove();
-         console.log("custom-close")
-        /* any changes will be lost*/       
+         $('#ajaxModal').remove();     
     });
     
       function filterFunction() {
