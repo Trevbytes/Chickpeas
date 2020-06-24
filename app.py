@@ -1,13 +1,9 @@
 import os
-import json
 import re
 from flask import Flask, render_template, redirect, request, url_for,\
     session, flash
 from bson.objectid import ObjectId
-from bson import json_util
 from flask_pymongo import PyMongo
-import bcrypt
-from os import path
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -117,7 +113,7 @@ def add_recipe():
 
 
 @app.route('/submit_ingredient', methods=['GET', 'POST'])
-def submit_ingredient():    
+def submit_ingredient():
     ingredients = mongo.db.ingredients.find().sort("name")
     return render_template('submit_ingredient.html',
                            recipes=mongo.db.recipes.find(),
@@ -136,7 +132,6 @@ def insert_ingredient():
     ingredients = mongo.db.ingredients
     new_ingredient_id = ingredients.insert_one(
         request.form.to_dict()).inserted_id
-    new_ingredient = ingredients.find_one({"_id": ObjectId(new_ingredient_id)})
     flash('Ingredient Added!')
     return redirect(url_for('view_ingredient',
                             ingredient_id=new_ingredient_id))
@@ -181,10 +176,9 @@ def edit_recipe(recipe_id):
 
 @app.route('/edit_ingredient/<ingredient_id>', methods=['GET', 'POST'])
 def edit_ingredient(ingredient_id):
-    the_ingredient = mongo.db.ingredients.find_one({"_id": ObjectId(ingredient_id)})
+    ingredients = mongo.db.ingredients
+    the_ingredient = ingredients.find_one({"_id": ObjectId(ingredient_id)})
     ingredients = mongo.db.ingredients.find().sort("name")
-    # ingredients_selected = mongo.db.recipes.find_one({"_id":
-    #                                                   ObjectId(recipe_id)})
 
     def ingredient_search(ingredient):
         if re.match('sub_ingredient_id_.+', ingredient):
@@ -235,7 +229,7 @@ def view_ingredient(ingredient_id):
         if re.match('sub_ingredient_id_.+', ingredient):
             recID = ingredient
             return recID
-        return 'blank'    
+        return 'blank'
     return render_template('ingredients.html', ingredient=the_ingredient,
                            ingredient_search=ingredient_search,
                            ingredientstest=ingredients.find().sort("name"))
