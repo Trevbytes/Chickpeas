@@ -1,16 +1,18 @@
 {% extends 'base.html'%} {% block content %}
 <main class="container text-center ingredients-container mt-5 pt-5">
-  <h1>Ingredients</h1>
-  <div class="row">
-    <div class="dropdown col-sm">
-      <button onclick="myFunctiondrop()" class="btn">
-        Search for Ingredient
+	<h1>Ingredients</h1>
+	<div class="row">
+		<div class="dropdown
+     {% if 'username' in session %} col-sm {% endif %}
+     ">
+			<button onclick="myFunctiondrop()" class="btn">
+        <i class="fas fa-search" role="img" aria-label="Search"></i> Search for Ingredient
       </button>
-    </div>
-    <div style="position: relative;">
-    <div class="" style="position: absolute; left: -7.2rem;">
-      <div id="myDropdown" class=" dropdown-content list-group" style="position: relative;">
-        <input
+		</div>
+		<div style="position: relative;">
+			<div {% if 'username' in session %} style="position: absolute; left: -7.2rem;" {% endif %}>
+				<div id="myDropdown" class=" dropdown-content list-group">
+					<input
           type="text"
           class="list-group-item form-control"
           placeholder="Search.."
@@ -18,84 +20,61 @@
           onkeyup="filterFunction()"
         />
         {% for ing_name in ingredientstest %}
-        <a
-          class="list-group-item"
-          href="{{url_for('view_ingredient', ingredient_id = ing_name._id)}}"
-          >{{ing_name.name}}</a
-        >
-        {% endfor %}
-      </div>
-    </div>    
-    </div>
-    {% if 'username' in session %}
-    <div class="float-right col-sm">
-    <a
-      href="{{url_for('submit_ingredient')}}"
-      class="btn"
-      data-remote="false"
-      data-toggle="ajaxModal3"
-      >Sumbit a New Ingredient</a
-    >
-    </div>
-    {% endif %}
-  </div>
+					<a class="list-group-item"
+						href="{{url_for('view_ingredient', ingredient_id = ing_name._id)}}">{{ing_name.name}}</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% if 'username' in session %}
+		<div class="float-right col-sm">
+			<a href="{{url_for('submit_ingredient')}}" class="btn" data-remote="false"
+				data-toggle="ajaxModal3"><i class="fas fa-plus-circle" role="img" aria-label="Search"></i> Sumbit a New
+				Ingredient</a>
+		</div>
+		{% endif %}
+	</div>
 
-  {% if ingredient %}
-  <div>
-    <h2>{{ingredient.name}}</h2>
-  </div>
-  <div>
-    <p>{{ingredient.food_group}}</p>
-  </div>
-  <div>
-    <p>{{ingredient.description}}</p>
-  </div>
-  <div>
-    <p>
-      <a
-        href="https://en.wikipedia.org/wiki/{{ingredient.wikipedia_id}}"
-        target="_blank"
-        >Wikipedia Article</a
-      >
-    </p>
-  </div>
+	{% if ingredient %}
+	<div>
+		<h2>{{ingredient.name}}</h2>
+	</div>
+	<div>
+		<p>{{ingredient.food_group}}</p>
+	</div>
+	<div>
+		<p>{{ingredient.description}}</p>
+	</div>
+	<div>
+		<p>
+			<a href="https://en.wikipedia.org/wiki/{{ingredient.wikipedia_id}}" target="_blank">Wikipedia Article</a>
+		</p>
+	</div>
 
-        <p>Common Substitutes:</p>
-    <ul class="" id="view_substitute_list">
-      
-      {% for ingID, value in ingredient.items() %} {% if
+	<p>Common Substitutes:</p>
+	<ul class="" id="view_substitute_list">
+
+		{% for ingID, value in ingredient.items() %} {% if
       ingredient_search(ingID) in ingID %}{% set ingredientName = ("name_"+ingID) %}
-      <li><a
-      href="{{url_for('view_ingredient2', ingredient_name=ingredient[ingredientName])}}"
-              data-remote="false"
-              data-toggle="ajaxModalIngredient"     
-              ><i class="fas fa-leaf"></i> {{value}}</a></li>
-      {% endif %}{% endfor %}
-    </ul>
+		<li><a href="{{url_for('view_ingredient2', ingredient_name=ingredient[ingredientName])}}" data-remote="false"
+				data-toggle="ajaxModalIngredient"><i class="fas fa-leaf"></i> {{value}}</a></li>
+		{% endif %}{% endfor %}
+	</ul>
 
-  <div>
-    {% if 'username' in session %}
-    <a
-      href="{{url_for('edit_ingredient', ingredient_id=ingredient._id)}}"
-      class="btn"
-      data-remote="false"
-      data-toggle="ajaxModal5"
-      ><i class="fas fa-edit" role="img" aria-label="Edit"></i
-    ></a>
-    {% if session.username == 'Admin-T' or session.username ==
+	<div>
+		{% if 'username' in session %}
+		<a href="{{url_for('edit_ingredient', ingredient_id=ingredient._id)}}" class="btn" data-remote="false"
+			data-toggle="ajaxModal5"><i class="fas fa-edit" role="img" aria-label="Edit"></i></a>
+		{% if session.username == 'Admin-T' or session.username ==
     ingredient.added_by %}
-    <a
-      onclick="return confirmDelete()"
-      href="{{url_for('delete_ingredient', ingredient_id=ingredient._id)}}"
-      class="btn"
-      ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i
-    ></a>
-    {% endif %} {% endif %} {% endif %}
-  </div>
+		<a onclick="return confirmDelete()" href="{{url_for('delete_ingredient', ingredient_id=ingredient._id)}}"
+			class="btn"><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i></a>
+		{% endif %} {% endif %} {% endif %}
+	</div>
 </main>
 {% endblock %}{% block js %}
 <script>
-  /* When the user clicks on the button,
+	/* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
   function myFunctiondrop() {
     document.getElementById("myDropdown").classList.toggle("show");
