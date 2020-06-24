@@ -5,7 +5,7 @@
   <div class="text-center">
     <a
       href="{{url_for('add_recipe')}}"
-      class="btn btn-default btn-rounded mb-4"
+      class="btn mb-4"
       data-remote="false"
       data-toggle="addRecipeModal"
       >Create a Recipe</a           
@@ -23,21 +23,23 @@
         <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
       </button>
     </div>
-    {% for cat in my_recipes %} {% if loop.index % 2 != 0 %}
-    <div class="row">
+    {% for recipe in my_recipes %}
+      {# 'If' logic to add a row opening tag every odd index for recipe loop. #}
+      {% if loop.index % 2 != 0 %}
+      <div class="row">
       {% endif %}
-      <div class="row column featurette no-gutters shadow">
+    <div class="row column featurette no-gutters shadow">
         <div class="col-md-5">
-          {% if cat.recipe_pic_url %}
-          <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+          {% if recipe.recipe_pic_url %}
+          <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
             <img
               class="featurette-image img-responsive"
-              src="{{ cat.recipe_pic_url }}"
-              alt="Picture of {{ cat.recipe_name }}"
+              src="{{ recipe.recipe_pic_url }}"
+              alt="Picture of {{ recipe.recipe_name }}"
             />
           </a>
           {% else %}
-          <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
+          <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
             <img
               class="featurette-image img-responsive"
               src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
@@ -49,7 +51,7 @@
         <div class="col-md-7 pl-2">
            <div class="row pl-2">
             <a
-              href="{{url_for('edit_recipe', recipe_id=cat._id)}}"
+              href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
               data-remote="false"
               data-toggle="ajaxModal"
               class="btn edit-recipe"
@@ -57,122 +59,29 @@
             >
             <a
               onclick="return confirmDelete()"
-              href="{{url_for('delete_recipe', recipe_id=cat._id)}}"
+              href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
               class="btn edit-recipe"
               ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i></a
             >       
           <h3 class="col-md-10">
-            <a href="{{url_for('view_recipe', recipe_id=cat._id)}}">
-              {{ cat.recipe_name }}</a
+            <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+              {{ recipe.recipe_name }}</a
             >
           </h3>
           <p class="pl-2 col-md-9 pb-2 d-none d-md-block">
-            <strong>{{ cat.recipe_description }}</strong>
+            <strong>{{ recipe.recipe_description }}</strong>
           </p>
-
           </div>
         </div>
-      </div>
-      {% if loop.index % 2 == 0 or loop.index == loop.length %}
     </div>
-    {% endif %} {% endfor %}
+      {# 'If' logic to add closing tag for outer row, added every
+      even index in recipe loop or at the end of the loop. #}
+      {% if loop.index % 2 == 0 or loop.index == loop.length %}
+      </div>
+      {% endif %} 
+    {% endfor %}
   </div>
-
 </main>
-<!-- <div class="fixed-action-btn">
-  <a class="btn-floating btn-large red" href="#"> ^</a>
-</div> -->
-
 {% endblock %}{% block js %}
-<script>
-  $(document).ready(function () {
-    $(".add-recipe").modal();
-  });
-  function confirmDelete() {
-    if (confirm("Do you want to delete this recipe?") == false) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  // Get the elements with class="column"
-  var elements = document.getElementsByClassName("column");
-
-  // Declare a loop variable
-  var i;
-
-  // List View
-  function listView() {
-    for (i = 0; i < elements.length; i++) {
-      elements[i].style.width = "100%";
-    }
-  }
-
-  // Grid View
-  function gridView() {
-    for (i = 0; i < elements.length; i++) {
-      elements[i].style.width = "50%";
-    }
-  }
-
-  var selectedIngredient;
-  $("select.ingredient_select").change(function () {
-    selectedIngredient = $(this).children("option:selected").val();
-  });
-  function addToIngredientList() {
-    if (!!selectedIngredient) {
-      var ingredient_measurement = $("#ingredient_measurement").val();
-      var commentlines = "";
-      var ingredient_comment = $("#ingredient_comment").val();
-      if (!!ingredient_comment) {
-        commentlines = "---";
-      } else {
-        commentlines = "";
-      }
-      $("#recipe_ingredient_list").append(
-        `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button></li>`
-      );
-      ingredient_index++;
-      clearAddIngredient();
-    }
-  }
-  function clearAddIngredient() {
-    $("#ingredient_select").prop("selectedIndex", 1).val();
-    $("select.ingredient_select").val("selectedvalue").trigger("change");
-    $("#ingredient_comment").val("");
-    $("#ingredient_measurement").val("");
-  }
-  function removeLI() {
-    $(".delete").on("click", function () {
-      $(this).parent().remove();
-    });
-  }
-
-  $('[data-toggle="ajaxModal"]').on("click", function (e) {
-    $("#ajaxModal").remove();
-    e.preventDefault();
-    var $this = $(this),
-      $remote = $this.data("remote") || $this.attr("href"),
-      $modal = $(
-        '<div class="modal" id="ajaxModal"><div class="modal-body"></div></div>'
-      );
-    $("body").append($modal);
-    $modal.modal({ backdrop: "static", keyboard: false });
-    $modal.load($remote);
-  });
-
-  $('[data-toggle="addRecipeModal"]').on("click", function (e) {
-    $("#addRecipeModal").remove();
-    e.preventDefault();
-    var $this = $(this),
-      $remote = $this.data("remote") || $this.attr("href"),
-      $modal = $(
-        '<div class="modal" id="addRecipeModal"><div class="modal-body"></div></div>'
-      );
-    $("body").append($modal);
-    $modal.modal({ backdrop: "static", keyboard: false });
-    $modal.load($remote);
-  });
-</script>
+<script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
 {% endblock %}
