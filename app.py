@@ -79,7 +79,7 @@ def register():
             session['username'] = request.form.get('username')
             flash(
                 'Thanks for registering! Create a recipe or go make a copy \
-                from an existing recipe to get started')
+                from an existing recipe to get started!')
             return redirect(url_for('dashboard', username=session['username']))
         flash('That username already exists, please try again')
 

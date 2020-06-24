@@ -88,15 +88,14 @@
             />
         </div>
 						<h3>Add Ingredients</h3>
-      <div class="md-form">
-        <div class="dropdown">
-          <div id="myDropdown" class="dropdown-content" style="display: block;">
+        <div class="md-form dropdown">
+          <div id="editRecipeDropdown" class="dropdown-content" style="display: block;">
             <input
               type="text"
               class="form-control"
-              placeholder="...Write the ingredient name here to filter your selection..."
-              id="myInput"
-              onkeyup="filterFunction()"
+              placeholder="...Write the ingredient name here(or part of it) to filter your selection..."
+              id="editRecipeDropdownInput"
+              onkeyup="filterForEditRecipeIngredients()"
             />
             <select
               class="ingredient_select browser-default custom-select custom-select-lg"
@@ -114,7 +113,7 @@
             Can't find your ingredient?
           </div>
         </div>
-      </div>
+
 						<div class="md-form">
 							<input type="text" class="form-control validate" id="ingredient_measurement" />
 							<label for="ingredient_measurement"
@@ -232,11 +231,11 @@
          $('#ajaxModal').remove();     
     });
     
-      function filterFunction() {
+      function filterForEditRecipeIngredients() {
     var input, filter, ul, li, a, i, option;
-    input = document.getElementById("myInput");
+    input = document.getElementById("editRecipeDropdownInput");
     filter = input.value.toUpperCase();
-    div = document.getElementById("myDropdown");
+    div = document.getElementById("editRecipeDropdown");
     a = div.getElementsByTagName("option");
     for (i = 0; i < a.length; i++) {
       txtValue = a[i].textContent || a[i].innerText;
