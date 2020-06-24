@@ -57,14 +57,14 @@
 		{% for ingID, value in ingredient.items() %} {% if
       ingredient_search(ingID) in ingID %}{% set ingredientName = ("name_"+ingID) %}
 		<li><a href="{{url_for('view_ingredient2', ingredient_name=ingredient[ingredientName])}}" data-remote="false"
-				data-toggle="ajaxModalIngredient"><i class="fas fa-leaf"></i> {{value}}</a></li>
+				data-toggle="ajaxModalIngredient"><i class="fas fa-leaf" style="color: green;"></i> {{value}}</a></li>
 		{% endif %}{% endfor %}
 	</ul>
 
 	<div>
 		{% if 'username' in session %}
 		<a href="{{url_for('edit_ingredient', ingredient_id=ingredient._id)}}" class="btn" data-remote="false"
-			data-toggle="ajaxModal5"><i class="fas fa-edit" role="img" aria-label="Edit"></i></a>
+			data-toggle="editIngredientModal"><i class="fas fa-edit" role="img" aria-label="Edit"></i></a>
 		{% if session.username == 'Admin-T' or session.username ==
     ingredient.added_by %}
 		<a onclick="return confirmDelete()" href="{{url_for('delete_ingredient', ingredient_id=ingredient._id)}}"
@@ -122,13 +122,13 @@ toggle between hiding and showing the dropdown content */
     $modal.load($remote);
   });
 
-  $('[data-toggle="ajaxModal5"]').on("click", function (e) {
-    $("#ajaxModal5").remove();
+  $('[data-toggle="editIngredientModal"]').on("click", function (e) {
+    $("#editIngredientModal").remove();
     e.preventDefault();
     var $this = $(this),
       $remote = $this.data("remote") || $this.attr("href"),
       $modal = $(
-        '<div class="modal" id="ajaxModal5"><div class="modal-body"></div></div>'
+        '<div class="modal" id="editIngredientModal"><div class="modal-body"></div></div>'
       );
     $("body").append($modal);
     $modal.modal({ backdrop: "static", keyboard: false });

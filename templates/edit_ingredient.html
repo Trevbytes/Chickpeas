@@ -1,3 +1,4 @@
+<!-- Ajax Modal for the form for editing an igredient. Called from ingredients page. -->
 <div class="modal-dialog modal-fluid" role="document">
   <div class="container modal-content">
     <div class="modal-header text-center">
@@ -63,15 +64,14 @@
         <label class="active" for="more_info_link">More Info Link</label>
       </div>
       <h3>Common Substitutes</h3>
-      <div class="md-form">
-        <div class="dropdown">
-          <div id="myDropdown" class="dropdown-content" style="display: block;">
+      <div class="md-form dropdown">
+        <div id="edit-ingredient-dropdown" class="dropdown-content" style="display: block;">
             <input
               type="text"
               class="form-control"
-              placeholder="...Write the ingredient name here to filter your selection..."
-              id="myInput"
-              onkeyup="filterFunction()"
+              placeholder="...Write the ingredient name here(or part of it) to filter your selection..."
+              id="edit-ingredient-dropdown-input"
+              onkeyup="filterFunctionForEditIngredient()"
             />
             <select
               class="ingredient_select browser-default custom-select custom-select-lg"
@@ -84,9 +84,9 @@
               <option>{{ing_name.name}}</option>
               {% endfor %}
             </select>
-          </div>
         </div>
       </div>
+
       <script>
         var ingredient_index = 1;
       </script>
@@ -105,25 +105,28 @@
           <i class="fas fa-plus-circle"></i>Add Selected Ingredient
         </button>
       </div>
-						<script>
-							var ingredient_index = 0 ;
-						</script>
-						<div class="md-form">
-							<ul class="list-group" id="sub_ingredient_list">
-								{% for ingID, value in ingredient.items() %}
-								{% if ingredient_search(ingID) in ingID %}{% set recname = ("name_"+ingID) %}
-								<li type="text" readonly class="list-group-item {{ingID}}">
-								</li>
-								<script>
-                                    
-                                    $(document).ready(function () {
+      <!--Script to reset the ingredient_index.
+          Maybe possible to move script to a function with other scripts
+          and call it at this point.------------------------------------->
+	  <script>
+	  var ingredient_index = 0 ;
+	  </script>
+	  <div class="md-form">
+	    <ul class="list-group" id="sub_ingredient_list">
+		{% for ingID, value in ingredient.items() %}
+		{% if ingredient_search(ingID) in ingID %}{% set recname = ("name_"+ingID) %}
+			<li type="text" readonly class="list-group-item {{ingID}}">
+			</li>
+            <!--Script here to utilize the jinja variables.-->
+			<script>                                    
+            $(document).ready(function () {
                         ingredient_index++;
                         $('.{{ingID}}').append(`<input type="text" class="form-control" readonly name='sub_ingredient_id_${ingredient_index}' value="{{value}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="{{ingredient[recname]}}">`)
 						});
-								</script>
-								{% endif %}{% endfor %}
-							</ul>
-						</div>
+			</script>
+		{% endif %}{% endfor %}
+		</ul>
+	  </div>
       <div>
         <div hidden>
           <input
@@ -135,7 +138,6 @@
           />
         </div>
       </div>
-      <!-- Privacy Switch -->
     </form>
     <div class="modal-footer md-form d-flex justify-content-center">
       <button type="submit" form="ingredientForm" class="btn btn-indigo">
@@ -147,9 +149,7 @@
 <script>
   $(".custom-close").on("click", function () {
     $(".modal-backdrop").remove();
-    $("#ajaxModal5").remove();
-    console.log("custom-close");
-    /* any changes will be lost*/
+    $("#editIngredientModal").remove();
   });
 
     var selectedIngredient;
@@ -183,4 +183,20 @@
       $(this).parent().remove();
     });
   }
+
+  function filterFunctionForEditIngredient() {
+    var input, filter, ul, li, a, i, option;
+    input = document.getElementById("edit-ingredient-dropdown-input");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("edit-ingredient-dropdown");
+    a = div.getElementsByTagName("option");
+    for (i = 0; i < a.length; i++) {
+      txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
+    }
+  };
 </script>
