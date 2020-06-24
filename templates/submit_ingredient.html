@@ -46,15 +46,14 @@
         <label class="active" for="more_info_link">More Info Link</label>
       </div>
       <h3>Common Substitutes</h3>
-      <div class="md-form">
-        <div class="dropdown">
-          <div id="myDropdown" class="dropdown-content" style="display: block;">
+      <div class="md-form dropdown">
+        <div id="submit-ingredient-dropdown" class="dropdown-content" style="display: block;">
             <input
               type="text"
               class="form-control"
-              placeholder="...Write the ingredient name here to filter your selection..."
-              id="myInput"
-              onkeyup="filterFunction()"
+              placeholder="...Write the ingredient name here(or part of it) to filter your selection..."
+              id="submit-ingredient-dropdown-input"
+              onkeyup="filterFunctionForSubmitIngredient()"
             />
             <select
               class="ingredient_select browser-default custom-select custom-select-lg"
@@ -67,7 +66,6 @@
               <option>{{ing_name.name}}</option>
               {% endfor %}
             </select>
-          </div>
         </div>
       </div>
       <script>
@@ -146,4 +144,20 @@
       $(this).parent().remove();
     });
   }
+
+    function filterFunctionForSubmitIngredient() {
+    var input, filter, ul, li, a, i, option;
+    input = document.getElementById("submit-ingredient-dropdown-input");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("submit-ingredient-dropdown");
+    a = div.getElementsByTagName("option");
+    for (i = 0; i < a.length; i++) {
+      txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
+    }
+  };
 </script>
