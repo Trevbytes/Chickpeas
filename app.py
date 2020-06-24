@@ -187,7 +187,7 @@ def edit_ingredient(ingredient_id):
     #                                                   ObjectId(recipe_id)})
 
     def ingredient_search(ingredient):
-        if re.match('recipe_ingredient_id_.+', ingredient):
+        if re.match('sub_ingredient_id_.+', ingredient):
             recID = ingredient
             return recID
         return 'blank'
@@ -230,18 +230,33 @@ def delete_ingredient(ingredient_id):
 def view_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients
     the_ingredient = ingredients.find_one({"_id": ObjectId(ingredient_id)})
+
+    def ingredient_search(ingredient):
+        if re.match('sub_ingredient_id_.+', ingredient):
+            recID = ingredient
+            return recID
+        return 'blank'    
     return render_template('ingredients.html', ingredient=the_ingredient,
+                           ingredient_search=ingredient_search,
                            ingredientstest=ingredients.find().sort("name"))
 
 
 @app.route('/view_ingredient2/<ingredient_name>', methods=['GET', 'POST'])
 def view_ingredient2(ingredient_name):
     ingredients = mongo.db.ingredients
+
+    def ingredient_search(ingredient):
+        if re.match('sub_ingredient_id_.+', ingredient):
+            recID = ingredient
+            return recID
+        return 'blank'
     if isinstance(ingredient_name, dict):
         the_ingredient = ingredient_name
     else:
         the_ingredient = ingredients.find_one({"name": ingredient_name})
-    return render_template('view_ingredient.html', ingredient=the_ingredient)
+
+    return render_template('view_ingredient.html', ingredient=the_ingredient,
+                           ingredient_search=ingredient_search)
 
 
 if __name__ == '__main__':

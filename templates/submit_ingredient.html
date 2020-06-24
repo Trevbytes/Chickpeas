@@ -30,9 +30,7 @@
         <textarea
           id="ingredient_description"
           class="md-textarea form-control"
-          rows="3"
           name="description"
-          maxlength="200"
           required
         ></textarea>
         <label for="ingredient_description">Ingredient Description</label>
@@ -45,7 +43,7 @@
           name="more_info_link"
           placeholder="Add a link to more info on the ingredient. Wikipedia typically is a good option."
         />
-        <label for="more_info_link">More Info Link</label>
+        <label class="active" for="more_info_link">More Info Link</label>
       </div>
       <h3>Common Substitutes</h3>
       <div class="md-form">
@@ -104,11 +102,10 @@
           />
         </div>
       </div>
-      <!-- Privacy Switch -->
     </form>
     <div class="modal-footer md-form d-flex justify-content-center">
       <button type="submit" form="ingredientForm" class="btn btn-indigo">
-        Submit Recipe
+        Submit Ingredient
       </button>
     </div>
   </div>
@@ -127,7 +124,6 @@
   });
   function addToIngredientList() {
     if (!!selectedIngredient) {
-      var ingredient_measurement = $("#ingredient_measurement").val();
       var commentlines = "";
       var ingredient_comment = $("#ingredient_comment").val();
       if (!!ingredient_comment) {
