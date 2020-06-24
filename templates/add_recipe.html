@@ -1,181 +1,176 @@
+<!-- Ajax Modal for the form for adding a recipe. Called from the dashboard. -->
 <div class="modal-dialog modal-fluid" role="document">
-  <div class="container modal-content">
-    <div class="modal-header text-center">
-      <h1 class="modal-title w-100 font-weight-bold">
-        <i class="fas fa-pencil-alt" role="img"></i>Create a Recipe
-      </h1>
-      <button type="button" class="close custom-close" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <form
-      id="addForm"
-      class="modal-body mx-3"
-      action="{{ url_for('insert_recipe') }}"
-      method="POST"
-    >
-      <div class="md-form mb-5">
-        <input
-          type="text"
-          id="recipe_name"
-          name="recipe_name"
-          class="form-control validate"
-          required
-        />
-        <label data-error="wrong" data-success="right" for="recipe_name"
-          >Recipe Name</label
-        >
-      </div>
-      <div class="md-form">
-        <select
-          id="meal_type"
-          class="browser-default custom-select custom-select-lg mb-3"
-          name="meal_type"
-        >
-          <option value="" disabled selected>Choose the Meal Type</option>
-          <option>Breakfast</option>
-          <option>Lunch</option>
-          <option>Dinner</option>
-          <option>Dessert</option>
-        </select>
-      </div>
-      <div class="md-form">
-        <textarea
-          id="recipe_description"
-          class="md-textarea form-control"
-          name="recipe_description"
-          maxlength="200"
-          required
-        ></textarea>
-        <label for="recipe_description">Recipe Description</label>
-      </div>
-      <div>
-        <h3 class="md-form">Recipe Image</h3>
-      </div>
-      <div class="md-form">
-        <input
-          type="file"
-          class="form-control-file"
-          id="recipe_pic_url"
-          disabled
-        />
-      </div>
-      <div class="md-form">
-        <input
-          type="text"
-          class="form-control validate"
-          id="recipe_image_link"
-          name="recipe_pic_url"
-          placeholder="Add a link to an image here- Leave blank for a default image"
-        />
-        <label class="active" for="recipe_image">Image Link</label>
-      </div>
-      <h3>Add Ingredients</h3>
-      <div class="md-form">
-        <div class="dropdown">
-          <div id="myDropdown" class="dropdown-content" style="display: block;">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="...Write the ingredient name here to filter your selection..."
-              id="myInput"
-              onkeyup="filterFunction()"
-            />
-            <select
-              class="ingredient_select browser-default custom-select custom-select-lg"
-              id="ingredient_select"
-            >
-              <option selected="true" disabled="disabled"
-                >Choose Ingredient</option
-              >
-              {% for ing_name in ingredients %}
-              <option>{{ing_name.name}}</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div class="text-right">
-            Can't find your ingredient?
-          </div>
-        </div>
-      </div>
-      <div class="md-form">
-        <input
-          type="text"
-          class="form-control validate"
-          id="ingredient_measurement"
-        />
-        <label for="ingredient_measurement"
-          >Measurement(ex. 200g, 1/2cup, 2dl)</label
-        >
-      </div>
-      <script>
-        var ingredient_index = 1;
-      </script>
-      <div class="md-form">
-        <input
-          type="text"
-          class="form-control validate"
-          id="ingredient_comment"
-        />
-        <label for="ingredient_comment">Comment(ex. Use fresh.)</label>
-      </div>
-      <div class="md-form">
-        <button type="button" class="btn" onclick="addToIngredientList()">
-          <i class="fas fa-plus-circle"></i>Add Selected Ingredient
-        </button>
-      </div>
-      <div class="md-form">
-        <ul class="list-group" id="recipe_ingredient_list"></ul>
-      </div>
-      <h3>Recipe Instructions</h3>
-      <div class="md-form">
-        <label for="recipe_instructions">Recipe Instructions</label>
-        <textarea
-          id="recipe_instructions"
-          class="md-textarea form-control"
-          name="recipe_instructions"
-          required
-        ></textarea>
-      </div>
-      <div>
-        <div class="input-group" hidden>
-          <input
-            type="text"
-            readonly
-            id="added_by"
-            name="added_by"
-            value="{{session.username}}"
-          />
-          <label for="added_by">Added by:</label>
-        </div>
-      </div>
-      <!-- Privacy Switch -->
-      <div class="custom-control custom-switch">
-        <input
-          type="checkbox"
-          class="custom-control-input"
-          id="customSwitches"
-          name="public"
-        />
-        <label class="custom-control-label" for="customSwitches"
-          ><strong
-            >Toggle this switch to make your recipe visible to the Public </strong
-          ><i class="fas fa-users" role="img"></i
-        ></label>
-      </div>
-    </form>
-    <div class="modal-footer md-form d-flex justify-content-center">
-      <button type="submit" form="addForm" class="btn btn-indigo">
-        Submit Recipe <i class="fas fa-paper-plane-o ml-1"></i>
-      </button>
-    </div>
-  </div>
+	<div class="container modal-content">
+		<div class="modal-header text-center">
+			<h1 class="modal-title w-100 font-weight-bold">
+				<i class="fas fa-pencil-alt" role="img"></i>Create a Recipe
+			</h1>
+			<button type="button" class="close custom-close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+		</div>
+		<form id="addForm" class="modal-body mx-3" action="{{ url_for('insert_recipe') }}" method="POST">
+			<div class="md-form mb-5">
+				<input
+                  type="text"
+                  id="recipe_name"
+                  name="recipe_name"
+                  class="form-control validate"
+                  required
+                />
+				<label data-error="wrong" data-success="right" for="recipe_name"
+                >Recipe Name</label>
+			</div>
+			<div class="md-form">
+				<select
+                  id="meal_type"
+                  class="browser-default custom-select custom-select-lg mb-3"
+                  name="meal_type"
+                  >
+                    <option value="" disabled selected>Choose the Meal Type</option>
+                    <option>Breakfast</option>
+                    <option>Lunch</option>
+                    <option>Dinner</option>
+                    <option>Dessert</option>
+                </select>
+			</div>
+			<div class="md-form">
+				<textarea
+                  id="recipe_description"
+                  class="md-textarea form-control"
+                  name="recipe_description"
+                  maxlength="200"
+                  required
+                ></textarea>
+				<label for="recipe_description">Recipe Description</label>
+			</div>
+			<h3 class="md-form">Recipe Image</h3>
+			<div class="md-form">
+				<input
+                  type="file"
+                  class="form-control-file"
+                  id="recipe_pic_url"
+                  disabled
+                />
+            </div>
+			<div class="md-form">
+				<input
+                  type="text"
+                  class="form-control validate"
+                  id="recipe_image_link"
+                  name="recipe_pic_url"
+                  placeholder="Add a link to an image here- Leave blank for a default image"
+                />
+				<label class="active" for="recipe_image">Image Link</label>
+			</div>
+			<h3 class="md-form">Add Ingredients</h3>	
+			<div class="md-form dropdown">
+				<div id="myDropdown" class="dropdown-content" style="display: block;">
+					<input
+                        type="text"
+                        class="form-control"
+                        placeholder="...Write the ingredient name here(or part of it) to filter your selection..."
+                        id="myInput"
+                        onkeyup="filterFunction()"
+                    />
+					<select
+                        class="ingredient_select browser-default custom-select custom-select-lg"
+                        id="ingredient_select"
+                    >
+                    <option selected="true" disabled="disabled"
+                    >Choose Ingredient</option
+                    >
+                    {% for ing_name in ingredients %}
+                        <option>{{ing_name.name}}</option>
+                    {% endfor %}
+                    </select>
+				</div>
+				<div class="text-right">
+					<a  href="#" data-toggle="tooltip"
+						title="Finish and save your recipe, then add the missing ingredient to
+                        the database from the ingredients page, don't forget to update your 
+                        recipe with the missing ingredient.">
+                        Can't find your ingredient?
+                    </a>								
+				</div>
+			</div>
+			<div class="md-form">
+				<input
+                    type="text"
+                    class="form-control validate"
+                    id="ingredient_measurement"
+                />
+				<label for="ingredient_measurement"
+                >Measurement(ex. 200g, 1/2cup, 2dl)</label>
+			</div>
+			<script>
+				var ingredient_index = 1;
+			</script>
+			<div class="md-form">
+				<input
+                    type="text"
+                    class="form-control validate"
+                    id="ingredient_comment"
+                />
+				<label for="ingredient_comment">Comment(ex. Use fresh.)</label>
+			</div>
+			<div class="md-form">
+				<button type="button" class="btn" onclick="addToIngredientList()">
+                    <i class="fas fa-plus-circle"></i>Add Selected Ingredient
+                </button>
+			</div>
+			<div class="md-form">
+				<ul class="list-group" id="recipe_ingredient_list"></ul>
+			</div>
+			<h3>Recipe Instructions</h3>
+			<div class="md-form">					
+				<textarea
+                    id="recipe_instructions"
+                    class="md-textarea form-control"
+                    name="recipe_instructions"
+                    required
+                ></textarea>
+                <label for="recipe_instructions">Recipe Instructions</label>
+			</div>
+			<div class="input-group" hidden>
+				<input
+                type="text"
+                readonly
+                id="added_by"
+                name="added_by"
+                value="{{session.username}}"
+                />
+			</div>
+			<!-- Privacy Switch -->
+			<div class="custom-control custom-switch">
+				<input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="customSwitches"
+                    name="public"
+                />
+				<label class="custom-control-label" for="customSwitches"
+                    ><strong
+                    >Toggle this switch to make your recipe visible to the Public 
+                    </strong
+                    ><i class="fas fa-users" role="img"></i
+                ></label>
+			</div>		
+		</form>
+		<div class="modal-footer md-form d-flex justify-content-center">
+			<button type="submit" form="addForm" class="btn btn-indigo">
+            Submit Recipe
+            </button>
+		</div>
+	</div>
 </div>
 <script>
   var selectedIngredient;
+
   $("select.ingredient_select").change(function () {
     selectedIngredient = $(this).children("option:selected").val();
   });
+
   function addToIngredientList() {
     if (!!selectedIngredient) {
       var ingredient_measurement = $("#ingredient_measurement").val();
@@ -231,4 +226,8 @@
       }
     }
   }
+
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()})
+    
 </script>
