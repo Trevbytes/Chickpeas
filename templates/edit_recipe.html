@@ -1,93 +1,93 @@
+<!-- Ajax Modal for the form for editing a recipe. Called from the dashboard or from a 
+logged in user on the recipes page. -->
 <div class="modal-dialog modal-fluid" role="document">
-	<main class="container modal-content addRecipe">
-		<!-- If createad by user, value="recipe.recipe_name"-->
-		<div class="modal-header text-center">
-			{% if recipe.added_by == session.username or recipe.edited_by == session.username %}
-			<h1 class="modal-title w-100 font-weight-bold "><i class="fas fa-pencil-alt" role="img"></i> Update Recipe</h1>
-			 <button
+  <main class="container modal-content addRecipe">
+	<!-- If createad by user, value="recipe.recipe_name"-->
+	<div class="modal-header text-center">
+			
+		<h1 class="modal-title w-100 font-weight-bold ">
+        {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+            <i class="fas fa-pencil-alt" role="img"></i> Update Recipe
+        {% else %}
+            <i class="far fa-copy" role="img"></i> Edit Your Copy
+        {% endif %}
+        </h1>
+		<button
             type="button"
             class="close custom-close"        
             aria-label="Close"           
-          >
+        >
             <span aria-hidden="true">&times;</span>
-          </button>
-		</div>
-		<form id="updateForm" class="modal-body mx-3" action="{{ url_for('update_recipe', recipe_id=recipe._id) }}"
-			method="POST">
-			{% else %}
-			<h1 class="modal-title w-100 font-weight-bold"><i class="far fa-copy" role="img"></i> Edit Your Copy</h1>
-			 <button
-            type="button"
-            class="close custom-close"
-                  
-            aria-label="Close"
-                        
-          ><span aria-hidden="true">&times;</span>
-            </button>
-            
-          </div>
-			<form id="updateForm" class="modal-body mx-3" action="{{ url_for('insert_recipe', recipe_id=recipe._id) }}"
-				method="POST">
-				{% endif %}
-				<!-- If created by user, value="recipe.recipe_name"-->
-				<div class="md-form mb-5">
-					<input
+        </button>
+	</div>
+
+	<form id="updateForm" class="modal-body mx-3"
+    {% if recipe.added_by == session.username or recipe.edited_by == session.username %}     
+        action="{{ url_for('update_recipe', recipe_id=recipe._id) }}"
+    {% else %}
+        action="{{ url_for('insert_recipe', recipe_id=recipe._id) }}"
+    {% endif %}            
+		method="POST"
+    >	                                				
+	<!-- If created by user, value="recipe.recipe_name"-->
+		<div class="md-form mb-5">
+			<input
             type="text"
             class="form-control validate"
             id="recipe_name"
             name="recipe_name"
-        {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+            {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
             value="{{recipe.recipe_name}}"
-		{% else %}
-			
-		{% endif %}
+		    {% endif %}
             required
             />
-					<!-- If added or edited by user, same name.-->
-					{% if recipe.added_by == session.username or recipe.edited_by == session.username %}
-					<label class="active" data-error="wrong" data-success="right" for="recipe_name">Recipe Name</label>
-					{% else %}
-					<!-- If not added or edited by user , New name-->
-					<label class="active" data-error="wrong" data-success="right" for="recipe_name">New Name for {{recipe.recipe_name}}</label>
-					{% endif %}
-				</div>
-				<div class="md-form">
-					<select
-            id="meal_type"
-            name="meal_type"
-            class="browser-default custom-select custom-select-lg mb-3"
+			<!-- If added or edited by user, same name.-->
+			{% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+			<label class="active" data-error="wrong" data-success="right" for="recipe_name">Recipe Name</label>
+			{% else %}
+			<!-- If not added or edited by user , New name-->
+			<label class="active" data-error="wrong" data-success="right" for="recipe_name">
+                New Name for {{recipe.recipe_name}}
+            </label>
+			{% endif %}
+		</div>
+		<div class="md-form">
+			<select
+                id="meal_type"
+                name="meal_type"
+                class="browser-default custom-select custom-select-lg mb-3"
             >
-        <option {% if recipe.meal_type == 'Breakfast' %} selected="true" {% endif %} >Breakfast</option>
-        <option {% if recipe.meal_type == 'Lunch' %} selected="true" {% endif %} >Lunch</option>
-        <option {% if recipe.meal_type == 'Dinner' %} selected="true" {% endif %} >Dinner</option>
-        <option {% if recipe.meal_type == 'Dessert' %} selected="true" {% endif %} >Dessert</option>
+              <option {% if recipe.meal_type == 'Breakfast' %} selected="true" {% endif %} >Breakfast</option>
+              <option {% if recipe.meal_type == 'Lunch' %} selected="true" {% endif %} >Lunch</option>
+              <option {% if recipe.meal_type == 'Dinner' %} selected="true" {% endif %} >Dinner</option>
+              <option {% if recipe.meal_type == 'Dessert' %} selected="true" {% endif %} >Dessert</option>
             </select>
-				</div>
-				<div class="md-form">
-					<textarea
-                    class="md-textarea form-control"
-            id="recipe_description"
-            rows="3"
-            name="recipe_description"
-            maxlength="200"
-            required
+		</div>
+		<div class="md-form">
+			<textarea
+              class="md-textarea form-control"
+              id="recipe_description"
+              rows="3"
+              name="recipe_description"
+              maxlength="200"
+              required
             >{{recipe.recipe_description}}</textarea>
-					<label class="active" for="recipe_description">Recipe Description</label>
-				</div>
-				<h3>Recipe Image</h3>
-				<div class="md-form">
-					<input type="file" class="form-control-file" id="recipe_pic_url" disabled/>
+			<label class="active" for="recipe_description">Recipe Description</label>
+		</div>
+		<h3>Recipe Image</h3>
+		<div class="md-form">
+			<input type="file" class="form-control-file" id="recipe_pic_url" disabled/>
         </div>
-					<div class="md-form">
-						<input
-            type="text"
-            class="form-control"
-            id="recipe_image_link"
-            name="recipe_pic_url"
-            value="{{recipe.recipe_pic_url}}"
+		<div class="md-form">
+			<input
+              type="text"
+              class="form-control"
+              id="recipe_image_link"
+              name="recipe_pic_url"
+              value="{{recipe.recipe_pic_url}}"
             />
         </div>
-						<h3>Add Ingredients</h3>
+		<h3>Add Ingredients</h3>
         <div class="md-form dropdown">
           <div id="editRecipeDropdown" class="dropdown-content" style="display: block;">
             <input
@@ -110,93 +110,86 @@
             </select>
           </div>
           <div class="text-right">
-                      <a
+            <a
             href="#"
             data-toggle="tooltip"
             title="Finish and save your recipe, then add the missing ingredient to
                         the database from the ingredients page, don't forget to update your 
                         recipe with the missing ingredient."
-          >
-            Can't find your ingredient?
-          </a>
+            >Can't find your ingredient?</a>                      
           </div>
         </div>
-
-						<div class="md-form">
-							<input type="text" class="form-control validate" id="ingredient_measurement" />
-							<label for="ingredient_measurement"
-            >Measurement(ex. 200g, 1/2cup, 2dl)</label>
-						</div>
-						<div class="md-form">
-							<input type="text" class="form-control validate" id="ingredient_comment" />
-							<label for="ingredient_comment">Comment(ex. Use fresh.)</label>
-						</div>
-						<div class="md-form">
-							<button type="button" class="btn" onclick="addToIngredientList()">
-            <i class="fas fa-plus-circle"></i>Add Selected Ingredient
+		<div class="md-form">
+			<input type="text" class="form-control validate" id="ingredient_measurement" />
+				<label for="ingredient_measurement"
+                >Measurement(ex. 200g, 1/2cup, 2dl)</label>
+		</div>
+		<div class="md-form">
+			<input type="text" class="form-control validate" id="ingredient_comment" />
+				<label for="ingredient_comment">Comment(ex. Use fresh.)</label>
+		</div>
+		<div class="md-form">
+			<button type="button" class="btn" onclick="addToIngredientList()">
+                <i class="fas fa-plus-circle"></i>Add Selected Ingredient
             </button>
-						</div>
-						<script>
-							var ingredient_index = 0 ;
-						</script>
-						<div class="md-form">
-							<ul class="list-group" id="recipe_ingredient_list">
-								{% for ingID, ingredient in ingredients_selected.items() %}
-								{% if ingredient_search(ingID) in ingID %}{% set recname = ("name_"+ingID) %}
-								<li type="text" readonly class="list-group-item {{ingID}}">
-								</li>
-								<script>
-                                    
-                                    $(document).ready(function () {
-                        ingredient_index++;
-                        $('.{{ingID}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="{{recipe[recname]}}">`)
-						});
-								</script>
-								{% endif %}{% endfor %}
-							</ul>
-						</div>
-                        <h3>Recipe Instructions</h3>
-						<div class="md-form">
-							<textarea
-                            class="md-textarea form-control"
-            id="recipe_instructions"
-            name="recipe_instructions"
-            rows="6"
-            required
+		</div>
+		<script>
+			var ingredient_index = 0 ;
+		</script>
+		<div class="md-form">
+			<ul class="list-group" id="recipe_ingredient_list">
+				{% for ingID, ingredient in ingredients_selected.items() %}
+				{% if ingredient_search(ingID) in ingID %}{% set recname = ("name_"+ingID) %}
+				<li type="text" readonly class="list-group-item {{ingID}}"></li>				
+		    <script>                                   
+            $(document).ready(function () {
+                ingredient_index++;
+                $('.{{ingID}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="{{recipe[recname]}}">`)
+				});
+			</script>
+				{% endif %}{% endfor %}
+			</ul>
+		</div>
+        <h3>Recipe Instructions</h3>
+		<div class="md-form">
+			<textarea
+              class="md-textarea form-control"
+              id="recipe_instructions"
+              name="recipe_instructions"              
+              required
             >{{recipe.recipe_instructions}}</textarea>
-							<label class="active" for="recipe_instructions">Recipe Instructions</label>
-						</div>
-						<!-- Privacy Switch -->
-						<div class="custom-control custom-switch">
-							<input
+			<label class="active" for="recipe_instructions">Recipe Instructions</label>
+		</div>
+		<!-- Privacy Switch -->
+		<div class="custom-control custom-switch">
+			<input
               type="checkbox"
               class="custom-control-input"
               id="customSwitches"
               name="public"
             />
-							<label class="custom-control-label" for="customSwitches"
-              ><strong>Toggle this switch to make your recipe visable to the Public </strong><i class="fas fa-users" role="img"></i></label>
-						</div>
-						<div class="row">
-							<div class="input-field" hidden>
-								<input type="text" readonly id="edited_by" name="edited_by" value="{{session.username}}" />
-								<label for="edited_by">Edited by:</label>
-							</div>
-						</div>                        
-			</form>
-			<div class="modal-footer md-form d-flex justify-content-center">
-
-				<button type="submit" form="updateForm" class="btn btn-indigo">
+			<label class="custom-control-label" for="customSwitches"
+              ><strong>Toggle this switch to make your recipe visable to the Public </strong>
+              <i class="fas fa-users" role="img"></i>
+            </label>
+		</div>
+		<div class="row">
+			<div class="input-field" hidden>
+				<input type="text" readonly id="edited_by" name="edited_by" value="{{session.username}}" />								
+			</div>
+		</div>                        
+	</form>
+	<div class="modal-footer md-form d-flex justify-content-center">
+		<button type="submit" form="updateForm" class="btn btn-indigo">
             <!-- If creator, Update recipe-->
             {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
             Update Recipe
             {% else %}
             Create Copy of Recipe
             {% endif %}
-             <i class="fas fa-paper-plane-o ml-1"></i>
-          </button>
-			</div>
-	</main>
+        </button>
+	</div>
+  </main>
 </div>
 <script>
 	var selectedIngredient;
