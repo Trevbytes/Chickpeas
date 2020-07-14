@@ -19,11 +19,13 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 mongo = PyMongo(app)
 
 
+# Landing Page
 @app.route('/')
 def home():
     return render_template('landing_page.html')
 
 
+# Recipes page - Recipes sorted and returned by course
 @app.route('/recipes', methods=['GET', 'POST'])
 def recipes():
     breakfast_recipes = mongo.db.recipes.find({"meal_type": "Breakfast",
@@ -40,14 +42,17 @@ def recipes():
                            )
 
 
+# Ingredients page returns full ingredient list and a selected ingredient.
 @app.route('/ingredients')
 def ingredients():
     ingredients = mongo.db.ingredients
     return render_template('ingredients.html',
                            ingredients=ingredients.find(),
-                           ingredientstest=ingredients.find().sort("name"))
+                           selectedIngredient=ingredients.find().sort("name"))
 
 
+# Login page - When a login request is sent this checks that username and
+# password are correct. Otherwise a flashed message is sent.
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -64,6 +69,10 @@ def login():
     return render_template('login.html', is_index=True)
 
 
+# Registration page- This handels a request for a new user.
+# It checks that the username is unique and sends a flashed
+# message to notify the user if they successfully registered.
+# A newly registered user is sent to their dashboard.
 @app.route('/register', methods=['POST', 'GET'])
 def register():
 
@@ -86,6 +95,8 @@ def register():
     return render_template('register.html', is_index=True)
 
 
+# Logout route - When logout is requested the session is
+# cleared and the user is sent to home/landing page.
 @app.route('/logout')
 def logout():
     session.clear()
@@ -93,6 +104,10 @@ def logout():
     return redirect(url_for('home'))
 
 
+# Dashboard page- Returns the full ingredient list to be used in
+# modals, sorted by name. Returns recipes that were added or edited
+# by the user to display on their dashboard, sorted by added/edited
+# most recently.
 @app.route('/dashboard/<username>', methods=['GET', 'POST'])
 def dashboard(username):
     ingredients = mongo.db.ingredients.find().sort("name")
@@ -104,22 +119,27 @@ def dashboard(username):
                            ingredients=ingredients)
 
 
+# Add Recipe modal- returns full ingredient list, sorted
+# by name.
 @app.route('/add_recipe', methods=['GET', 'POST'])
 def add_recipe():
     ingredients = mongo.db.ingredients.find().sort("name")
     return render_template('add_recipe.html',
-                           recipes=mongo.db.recipes.find(),
                            ingredients=ingredients)
 
 
+# Submit Ingredient modal - returns full ingredient list, sorted
+# by name.
 @app.route('/submit_ingredient', methods=['GET', 'POST'])
 def submit_ingredient():
     ingredients = mongo.db.ingredients.find().sort("name")
     return render_template('submit_ingredient.html',
-                           recipes=mongo.db.recipes.find(),
                            ingredients=ingredients)
 
 
+# Insert recipe route - This adds the submitted recipe
+# to the database and returns the new id in order to view
+# the newly created recipe.
 @app.route('/insert_recipe', methods=['POST'])
 def insert_recipe():
     recipes = mongo.db.recipes
@@ -127,6 +147,9 @@ def insert_recipe():
     return redirect(url_for('view_recipe', recipe_id=new_recipe_id))
 
 
+# Insert ingredient route - This adds the submitted ingredient
+# to the database and returns the new id in order to view
+# the newly added ingredient.
 @app.route('/insert_ingredient', methods=['POST'])
 def insert_ingredient():
     ingredients = mongo.db.ingredients
@@ -137,16 +160,21 @@ def insert_ingredient():
                             ingredient_id=new_ingredient_id))
 
 
+# View Recipe page - Receives the recipe ID to show the recipe.
+# Returns the recipe, the recipe again to use to extract
+# ingredients, the ingredient search function and the recipe ID.
 @app.route('/view_recipe/<recipe_id>')
 def view_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     ingredients_selected = mongo.db.recipes.find_one({"_id":
                                                       ObjectId(recipe_id)})
 
+    # Function that returns the key value pair if the key
+    # is an ingredient.
     def ingredient_search(ingredient):
         if re.match('recipe_ingredient_id_.+', ingredient):
-            recID = ingredient
-            return recID
+            ingredientMatch = ingredient
+            return ingredientMatch
         return 'blank'
     return render_template('view_recipe.html', recipe=the_recipe,
                            ingredients_selected=ingredients_selected,
@@ -154,42 +182,56 @@ def view_recipe(recipe_id):
                            recipe_id=recipe_id)
 
 
+# Edit Recipe modal - Receives the recipe ID to show the recipe.
+# Returns the recipe, the recipe again to use to extract
+# ingredients and the full list of ingredients.
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    ingredients = mongo.db.ingredients.find().sort("name")
     ingredients_selected = mongo.db.recipes.find_one({"_id":
                                                       ObjectId(recipe_id)})
-    all_recipes = mongo.db.recipes.find()
+    ingredients = mongo.db.ingredients.find().sort("name")
 
+    # Function that returns the key value pair if the key
+    # is an ingredient.
     def ingredient_search(ingredient):
         if re.match('recipe_ingredient_id_.+', ingredient):
-            recID = ingredient
-            return recID
+            ingredientMatch = ingredient
+            return ingredientMatch
         return 'blank'
     return render_template('edit_recipe.html', recipe=the_recipe,
-                           recipes=all_recipes,
                            ingredients=ingredients,
                            ingredients_selected=ingredients_selected,
                            ingredient_search=ingredient_search)
 
 
+# Edit Ingredient modal - Receives the ingredient ID to show the ingredient.
+# Returns the ingredient, the ingredient search function
+# and the full list of ingredients.
 @app.route('/edit_ingredient/<ingredient_id>', methods=['GET', 'POST'])
 def edit_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients
     the_ingredient = ingredients.find_one({"_id": ObjectId(ingredient_id)})
     ingredients = mongo.db.ingredients.find().sort("name")
 
+    # Function that returns the key value pair if the key
+    # is an substitute ingredient.
     def ingredient_search(ingredient):
         if re.match('sub_ingredient_id_.+', ingredient):
-            recID = ingredient
-            return recID
+            ingredientMatch = ingredient
+            return ingredientMatch
         return 'blank'
     return render_template('edit_ingredient.html', ingredient=the_ingredient,
                            ingredients=ingredients,
                            ingredient_search=ingredient_search)
 
 
+# Update Recipe route- This deletes the recived recipe ID and
+# adds a new recipe with the form information. Only the creator
+# of the recipe has access to this route. Delete and Add New
+# are used instead of update to update the ingredients in the
+# recipe properly.
+# Returns the new recipe ID. 
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
     recipes = mongo.db.recipes
@@ -198,6 +240,9 @@ def update_recipe(recipe_id):
     return redirect(url_for('view_recipe', recipe_id=recipe_id))
 
 
+# Update Ingredient route- This updates the received ingredient. It
+# uses upsert to add any new items. *It does not update removed items*
+# Returns the updated ingredient ID.
 @app.route('/update_ingredient/<ingredient_id>', methods=["POST"])
 def update_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients
@@ -208,41 +253,58 @@ def update_ingredient(ingredient_id):
     return redirect(url_for('view_ingredient', ingredient_id=ingredient_id))
 
 
+# Delete Recipe route- This removes the received recipe from the
+# database and redirects the user to their dashboard. *Even when removed
+# from the recipes page*
 @app.route('/delete_recipe/<recipe_id>')
 def delete_recipe(recipe_id):
     mongo.db.recipes.delete_one({'_id': ObjectId(recipe_id)})
     return redirect(url_for('dashboard', username=session['username']))
 
 
+# Delete Ingredient route - This removes the received ingredient from the
+# database and redirects the user to the ingredients page.
 @app.route('/delete_ingredient/<ingredient_id>')
 def delete_ingredient(ingredient_id):
     mongo.db.ingredients.delete_one({'_id': ObjectId(ingredient_id)})
     return redirect(url_for('ingredients'))
 
 
+# View Ingredient page - Receives the ingredient ID.
+# Returns the ingredient, the ingredient search function to
+# extract substitute ingredients and the full list of ingredients.
 @app.route('/view_ingredient/<ingredient_id>')
 def view_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients
     the_ingredient = ingredients.find_one({"_id": ObjectId(ingredient_id)})
 
+    # Function that returns the key value pair if the key
+    # is an substitute ingredient.
     def ingredient_search(ingredient):
         if re.match('sub_ingredient_id_.+', ingredient):
-            recID = ingredient
-            return recID
+            ingredientMatch = ingredient
+            return ingredientMatch
         return 'blank'
     return render_template('ingredients.html', ingredient=the_ingredient,
                            ingredient_search=ingredient_search,
-                           ingredientstest=ingredients.find().sort("name"))
+                           selectedIngredient=ingredients.find().sort("name"))
 
 
+# View Ingredient modal - Receives the ingredient name.
+# Checks if the ingredient name is a dictonary, else finds
+# the correct dictonary.
+# Returns the ingredient, the ingredient search function to
+# extract substitute ingredients and the full list of ingredients.
 @app.route('/view_ingredient2/<ingredient_name>', methods=['GET', 'POST'])
 def view_ingredient2(ingredient_name):
     ingredients = mongo.db.ingredients
 
+    # Function that returns the key value pair if the key
+    # is an substitute ingredient.
     def ingredient_search(ingredient):
         if re.match('sub_ingredient_id_.+', ingredient):
-            recID = ingredient
-            return recID
+            ingredientMatch = ingredient
+            return ingredientMatch
         return 'blank'
     if isinstance(ingredient_name, dict):
         the_ingredient = ingredient_name
@@ -253,6 +315,7 @@ def view_ingredient2(ingredient_name):
                            ingredient_search=ingredient_search)
 
 
+# Starts the app
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),

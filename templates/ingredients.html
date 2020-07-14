@@ -19,9 +19,9 @@
           id="myInput"
           onkeyup="filterFunction()"
         />
-        {% for ing_name in ingredientstest %}
+        {% for ingredient in selectedIngredient %}
 					<a class="list-group-item"
-						href="{{url_for('view_ingredient', ingredient_id = ing_name._id)}}">{{ing_name.name}}</a>
+						href="{{url_for('view_ingredient', ingredient_id = ingredient._id)}}">{{ingredient.name}}</a>
 					{% endfor %}
 				</div>
 			</div>
@@ -29,7 +29,7 @@
 		{% if 'username' in session %}
 		<div class="float-right col-sm">
 			<a href="{{url_for('submit_ingredient')}}" class="btn" data-remote="false"
-				data-toggle="ajaxModal3"><i class="fas fa-plus-circle" role="img" aria-label="Search"></i> Sumbit a New
+				data-toggle="submitIngredientModal"><i class="fas fa-plus-circle" role="img" aria-label="Search"></i> Sumbit a New
 				Ingredient</a>
 		</div>
 		{% endif %}
@@ -96,26 +96,13 @@ toggle between hiding and showing the dropdown content */
     }
   }
 
-  $('[data-toggle="ajaxModal3"]').on("click", function (e) {
-    $("#ajaxModal3").remove();
+  $('[data-toggle="submitIngredientModal"]').on("click", function (e) {
+    $("#submitIngredientModal").remove();
     e.preventDefault();
     var $this = $(this),
       $remote = $this.data("remote") || $this.attr("href"),
       $modal = $(
-        '<div class="modal" id="ajaxModal3"><div class="modal-body"></div></div>'
-      );
-    $("body").append($modal);
-    $modal.modal({ backdrop: "static", keyboard: false });
-    $modal.load($remote);
-  });
-
-  $('[data-toggle="ajaxModal4"]').on("click", function (e) {
-    $("#ajaxModal4").remove();
-    e.preventDefault();
-    var $this = $(this),
-      $remote = $this.data("remote") || $this.attr("href"),
-      $modal = $(
-        '<div class="modal" id="ajaxModal4"><div class="modal-body"></div></div>'
+        '<div class="modal" id="submitIngredientModal"><div class="modal-body"></div></div>'
       );
     $("body").append($modal);
     $modal.modal({ backdrop: "static", keyboard: false });

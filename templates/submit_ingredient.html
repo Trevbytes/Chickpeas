@@ -62,8 +62,8 @@
               <option selected="true" disabled="disabled"
                 >Choose Ingredient</option
               >
-              {% for ing_name in ingredients %}
-              <option>{{ing_name.name}}</option>
+              {% for ingredient in ingredients %}
+              <option>{{ingredient.name}}</option>
               {% endfor %}
             </select>
         </div>
@@ -111,7 +111,7 @@
 <script>
   $(".custom-close").on("click", function () {
     $(".modal-backdrop").remove();
-    $("#ajaxModal3").remove();
+    $("#submitIngredientModal").remove();
   });
 
     var selectedIngredient;

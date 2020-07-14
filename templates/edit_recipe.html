@@ -1,5 +1,5 @@
 <!-- Ajax Modal for the form for editing a recipe. Called from the dashboard or from a 
-logged in user on the recipes page. -->
+logged in user on the recipes page or view recipe page. -->
 <div class="modal-dialog modal-fluid" role="document">
   <main class="container modal-content addRecipe">
 	<!-- If createad by user, value="recipe.recipe_name"-->
@@ -104,8 +104,8 @@ logged in user on the recipes page. -->
               <option selected="true" disabled="disabled"
                 >Choose Ingredient</option
               >
-              {% for ing_name in ingredients %}
-              <option>{{ing_name.name}}</option>
+              {% for ingredient in ingredients %}
+              <option>{{ingredient.name}}</option>
               {% endfor %}
             </select>
           </div>
