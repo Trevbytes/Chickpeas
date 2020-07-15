@@ -3,34 +3,40 @@
 	<h1>Ingredients</h1>
 	<div class="row">
 		<div class="dropdown
-     {% if 'username' in session %} col-sm {% endif %}
-     ">
-			<button onclick="myFunctiondrop()" class="btn">
-        <i class="fas fa-search" role="img" aria-label="Search"></i> Search for Ingredient
-      </button>
+        {% if 'username' in session %} col-sm {% endif %}"
+        >
+		 <button onclick="myFunctiondrop()" class="btn">
+            <i class="fas fa-search" role="img" aria-label="Search"></i> Search for Ingredient
+         </button>
 		</div>
 		<div style="position: relative;">
-			<div {% if 'username' in session %} style="position: absolute; left: -7.2rem;" {% endif %}>
-				<div id="myDropdown" class=" dropdown-content list-group">
-					<input
-          type="text"
-          class="list-group-item form-control"
-          placeholder="Search.."
-          id="myInput"
-          onkeyup="filterFunction()"
-        />
-        {% for ingredient in selectedIngredient %}
-					<a class="list-group-item"
-						href="{{url_for('view_ingredient', ingredient_id = ingredient._id)}}">{{ingredient.name}}</a>
-					{% endfor %}
-				</div>
+		    <div 
+            {% if 'username' in session %} style="position: absolute; left: -7.2rem;" {% endif %}
+            >
+			  <div id="myDropdown" class=" dropdown-content list-group">
+				<input
+                  type="text"
+                  class="list-group-item form-control"
+                  placeholder="Search.."
+                  id="myInput"
+                  onkeyup="filterFunction()"
+                />
+                  {% for ingredient in selectedIngredient %}
+				  <a class="list-group-item"
+					href="{{url_for('view_ingredient', ingredient_id = ingredient._id)}}">
+                    {{ingredient.name}}
+                  </a>
+				  {% endfor %}
+			    </div>
 			</div>
 		</div>
 		{% if 'username' in session %}
 		<div class="float-right col-sm">
 			<a href="{{url_for('submit_ingredient')}}" class="btn" data-remote="false"
-				data-toggle="submitIngredientModal"><i class="fas fa-plus-circle" role="img" aria-label="Search"></i> Sumbit a New
-				Ingredient</a>
+				data-toggle="submitIngredientModal">
+                <i class="fas fa-plus-circle" role="img" aria-label="Search"></i> 
+                Sumbit a New Ingredient
+            </a>
 		</div>
 		{% endif %}
 	</div>
@@ -43,21 +49,41 @@
 		<p>{{ingredient.food_group}}</p>
 	</div>
 	<div>
+        <h4>Ingredient Description</h4>
 		<p>{{ingredient.description}}</p>
 	</div>
+    {% if ingredient.wikipedia_id %}
 	<div>
 		<p>
-			<a href="https://en.wikipedia.org/wiki/{{ingredient.wikipedia_id}}" target="_blank">Wikipedia Article</a>
+			<a href="https://en.wikipedia.org/wiki/{{ingredient.wikipedia_id}}" 
+               target="_blank">
+               Wikipedia Article
+            </a>
 		</p>
 	</div>
+    {% endif %}
 
-	<p>Common Substitutes:</p>
+    {% if ingredient.more_info_link %}
+	<div>
+		<p>
+			<a href="{{ingredient.more_info_link}}" 
+               target="_blank">
+               More Info
+            </a>
+		</p>
+	</div>
+    {% endif %}
+
 	<ul class="" id="view_substitute_list">
 
-		{% for ingID, value in ingredient.items() %} {% if
+		{% set flag = True %}{% for ingID, value in ingredient.items() %} {% if
       ingredient_search(ingID) in ingID %}{% set ingredientName = ("name_"+ingID) %}
+        {% if flag == True %}
+        <p>Common Substitutes:</p>
+        {% endif %}
 		<li><a href="{{url_for('view_ingredient2', ingredient_name=ingredient[ingredientName])}}" data-remote="false"
 				data-toggle="ajaxModalIngredient"><i class="fas fa-leaf" style="color: green;"></i> {{value}}</a></li>
+        {% set flag = False %}
 		{% endif %}{% endfor %}
 	</ul>
 
