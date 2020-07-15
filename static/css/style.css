@@ -1,6 +1,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Amarante&family=Roboto:wght@500&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
   font-family: 'Roboto', sans-serif;
@@ -16,91 +20,18 @@ a {
   text-decoration: none;
 }
 
-ul {
-    list-style-type: none;
-}
-
-/* Set height of body and the document to 100% to enable "full page tabs" */
-/* body,
-html {
-  height: 100%;
-  margin: 0;
-  font-family: Arial;
-} */
-
-.view {
-    height: 100%;
-}
-/* Style tab links */
-.tablink {
-  background-color: #555;
-  color: white;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 25%;
-}
-
-.tablink:hover {
-  background-color: #777;
-}
-
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-  color: rgb(3, 3, 3);
-  display: none;
-  padding: 100px 1rem;
-  /* Temporary padding */
-  padding-bottom: 43rem;
-}
-
-.tab-container {
-    padding-top: 2.9rem;
-}
-
-
-/* Style each tab content individually */
-#breakfast {
-  background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
-}
-#lunch {
-  background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
-}
-#dinner {
-  background-image: linear-gradient(to right, #ec77ab 0%, #7873f5 100%);
-}
-#dessert {
-  background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
-}
-
-.nav-wrapper {
-  background-image: linear-gradient(-60deg, #16a085 0%, #f4d03f 100%);
-  color: black;
-}
-
-/* nav .brand-logo {
-  color: black;
-  text-decoration: none;
-  margin-left: 0.6rem;
-} */
-
 a:hover {
   color: black;
 }
 
-.addRecipe {
-  padding-bottom: 0.5em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+ul {
+    list-style-type: none;
 }
 
-* {
-  box-sizing: border-box;
+/* Slideshow */
+.view {
+    height: 100%;
 }
-
 /* Slideshow container */
 .slideshow-container {
   max-width: 1000px;
@@ -140,12 +71,67 @@ a:hover {
   background-color: #717171;
 }
 
-.col-md-5 img {
-  width: 100%;
-}
-
 .tab_choice {
   margin: 0 auto;
+}
+
+/* Tab links for recipes page */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Tab content */
+.tabcontent {
+  color: rgb(3, 3, 3);
+  display: none;
+  padding: 100px 1rem;
+  /* Temporary padding to fill screen */
+  padding-bottom: 43rem;
+}
+
+.tab-container {
+    padding-top: 2.9rem;
+}
+
+/* Course content color */
+#breakfast {
+  background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+}
+#lunch {
+  background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
+}
+#dinner {
+  background-image: linear-gradient(to right, #ec77ab 0%, #7873f5 100%);
+}
+#dessert {
+  background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+}
+
+.nav-wrapper {
+  background-image: linear-gradient(-60deg, #16a085 0%, #f4d03f 100%);
+  color: black;
+}
+
+.addRecipe {
+  padding-bottom: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.col-md-5 img {
+  width: 100%;
 }
 
 #my_recipes a {
@@ -164,20 +150,6 @@ a:hover {
   padding-bottom: 0;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-}
-
-.edit-delete-right {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  opacity: 0.9;
-}
-
-.edit-delete-left {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  opacity: 0.9;
 }
 
 /* Create two equal columns that floats next to each other */
@@ -215,36 +187,6 @@ a:hover {
 
 .hidden {
   display: none;
-}
-
-/* The overlay effect - lays on top of the container and over the image */
-.overlay {
-  position: absolute;
-  bottom: 0;
-  background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.5); /* Black see-through */
-  color: #f1f1f1;
-  width: 100%;
-  transition: .5s ease;
-  opacity:1;
-  font-size: 20px;
-  padding: 5px;
-  text-align: center;
-}
-
-/* Dropdown Button */
-.dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #3e8e41;
 }
 
 /* The search field */
@@ -289,13 +231,14 @@ a:hover {
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #f1f1f1}
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+/* Show - for the dropdown menu */
 .show {display:block;}
 
 .featurette-image {
     max-height: 20rem;
 }
 
+/* Flashed/toast messages */
 .toast-margin {
     z-index: 5;
 }
