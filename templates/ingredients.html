@@ -74,16 +74,16 @@
 	</div>
     {% endif %}
 
-	<ul class="" id="view_substitute_list">
+	<ul class="pl-0" id="view_substitute_list">
 
-		{% set flag = True %}{% for ingID, value in ingredient.items() %} {% if
+		{% set ns = namespace(flag=true) %}{% for ingID, value in ingredient.items() %} {% if
       ingredient_search(ingID) in ingID %}{% set ingredientName = ("name_"+ingID) %}
-        {% if flag == True %}
-        <p>Common Substitutes:</p>
+        {% if ns.flag == true %}
+        Common Substitutes:
+        {% set ns.flag = namespace(flag=false) %}
         {% endif %}
 		<li><a href="{{url_for('view_ingredient2', ingredient_name=ingredient[ingredientName])}}" data-remote="false"
 				data-toggle="ajaxModalIngredient"><i class="fas fa-leaf" style="color: green;"></i> {{value}}</a></li>
-        {% set flag = False %}
 		{% endif %}{% endfor %}
 	</ul>
 
