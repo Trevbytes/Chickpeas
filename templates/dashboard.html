@@ -53,12 +53,14 @@
               href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
               data-remote="false"
               data-toggle="ajaxModal"
+              title="Edit Recipe"
               class="btn edit-recipe"
               ><i class="fas fa-edit" role="img" aria-label="Update"></i
             ></a>
             <a
               onclick="return confirmDelete()"
               href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+              title="Delete Recipe"
               class="btn edit-recipe"
               ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i
             ></a>
