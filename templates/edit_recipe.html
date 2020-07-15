@@ -7,7 +7,7 @@ logged in user on the recipes page or view recipe page. -->
 			
 		<h1 class="modal-title w-100 font-weight-bold ">
         {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
-            <i class="fas fa-pencil-alt" role="img"></i> Update Recipe
+            <i class="fas fa-pencil-alt" role="img"></i> Edit Recipe
         {% else %}
             <i class="far fa-copy" role="img"></i> Edit Your Copy
         {% endif %}

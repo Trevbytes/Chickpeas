@@ -66,6 +66,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             data-remote="false"
             data-toggle="ajaxModal"
+            title="Edit/Copy Recipe"
             class="btn"
           >
             {% if recipe.added_by == session.username or recipe.edited_by ==
@@ -74,6 +75,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           <a
             onclick="return confirmDelete()"
             href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+            title="Delete Recipe"
             class="btn"
             ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
           </a>
@@ -136,6 +138,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             data-remote="false"
             data-toggle="ajaxModal"
+            title="Edit/Copy Recipe"
             class="btn"
           >
             {% if recipe.added_by == session.username or recipe.edited_by ==
@@ -144,6 +147,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           <a
             onclick="return confirmDelete()"
             href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+            title="Delete Recipe"
             class="btn"
             ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
           </a>
@@ -203,6 +207,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             data-remote="false"
             data-toggle="ajaxModal"
+            title="Edit/Copy Recipe"
             class="btn"
           >
             {% if recipe.added_by == session.username or recipe.edited_by ==
@@ -211,6 +216,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           <a
             onclick="return confirmDelete()"
             href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+            title="Delete Recipe"
             class="btn"
             ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
           </a>
@@ -270,6 +276,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
             href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
             data-remote="false"
             data-toggle="ajaxModal"
+            title="Edit/Copy Recipe"
             class="btn"
           >
             {% if recipe.added_by == session.username or recipe.edited_by ==
@@ -278,6 +285,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           <a
             onclick="return confirmDelete()"
             href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+            title="Delete Recipe"
             class="btn"
             ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
           </a>
