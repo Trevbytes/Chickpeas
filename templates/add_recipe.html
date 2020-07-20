@@ -9,12 +9,14 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+    <!-- Add recipe form -->
     <form
       id="addForm"
       class="modal-body mx-3"
       action="{{ url_for('insert_recipe') }}"
       method="POST"
     >
+      <!-- Name input -->
       <div class="md-form mb-5">
         <input
           type="text"
@@ -27,6 +29,7 @@
           >Recipe Name</label
         >
       </div>
+      <!-- Meal Type input -->
       <div class="md-form">
         <select
           id="meal_type"
@@ -40,6 +43,7 @@
           <option>Dessert</option>
         </select>
       </div>
+      <!-- Recipe description input -->
       <div class="md-form">
         <textarea
           id="recipe_description"
@@ -50,15 +54,8 @@
         ></textarea>
         <label for="recipe_description">Recipe Description</label>
       </div>
-      <h3 class="md-form">Recipe Image</h3>
-      <div class="md-form">
-        <input
-          type="file"
-          class="form-control-file"
-          id="recipe_pic_url"
-          disabled
-        />
-      </div>
+      <h3 class="md-form">Recipe Image URL</h3>
+      <!-- Recipe image URL input -->
       <div class="md-form">
         <input
           type="text"
@@ -70,8 +67,22 @@
         <label class="active" for="recipe_image">Image Link</label>
       </div>
       <h3 class=>Add Ingredients</h3>
+      <!-- Ingredient content collapse button and content -->
+      <div>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" 
+        data-target="#collapseIngredients"
+        aria-expanded="false" 
+        aria-controls="collapseIngredients">
+        <i class="fas fa-plus-circle"></i> Add Ingredients
+        </button>
+      </div>
+      <div class="collapse" id="collapseIngredients">
       <div class="md-form dropdown">
+        <strong>Ingredient Filter</strong>
+        <!-- Opened by default dropdown menu. Dropdown used in order to 
+        filter ingredients in the select menu  -->
         <div id="myDropdown" class="dropdown-content" style="display: block;">
+          <!-- Filter for select menu -->
           <input
             type="text"
             class="form-control"
@@ -79,6 +90,7 @@
             id="myInput"
             onkeyup="filterFunction()"
           />
+          <!-- Ingredient selection -->
           <select
             class="ingredient_select browser-default custom-select custom-select-lg"
             id="ingredient_select"
@@ -86,11 +98,13 @@
             <option selected="true" disabled="disabled"
               >Choose Ingredient</option
             >
+            {# Lists all ingredients in the database #}
             {% for ingredient in ingredients %}
             <option>{{ingredient.name}}</option>
             {% endfor %}
           </select>
         </div>
+        <!-- Tooltip for how to add ingredients to the database -->
         <div class="text-right">
           <a
             href="#"
@@ -103,6 +117,7 @@
           </a>
         </div>
       </div>
+      <!-- Ingredient measurment input -->
       <div class="md-form">
         <input
           type="text"
@@ -113,9 +128,7 @@
           >Measurement(ex. 200g, 1/2cup, 2dl)</label
         >
       </div>
-      <script>
-        var ingredient_index = 1;
-      </script>
+      <!-- Ingredient comment input -->
       <div class="md-form">
         <input
           type="text"
@@ -124,15 +137,24 @@
         />
         <label for="ingredient_comment">Comment(ex. Use fresh.)</label>
       </div>
+      <!--Script reseting ingredient index to 1 whenever modal is called.
+      Scipt used here in order for ingredients to be properly named. --> 
+      <script>
+        var ingredient_index = 1;
+      </script>
+      <!-- Add Ingredient to recipe button -->      
       <div class="md-form">
         <button type="button" class="btn" onclick="addToIngredientList()">
-          <i class="fas fa-plus-circle"></i>Add Selected Ingredient
+          Add Ingredient to Recipe
         </button>
       </div>
+      </div>
+      <!--Empty list for ingredients to be added to-->
       <div class="md-form">
         <ul class="list-group" id="recipe_ingredient_list"></ul>
       </div>
       <h3>Recipe Instructions</h3>
+      <!-- Recipe instructions input -->
       <div class="md-form">
         <textarea
           id="recipe_instructions"
@@ -142,7 +164,8 @@
         ></textarea>
         <label for="recipe_instructions">Recipe Instructions</label>
       </div>
-      <div class="input-group" hidden>
+      <!-- Hidden div to add 'added by' info to recipe -->
+      <div hidden>
         <input
           type="text"
           readonly
@@ -166,6 +189,7 @@
         ></label>
       </div>
     </form>
+    <!-- Submit Form button -->
     <div class="modal-footer md-form d-flex justify-content-center">
       <button type="submit" form="addForm" class="btn btn-indigo">
         Submit Recipe
