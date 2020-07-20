@@ -104,7 +104,10 @@ from a logged in user on the recipes page or view recipe page. -->
        <div class="collapse" id="collapseIngredients">
         <div class="md-form dropdown">
           <strong>Ingredient Filter</strong>
-          <div id="editRecipeDropdown" class="dropdown-content" style="display: block;">           
+          <!-- Opened by default dropdown menu. Dropdown used in order to 
+          filter ingredients in the select menu  -->
+          <div id="editRecipeDropdown" class="dropdown-content" style="display: block;">
+            <!-- Filter for select menu -->           
             <input
               type="text"
               class="form-control"
@@ -112,6 +115,7 @@ from a logged in user on the recipes page or view recipe page. -->
               id="editRecipeDropdownInput"
               onkeyup="filterForEditRecipeIngredients()"
             />
+            <!-- Ingredient selection -->
             <select
               class="ingredient_select browser-default custom-select custom-select-lg"
               id="ingredient_select"
@@ -124,6 +128,7 @@ from a logged in user on the recipes page or view recipe page. -->
               {% endfor %}
             </select>
           </div>
+          <!-- Tooltip for how to add ingredients to the database -->
           <div class="text-right">
             <a
             href="#"
@@ -135,32 +140,47 @@ from a logged in user on the recipes page or view recipe page. -->
           </div>
         </div>      
 		<div class="md-form">
+            <!-- Ingredient measurement input -->
 			<input type="text" class="form-control validate" id="ingredient_measurement" />
 				<label for="ingredient_measurement"
                 >Measurement(ex. 200g, 1/2cup, 2dl)</label>
 		</div>
 		<div class="md-form">
+            <!-- Ingredient comment input -->
 			<input type="text" class="form-control validate" id="ingredient_comment" />
 				<label for="ingredient_comment">Comment(ex. Use fresh.)</label>
 		</div>
 		<div class="md-form">
+            <!-- Add  ingredient to recipe button --> 
 			<button type="button" class="btn" onclick="addToIngredientList()">
                 Add Ingredient to Recipe
             </button>
 		</div>
        </div>
+        <!--Script to reset the ingredient_index.
+        Maybe possible to move script to a function with other scripts
+        and call it at this point.------------------------------------->
 		<script>
 			var ingredient_index = 1 ;
 		</script>
 		<div class="md-form">
 			<ul class="list-group" id="recipe_ingredient_list">
-				{% for ingID, ingredient in ingredients_selected.items() %}
-				{% if ingredient_search(ingID) in ingID %}{% set recname = ("name_"+ingID) %}
-				<li type="text" readonly class="list-group-item {{ingID}}"></li>				
+                {# Loop for key, value pairs in an ingredient object #}
+				{% for key, ingredient in ingredients_selected.items() %}
+                {# 'If' logic to check that the key is an ingredient. Then sets a 
+                variable 'recname' with the ingredient name to seperate the name of the ingredient
+                from the measurement and optional comments added later. #}
+				{% if ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
+				<li type="text" readonly class="list-group-item {{key}}"></li>
+            <!--Script here to utilize the jinja variables in the loop. Creates a readonly
+            form input. The input sent with the form is given a unique ID and the value is the
+            ingredient and measurement with an optional comment. A hidden readonly input is added 
+            to send just the name of the ingredient with the form. A remove ingredient buttton is
+            added in order to remove an ingredient from the list. -->				
 		    <script>                                   
             $(document).ready(function () {
                 ingredient_index++;
-                $('.{{ingID}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="{{recipe[recname]}}">`)
+                $('.{{key}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="{{recipe[recname]}}">`)
 				});
 			</script>
 				{% endif %}{% endfor %}
@@ -168,6 +188,7 @@ from a logged in user on the recipes page or view recipe page. -->
 		</div>
         <h3>Recipe Instructions</h3>
 		<div class="md-form">
+            <!-- Recipe instructions input -->
 			<textarea
               class="md-textarea form-control"
               id="recipe_instructions"
@@ -189,15 +210,14 @@ from a logged in user on the recipes page or view recipe page. -->
               <i class="fas fa-users" role="img"></i>
             </label>
 		</div>
-		<div class="row">
-			<div class="input-field" hidden>
-				<input type="text" readonly id="edited_by" name="edited_by" value="{{session.username}}" />								
-			</div>
-		</div>                        
+        <!-- Hidden div to add 'edited' info to recipe designating a non-original recipe. -->
+		<div class="input-field" hidden>
+			<input type="text" readonly id="edited_by" name="edited_by" value="{{session.username}}" />								
+		</div>                      
 	</form>
 	<div class="modal-footer md-form d-flex justify-content-center">
 		<button type="submit" form="updateForm" class="btn btn-indigo">
-            <!-- If creator, Update recipe-->
+            <!-- If creator, Update recipe. Else, Create a copy. Button-->
             {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
             Update Recipe
             {% else %}
@@ -207,60 +227,4 @@ from a logged in user on the recipes page or view recipe page. -->
 	</div>
   </main>
 </div>
-<script>
-	var selectedIngredient;
-  $("select.ingredient_select").change(function () {
-    selectedIngredient = $(this).children("option:selected").val();
-  });
-  function addToIngredientList() {
-    if (!!selectedIngredient) {
-      var ingredient_measurement = $("#ingredient_measurement").val();
-      var commentlines = "";
-      var ingredient_comment = $("#ingredient_comment").val();
-
-      if (!!ingredient_comment) {
-        commentlines = "---";
-      } else {
-        commentlines = "";
-      }
-       ingredient_index++;     
-      $("#recipe_ingredient_list").append(
-        `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="${selectedIngredient}"></li>`
-      );
-      clearAddIngredient();
-    }
-  }
-    function clearAddIngredient() {
-    $("#ingredient_select").prop("selectedIndex", 1).val();
-    $("select.ingredient_select").val("selectedvalue").trigger("change");
-    $("#ingredient_comment").val("");
-    $("#ingredient_measurement").val("");
-  }
-  function removeLI() {
-    $(".delete").on("click", function () {
-      $(this).parent().remove();
-    });
-  }
-
-    $(".custom-close").on('click', function() {
-        
-         $('.modal-backdrop').remove();
-         $('#ajaxModal').remove();     
-    });
-    
-      function filterForEditRecipeIngredients() {
-    var input, filter, ul, li, a, i, option;
-    input = document.getElementById("editRecipeDropdownInput");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("editRecipeDropdown");
-    a = div.getElementsByTagName("option");
-    for (i = 0; i < a.length; i++) {
-      txtValue = a[i].textContent || a[i].innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        a[i].style.display = "";
-      } else {
-        a[i].style.display = "none";
-      }
-    }
-  }
-</script>
+<script src="{{url_for('static', filename='js/edit_recipe.js')}}"></script>
