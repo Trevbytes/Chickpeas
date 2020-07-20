@@ -1,13 +1,13 @@
-<!-- Ajax Modal for the form for editing a recipe. Called from the dashboard or from a 
-logged in user on the recipes page or view recipe page. -->
+<!-- Ajax Modal for the form for editing a recipe. Called from the dashboard. Also called 
+from a logged in user on the recipes page or view recipe page. -->
 <div class="modal-dialog modal-fluid" role="document">
   <main class="container modal-content addRecipe">
-	<!-- If createad by user, value="recipe.recipe_name"-->
-	<div class="modal-header text-center">
-			
+	<div class="modal-header text-center">			
 		<h1 class="modal-title w-100 font-weight-bold ">
+        {# Edit/Replace original if added or edited by(copied by) the user #}
         {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
             <i class="fas fa-pencil-alt" role="img"></i> Edit Recipe
+        {# Make an editable copy. #}
         {% else %}
             <i class="far fa-copy" role="img"></i> Edit Your Copy
         {% endif %}
@@ -21,21 +21,25 @@ logged in user on the recipes page or view recipe page. -->
         </button>
 	</div>
 
+    <!-- Update form. -->
 	<form id="updateForm" class="modal-body mx-3"
+    {# update_recipe route requested if added or edited by(copied by) the user #}
     {% if recipe.added_by == session.username or recipe.edited_by == session.username %}     
         action="{{ url_for('update_recipe', recipe_id=recipe._id) }}"
+    {# insert_recipe route requested otherwise #}
     {% else %}
         action="{{ url_for('insert_recipe', recipe_id=recipe._id) }}"
     {% endif %}            
 		method="POST"
     >	                                				
-	<!-- If created by user, value="recipe.recipe_name"-->
 		<div class="md-form mb-5">
+            <!-- Recipe name input. -->
 			<input
             type="text"
             class="form-control validate"
             id="recipe_name"
             name="recipe_name"
+            {# If created by user, value="recipe.recipe_name" #}
             {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
             value="{{recipe.recipe_name}}"
 		    {% endif %}
@@ -52,6 +56,7 @@ logged in user on the recipes page or view recipe page. -->
 			{% endif %}
 		</div>
 		<div class="md-form">
+            <!-- Meal Type input -->
 			<select
                 id="meal_type"
                 name="meal_type"
@@ -64,6 +69,7 @@ logged in user on the recipes page or view recipe page. -->
             </select>
 		</div>
 		<div class="md-form">
+            <!-- Recipe description input -->
 			<textarea
               class="md-textarea form-control"
               id="recipe_description"
@@ -74,11 +80,9 @@ logged in user on the recipes page or view recipe page. -->
             >{{recipe.recipe_description}}</textarea>
 			<label class="active" for="recipe_description">Recipe Description</label>
 		</div>
-		<h3>Recipe Image</h3>
+		<h3>Recipe Image URL</h3>
 		<div class="md-form">
-			<input type="file" class="form-control-file" id="recipe_pic_url" disabled/>
-        </div>
-		<div class="md-form">
+            <!-- Recipe image URL input -->
 			<input
               type="text"
               class="form-control"
@@ -88,8 +92,19 @@ logged in user on the recipes page or view recipe page. -->
             />
         </div>
 		<h3>Add Ingredients</h3>
+        <!-- Ingredient content collapse button and content -->
+        <div>
+          <button class="btn btn-primary" type="button" data-toggle="collapse" 
+          data-target="#collapseIngredients"
+          aria-expanded="false" 
+          aria-controls="collapseIngredients">
+          <i class="fas fa-plus-circle"></i> Add Ingredients
+          </button>
+        </div>
+       <div class="collapse" id="collapseIngredients">
         <div class="md-form dropdown">
-          <div id="editRecipeDropdown" class="dropdown-content" style="display: block;">
+          <strong>Ingredient Filter</strong>
+          <div id="editRecipeDropdown" class="dropdown-content" style="display: block;">           
             <input
               type="text"
               class="form-control"
@@ -118,7 +133,7 @@ logged in user on the recipes page or view recipe page. -->
                         recipe with the missing ingredient."
             >Can't find your ingredient?</a>                      
           </div>
-        </div>
+        </div>      
 		<div class="md-form">
 			<input type="text" class="form-control validate" id="ingredient_measurement" />
 				<label for="ingredient_measurement"
@@ -130,9 +145,10 @@ logged in user on the recipes page or view recipe page. -->
 		</div>
 		<div class="md-form">
 			<button type="button" class="btn" onclick="addToIngredientList()">
-                <i class="fas fa-plus-circle"></i>Add Selected Ingredient
+                Add Ingredient to Recipe
             </button>
 		</div>
+       </div>
 		<script>
 			var ingredient_index = 1 ;
 		</script>
