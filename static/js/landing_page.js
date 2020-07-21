@@ -1,4 +1,3 @@
-
 // Thumbnail image controls
 function currentSlide(n) {
   clearTimeout(slidetime);
@@ -22,6 +21,6 @@ function showSlides() {
   slidetime = setTimeout(showSlides, 6000); // Change image every 2 seconds
 }
 
-$('.carousel').carousel({
-interval: 1000
-})
+$(".carousel").carousel({
+  interval: 1000,
+});

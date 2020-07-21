@@ -189,6 +189,10 @@
     {# Jinja content JavaScript for specific pages #} {% block js %}{% endblock
     %}
     <!-- My main JavaScript link -->
-    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script>
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
+    </script>
   </body>
 </html>
