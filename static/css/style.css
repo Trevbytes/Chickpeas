@@ -220,6 +220,16 @@ ul {
   z-index: 1;
 }
 
+@media only screen and (max-width: 575px) {
+  /* Dropdown For mobile phones: */
+   .dropdown-content {
+    position: fixed;
+    z-index: 2;
+    left: 20%;
+    right: 30%;
+  }
+}
+
 /* Links inside the dropdown */
 .dropdown-content a {
   color: black;
