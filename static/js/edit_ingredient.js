@@ -4,7 +4,7 @@ $(".custom-close").on("click", function () {
   $("#editIngredientModal").remove();
 });
 
-/* Functions for adding subsitute ingredients to the ingredients list in edit_ingredient.js */
+/* Functions for adding subsitute ingredients to the ingredients list in edit_ingredient.html */
 var selectedIngredient;
 $("select.ingredient_select").change(function () {
   selectedIngredient = $(this).children("option:selected").val();
