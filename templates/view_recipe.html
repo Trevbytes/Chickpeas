@@ -4,14 +4,15 @@
 <main class="container recipe-container pb-2 rounded shadow mt-5 pt-5 animated flipInY">
     <div class="row"> 
         <div class="col-12"> 
-            <div><button class="btn float-left ml-5" onclick="goBack()">Back</button></div>
+            <div><button class="btn float-left ml-5" onclick="goBack()">
+            <i class="fas fa-arrow-circle-left"></i> Back</button></div>
             {# Option to go to users cookbook when logged in #}
             {% if 'username' in session %}
             <div>            
             <a
               class="btn float-right mr-5"
               href="{{url_for('dashboard', username=session.username)}}"
-              >{{session.username}}'s Cookbook</a
+              ><i class="fas fa-book"></i> {{session.username}}'s Cookbook</a
             ></div>
             {% endif %}
         </div>   
@@ -37,33 +38,8 @@
   <h1 class="row justify-content-center">{{recipe.recipe_name}}</h1>
   <div class="row justify-content-center">Course: {{recipe.meal_type}}</div>
   <div class="row justify-content-center">
-    <p>{{recipe.recipe_description}}</p>
+    <p><strong>{{recipe.recipe_description}}</strong></p>
   </div>
-  <!-- Options row, options to edit/delete/copy when logged in-->
-  <div class="row justify-content-center">
-    {% if 'username' in session %}
-            <a
-              href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
-              data-remote="false"
-              data-toggle="ajaxModal"
-              class="btn"
-              >
-      {% if recipe.added_by == session.username or recipe.edited_by ==
-      session.username %} Update
-    </a>       
-    <a
-    onclick="return confirmDelete()"
-    href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-    class="btn ml-1"
-    >Delete
-    </a>
-      {% else %} 
-      Create a Copy      
-    </a>       
-      {% endif %}
-    {% endif %}
-  </div>
-  
   <div class="row ml-4">
   <div class="col-12">
     <ul class="" id="view_recipe_ingredient_list">
@@ -83,7 +59,31 @@
   </div>  
   </div>
   <h2 class="pl-5">Recipe Instructions</h2>
-  <div class="row pl-5"><p class="pl-4">{{recipe.recipe_instructions}}</p></div>
+  <div class="row pl-5"><p class="pl-4">{{recipe.recipe_instructions}}</p></div>  
+  <!-- Options row, options to edit/delete/copy when logged in-->
+  <div class="row justify-content-center">
+    {% if 'username' in session %}
+            <a
+              href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+              data-remote="false"
+              data-toggle="ajaxModal"
+              class="btn"
+              >
+      {% if recipe.added_by == session.username or recipe.edited_by ==
+      session.username %} <i class="fas fa-edit"></i> Update
+    </a>       
+    <a
+    onclick="return confirmDelete()"
+    href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+    class="btn ml-1"
+    ><i class="fas fa-trash-alt"></i> Delete
+    </a>
+      {% else %} 
+      <i class="fas fa-copy"></i> Create a Copy      
+    </a>       
+      {% endif %}
+    {% endif %}
+  </div> 
 </main>
 </div>
 {% endblock %}{% block js %}
