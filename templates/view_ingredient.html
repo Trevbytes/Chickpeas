@@ -66,4 +66,25 @@
     </div>
   </div>
 </div>
-<script src="{{url_for('static', filename='js/view_ingredient.js')}}"></script>
+<script>
+$(document).ready(function () {
+  $(".custom-close").on("click", function () {
+    $(".modal-backdrop").remove();
+    $("#ajaxModalIngredient").remove();
+    $("#ajaxModalIngredient2").remove();
+  });
+
+      $('[data-toggle="ajaxModalIngredient"]').on("click", function (e) {
+    $("#ajaxModalIngredient2").remove();
+    e.preventDefault();
+    var $this = $(this),
+      $remote = $this.data("remote") || $this.attr("href"),
+      $modal = $(
+        '<div class="modal" id="ajaxModalIngredient2"><div class="modal-body"></div></div>'
+      );
+    $("body").append($modal);
+    $modal.modal({ backdrop: "static", keyboard: false });
+    $modal.load($remote);
+  }); 
+});
+</script>

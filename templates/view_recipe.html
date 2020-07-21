@@ -1,9 +1,11 @@
 {% extends "base.html" %}{% block content %}
+<!-- View Recipe Page -->
 <div class="mt-4 pt-5 pb-4">
 <main class="container recipe-container pb-2 rounded shadow mt-5 pt-5 animated flipInY">
     <div class="row"> 
         <div class="col-12"> 
             <div><button class="btn float-left ml-5" onclick="goBack()">Back</button></div>
+            {# Option to go to users cookbook when logged in #}
             {% if 'username' in session %}
             <div>            
             <a
@@ -16,6 +18,7 @@
     </div>        
   <div class="row justify-content-center">    
     <div class="col-md-5 mt-4">
+      {# Checks if a default image should be shown #}
       {% if recipe.recipe_pic_url %}
       <img
         class="featurette-image img-responsive"
@@ -36,6 +39,7 @@
   <div class="row justify-content-center">
     <p>{{recipe.recipe_description}}</p>
   </div>
+  <!-- Options row, options to edit/delete/copy when logged in-->
   <div class="row justify-content-center">
     {% if 'username' in session %}
             <a
@@ -63,9 +67,12 @@
   <div class="row ml-4">
   <div class="col-12">
     <ul class="" id="view_recipe_ingredient_list">
-      
-      {% for ingID, ingredient in ingredients_selected.items() %} {% if
-      ingredient_search(ingID) in ingID %}{% set recname = ("name_"+ingID) %}
+      {# Loop for key, value pairs in an ingredient object #}
+	  {% for key, ingredient in ingredients_selected.items() %}
+      {# 'If' logic to check that the key is an ingredient. Then sets a 
+        variable 'recname' with the ingredient name to create a link to
+        the correct ingredient. #} 
+      {% if ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
       <li><a
       href="{{url_for('view_ingredient2', ingredient_name=recipe[recname])}}"
               data-remote="false"
@@ -80,47 +87,5 @@
 </main>
 </div>
 {% endblock %}{% block js %}
-<!-- Bootstrap js-->
-
-<script>
-
-  function confirmDelete() {
-    if (confirm("Do you want to delete this recipe?") == false) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-    $('[data-toggle="ajaxModal"]').on("click", function (e) {
-    $("#ajaxModal").remove();
-    e.preventDefault();
-    var $this = $(this),
-      $remote = $this.data("remote") || $this.attr("href"),
-      $modal = $(
-        '<div class="modal" id="ajaxModal"><div class="modal-body"></div></div>'
-      );
-    $("body").append($modal);
-    $modal.modal({ backdrop: "static", keyboard: false });
-    $modal.load($remote);
-  });
-
-    $('[data-toggle="ajaxModalIngredient"]').on("click", function (e) {
-    $("#ajaxModalIngredient").remove();
-    e.preventDefault();
-    var $this = $(this),
-      $remote = $this.data("remote") || $this.attr("href"),
-      $modal = $(
-        '<div class="modal" id="ajaxModalIngredient"><div class="modal-body"></div></div>'
-      );
-    $("body").append($modal);
-    $modal.modal({ backdrop: "static", keyboard: false });
-    $modal.load($remote);
-  });
-
-function goBack() {
-  window.history.back();
-}
-
-</script>
+<script src="{{url_for('static', filename='js/view_recipe.js')}}"></script>
 {% endblock %}
