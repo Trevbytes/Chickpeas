@@ -1,3 +1,5 @@
+<!-- Ajax Modal for the form for adding an ingredient. Called from the ingredients page
+when logged in. -->
 <div class="modal-dialog modal-fluid" role="document">
   <div class="container modal-content">
     <div class="modal-header text-center">
@@ -8,6 +10,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+    <!-- Add ingredient form -->
     <form
       id="ingredientForm"
       class="modal-body mx-3"
@@ -15,6 +18,7 @@
       method="POST"
     >
       <div class="md-form mb-5">
+        <!-- Name input -->
         <input
           type="text"
           id="recipe_name"
@@ -27,6 +31,7 @@
         >
       </div>
       <div class="md-form">
+        <!-- Description input -->
         <textarea
           id="ingredient_description"
           class="md-textarea form-control"
@@ -36,6 +41,7 @@
         <label for="ingredient_description">Ingredient Description</label>
       </div>
       <div class="md-form">
+        <!-- More info input -->
         <input
           type="text"
           class="form-control validate"
@@ -43,11 +49,24 @@
           name="more_info_link"
           placeholder="Add a link to more info on the ingredient. Wikipedia typically is a good option."
         />
-        <label class="active" for="more_info_link">More Info Link</label>
+        <label class="active" for="more_info_link">More Info Link/URL</label>
       </div>
       <h3>Common Substitutes</h3>
-      <div class="md-form dropdown">
+      <!-- Ingredient content collapse button and content -->
+      <div>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" 
+        data-target="#collapseIngredients"
+        aria-expanded="false" 
+        aria-controls="collapseIngredients">
+        <i class="fas fa-plus-circle"></i> Add Substitute Ingredient
+        </button>
+      </div>
+      <div class="collapse" id="collapseIngredients">
+       <div class="md-form dropdown">
+        <!-- Opened by default dropdown menu. Dropdown used in order to 
+        filter ingredients in the select menu  -->
         <div id="submit-ingredient-dropdown" class="dropdown-content" style="display: block;">
+            <!-- Filter for select menu -->
             <input
               type="text"
               class="form-control"
@@ -55,6 +74,7 @@
               id="submit-ingredient-dropdown-input"
               onkeyup="filterFunctionForSubmitIngredient()"
             />
+            <!-- Ingredient selection -->
             <select
               class="ingredient_select browser-default custom-select custom-select-lg"
               id="ingredient_select"
@@ -67,11 +87,9 @@
               {% endfor %}
             </select>
         </div>
-      </div>
-      <script>
-        var ingredient_index = 1;
-      </script>
-      <div class="md-form">
+       </div>      
+       <div class="md-form">
+        <!-- Substitute comment input -->
         <input
           type="text"
           class="form-control validate"
@@ -80,17 +98,24 @@
         <label for="ingredient_comment"
           >Comment(Tips for how to substitute)</label
         >
+       </div>
       </div>
+      <!--Script reseting ingredient index to 1 whenever modal is called.
+      Scipt used here in order for ingredients to be properly named. -->
+      <script>
+        var ingredient_index = 1;
+      </script>       
       <div class="md-form">
+        <!-- Add substitute ingredient to ingredient button -->
         <button type="button" class="btn" onclick="addToIngredientList()">
-          <i class="fas fa-plus-circle"></i>Add Substitute Ingredient
+          Add Substitute Ingredient
         </button>
       </div>
       <div class="md-form">
         <ul class="list-group" id="recipe_ingredient_list"></ul>
       </div>
-      <div>
-        <div hidden>
+      <!-- Hidden div to add 'added by' info to ingredient -->
+      <div hidden>
           <input
             type="text"
             readonly
@@ -98,66 +123,14 @@
             name="added_by"
             value="{{session.username}}"
           />
-        </div>
       </div>
     </form>
     <div class="modal-footer md-form d-flex justify-content-center">
+      <!-- Submit Form button -->
       <button type="submit" form="ingredientForm" class="btn btn-indigo">
         Submit Ingredient
       </button>
     </div>
   </div>
 </div>
-<script>
-  $(".custom-close").on("click", function () {
-    $(".modal-backdrop").remove();
-    $("#submitIngredientModal").remove();
-  });
-
-    var selectedIngredient;
-  $("select.ingredient_select").change(function () {
-    selectedIngredient = $(this).children("option:selected").val();
-  });
-  function addToIngredientList() {
-    if (!!selectedIngredient) {
-      var commentlines = "";
-      var ingredient_comment = $("#ingredient_comment").val();
-      if (!!ingredient_comment) {
-        commentlines = "---";
-      } else {
-        commentlines = "";
-      }
-      $("#recipe_ingredient_list").append(
-        `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="sub_ingredient_id_${ingredient_index}" value="${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="${selectedIngredient}"></li>`
-      );
-      ingredient_index++;
-      clearAddIngredient();
-    }
-  }
-  function clearAddIngredient() {
-    $("#ingredient_select").prop("selectedIndex", 1).val();
-    $("select.ingredient_select").val("selectedvalue").trigger("change");
-    $("#ingredient_comment").val("");
-  }
-  function removeLI() {
-    $(".delete").on("click", function () {
-      $(this).parent().remove();
-    });
-  }
-
-    function filterFunctionForSubmitIngredient() {
-    var input, filter, ul, li, a, i, option;
-    input = document.getElementById("submit-ingredient-dropdown-input");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("submit-ingredient-dropdown");
-    a = div.getElementsByTagName("option");
-    for (i = 0; i < a.length; i++) {
-      txtValue = a[i].textContent || a[i].innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        a[i].style.display = "";
-      } else {
-        a[i].style.display = "none";
-      }
-    }
-  };
-</script>
+<script src="{{url_for('static', filename='js/submit_ingredient.js')}}"></script>
