@@ -1,5 +1,4 @@
-{% extends "base.html" %}
- {% block content %}
+<!-- Ajax Modal for viewing an ingredient. Called from the view recipe page. -->
 <div class="modal-dialog modal-md pt-5 mt-5" role="document">
   <div class="container modal-content">
     <div class="modal-header text-center">
@@ -18,9 +17,12 @@
         <p>User Submitted Ingredient</p>
         {% endif %}
       </div>
-      <div>
+      <h4>Description</h4>
+      <div>       
         <p>{{ingredient.description}}</p>
       </div>
+      {# Check if there is a value in the ingredient wiki id variable #}
+      {% if ingredient.wikipedia_id %}
       <div>
         <p>
           <a
@@ -30,19 +32,32 @@
           >
         </p>       
       </div>
-        <p>Common Substitutes:</p>
-    <ul class="" id="view_substitute_list">
-      
-      {% for ingID, value in ingredient.items() %} {% if
-      ingredient_search(ingID) in ingID %}{% set ingredientName = ("name_"+ingID) %}
-      <li><a class="custom-close"
-      href="{{url_for('view_ingredient2', ingredient_name=ingredient[ingredientName])}}"
-              data-remote="false"
-              data-dismiss="modal"
-              data-toggle="ajaxModalIngredient"               
-      ><i class="fas fa-leaf"></i> {{value}}</a></li>
-      {% endif %}{% endfor %}
-    </ul>
+      {% endif %}
+      {# Check if there is a value in the ingredient more info variable #}
+      {% if ingredient.more_info_link %}
+	  <div>
+		<p>
+			<a href="{{ingredient.more_info_link}}" 
+               target="_blank">
+               More Info
+            </a>
+		</p>
+	  </div>
+      {% endif %}   
+	<ul id="view_substitute_list">
+        {# Check if there are common substitutes associated with the ingredient.
+           A flag is used to have 'Common Substitutes' appear only once in the loop. #}
+		{% set ns = namespace(flag=true) %}{% for key, value in ingredient.items() %} {% if
+      ingredient_search(key) in key %}{% set ingredientName = ("name_"+key) %}
+        {% if ns.flag == true %}
+        Common Substitutes:
+        {% set ns.flag = namespace(flag=false) %}
+        {% endif %}
+        <!-- Link to open modal of displayed ingredient-->
+		<li><a href="{{url_for('view_ingredient2', ingredient_name=ingredient[ingredientName])}}" data-remote="false"
+				data-toggle="ajaxModalIngredient"><i class="fas fa-leaf" style="color: green;"></i> {{value}}</a></li>
+		{% endif %}{% endfor %}
+	</ul>
   </div>
     <div class="modal-footer md-form d-flex justify-content-center">
       <button type="button" class="btn btn-indigo custom-close">
@@ -51,25 +66,4 @@
     </div>
   </div>
 </div>
-{% endblock %}{% block js %}
-<script>
-  $(".custom-close").on("click", function () {
-    $(".modal-backdrop").remove();
-    $("#ajaxModalIngredient").remove();
-    $("#ajaxModalIngredient2").remove();
-  });
-
-      $('[data-toggle="ajaxModalIngredient"]').on("click", function (e) {
-    $("#ajaxModalIngredient2").remove();
-    e.preventDefault();
-    var $this = $(this),
-      $remote = $this.data("remote") || $this.attr("href"),
-      $modal = $(
-        '<div class="modal" id="ajaxModalIngredient2"><div class="modal-body"></div></div>'
-      );
-    $("body").append($modal);
-    $modal.modal({ backdrop: "static", keyboard: false });
-    $modal.load($remote);
-  }); 
-</script>
-{% endblock %}
+<script src="{{url_for('static', filename='js/view_ingredient.js')}}"></script>
