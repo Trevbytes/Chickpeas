@@ -41,7 +41,7 @@
           {% if recipe.recipe_pic_url %}
           <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
             <img
-              class="featurette-image img-responsive"
+              class="featurette-image h-100 w-100 image-responsive"
               src="{{ recipe.recipe_pic_url }}"
               alt="Picture of {{ recipe.recipe_name }}"
             />
@@ -49,7 +49,7 @@
           {% else %}
           <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
             <img
-              class="featurette-image img-responsive"
+              class="featurette-image h-100 w-100 image-responsive"
               src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
               alt="Default Pic"
             />
