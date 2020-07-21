@@ -1,8 +1,10 @@
 {% extends "base.html" %} {% block content %}
+<!-- Registration Page -->
 <main class="container col-md-6 mt-5 pt-5">
   <form class="text-center p-5" action="{{url_for('register')}}" method="post">
     <p class="h4 mb-4">Registration</p>
     <div>
+      <!-- Username Input -->
       <input
         type="text"
         id="username"
@@ -14,6 +16,7 @@
     </div>
 
     <div>
+      <!-- Password Input -->
       <input
         type="password"
         id="user_password"
@@ -24,6 +27,7 @@
       />
     </div>
     <div>
+      <!-- Confirm Password Input -->
       <input
         type="password"
         id="confirm_password"
@@ -34,11 +38,13 @@
         required
       />
     </div>
+    <!-- Form Submit Button -->
     <button type="submit" class="btn btn-primary">
       Start Cooking!(Register)
     </button>
   </form>
 </main>
+{% endblock %} {% block js %}
 <script>
   function check(input) {
     if (input.value != document.getElementById("user_password").value) {
