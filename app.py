@@ -168,14 +168,6 @@ def view_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     ingredients_selected = mongo.db.recipes.find_one({"_id":
                                                       ObjectId(recipe_id)})
-
-    # Function that returns the key value pair if the key
-    # is an ingredient.
-    def ingredient_search(ingredient):
-        if re.match('recipe_ingredient_id_.+', ingredient):
-            ingredientMatch = ingredient
-            return ingredientMatch
-        return 'blank'
     return render_template('view_recipe.html', recipe=the_recipe,
                            ingredients_selected=ingredients_selected,
                            ingredient_search=ingredient_search,
@@ -191,14 +183,6 @@ def edit_recipe(recipe_id):
     ingredients_selected = mongo.db.recipes.find_one({"_id":
                                                       ObjectId(recipe_id)})
     ingredients = mongo.db.ingredients.find().sort("name")
-
-    # Function that returns the key value pair if the key
-    # is an ingredient.
-    def ingredient_search(ingredient):
-        if re.match('recipe_ingredient_id_.+', ingredient):
-            ingredientMatch = ingredient
-            return ingredientMatch
-        return 'blank'
     return render_template('edit_recipe.html', recipe=the_recipe,
                            ingredients=ingredients,
                            ingredients_selected=ingredients_selected,
@@ -213,14 +197,6 @@ def edit_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients
     the_ingredient = ingredients.find_one({"_id": ObjectId(ingredient_id)})
     ingredients = mongo.db.ingredients.find().sort("name")
-
-    # Function that returns the key value pair if the key
-    # is an substitute ingredient.
-    def ingredient_search(ingredient):
-        if re.match('sub_ingredient_id_.+', ingredient):
-            ingredientMatch = ingredient
-            return ingredientMatch
-        return 'blank'
     return render_template('edit_ingredient.html', ingredient=the_ingredient,
                            ingredients=ingredients,
                            ingredient_search=ingredient_search)
@@ -231,7 +207,7 @@ def edit_ingredient(ingredient_id):
 # of the recipe has access to this route. Delete and Add New
 # are used instead of update to update the ingredients in the
 # recipe properly.
-# Returns the new recipe ID. 
+# Returns the new recipe ID.
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
     recipes = mongo.db.recipes
@@ -277,14 +253,6 @@ def delete_ingredient(ingredient_id):
 def view_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients
     the_ingredient = ingredients.find_one({"_id": ObjectId(ingredient_id)})
-
-    # Function that returns the key value pair if the key
-    # is an substitute ingredient.
-    def ingredient_search(ingredient):
-        if re.match('sub_ingredient_id_.+', ingredient):
-            ingredientMatch = ingredient
-            return ingredientMatch
-        return 'blank'
     return render_template('ingredients.html', ingredient=the_ingredient,
                            ingredient_search=ingredient_search,
                            selectedIngredient=ingredients.find().sort("name"))
@@ -298,14 +266,6 @@ def view_ingredient(ingredient_id):
 @app.route('/view_ingredient2/<ingredient_name>', methods=['GET', 'POST'])
 def view_ingredient2(ingredient_name):
     ingredients = mongo.db.ingredients
-
-    # Function that returns the key value pair if the key
-    # is an substitute ingredient.
-    def ingredient_search(ingredient):
-        if re.match('sub_ingredient_id_.+', ingredient):
-            ingredientMatch = ingredient
-            return ingredientMatch
-        return 'blank'
     if isinstance(ingredient_name, dict):
         the_ingredient = ingredient_name
     else:
@@ -313,6 +273,15 @@ def view_ingredient2(ingredient_name):
 
     return render_template('view_ingredient.html', ingredient=the_ingredient,
                            ingredient_search=ingredient_search)
+
+
+# Function that returns the key value pair if the key
+# is an ingredient.
+def ingredient_search(ingredient):
+    if re.match('recipe_ingredient_id_.+', ingredient):
+        ingredientMatch = ingredient
+        return ingredientMatch
+    return 'blank'
 
 
 # Starts the app
