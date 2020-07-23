@@ -226,6 +226,7 @@ def update_ingredient(ingredient_id):
                                     {"$set":
                                      (request.form.to_dict())},
                                     upsert=True)
+    print(request.form.to_dict())
     return redirect(url_for('view_ingredient', ingredient_id=ingredient_id))
 
 

@@ -29,11 +29,7 @@ function clearAddIngredient() {
   $("#ingredient_comment").val("");
   $("#ingredient_measurement").val("");
 }
-function removeLI() {
-  $(".delete").on("click", function () {
-    $(this).parent().remove();
-  });
-}
+
 
 /* Closes the modal */
 $(".custom-close").on("click", function () {

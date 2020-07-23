@@ -31,11 +31,9 @@ function clearAddIngredient() {
   $("select.ingredient_select").val("selectedvalue").trigger("change");
   $("#ingredient_comment").val("");
 }
-function removeLI() {
-  $(".delete").on("click", function () {
-    $(this).parent().remove();
-  });
-}
+
+
+
 
 /* Functions for ingredient filter */
 function filterFunctionForEditIngredient() {

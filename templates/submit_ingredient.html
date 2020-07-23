@@ -164,11 +164,7 @@ when logged in. -->
     $("select.ingredient_select").val("selectedvalue").trigger("change");
     $("#ingredient_comment").val("");
   }
-  function removeLI() {
-    $(".delete").on("click", function () {
-      $(this).parent().remove();
-    });
-  }
+
 
     function filterFunctionForSubmitIngredient() {
     var input, filter, ul, li, a, i, option;
