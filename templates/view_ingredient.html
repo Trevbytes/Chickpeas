@@ -48,7 +48,7 @@
         {# Check if there are common substitutes associated with the ingredient.
            A flag is used to have 'Common Substitutes' appear only once in the loop. #}
 		{% set ns = namespace(flag=true) %}{% for key, value in ingredient.items() %} {% if
-      ingredient_search(key) in key %}{% set ingredientName = ("name_"+key) %}
+      sub_ingredient_search(key) in key %}{% set ingredientName = ("name_"+key) %}
         {% if ns.flag == true %}
         Common Substitutes:
         {% set ns.flag = namespace(flag=false) %}

@@ -144,7 +144,7 @@
         {# 'If' logic to check that the key is a substitute ingredient. Then sets a 
         variable 'recname' with the ingredient name to seperate the name of the ingredient
         from the possible substitute comments added later.  #}
-		{% if ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
+		{% if sub_ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
 			<li type="text" readonly class="list-group-item {{key}}">
 			</li>
             <!--Script here to utilize the jinja variables in the loop. Creates a readonly
