@@ -80,3 +80,6 @@
 <p class="pb-5">{{ message }}</p>
 
 {% endblock %}
+{% block js %}
+<script src="{{url_for('static', filename='js/search_results.js')}}"></script>
+{% endblock %}

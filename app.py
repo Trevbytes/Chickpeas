@@ -289,13 +289,22 @@ def search():
                 {"$or": [{"public": "on"}, {"added_by": session['username']}, {
                     "edited_by": session['username']}]}
             ]}).sort("_id", -1)
-    result_num = mongo.db.recipes.find({"$text": {"$search": query}}).count()
+    result_num = mongo.db.recipes.find(
+        {"$and": [{"$text": {"$search": query}},
+                  {"public": "on"}]}).count()
+    if 'username' in session:
+        result_num = mongo.db.recipes.find({
+            "$and": [
+                {"$text": {"$search": query}},
+                {"$or": [{"public": "on"}, {"added_by": session['username']}, {
+                    "edited_by": session['username']}]}
+            ]}).count()
     if result_num > 0:
         return render_template("search_results.html",
-                               result=result, query=query)
+                               result=result)
     else:
         return render_template("search_results.html",
-                               result=result, query=query,
+                               result=result,
                                message="No results found. Please try again")
 
 
