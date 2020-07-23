@@ -275,6 +275,30 @@ def view_ingredient2(ingredient_name):
                            ingredient_search=ingredient_search)
 
 
+@ app.route('/search', methods=["GET", "POST"])
+def search():
+    mongo.db.recipes.create_index([('$**', 'text')])
+    query = request.form.get("query")
+    result = mongo.db.recipes.find(
+        {"$and": [{"$text": {"$search": query}},
+                  {"public": "on"}]}).sort("_id", -1)
+    if 'username' in session:
+        result = mongo.db.recipes.find({
+            "$and": [
+                {"$text": {"$search": query}},
+                {"$or": [{"public": "on"}, {"added_by": session['username']}, {
+                    "edited_by": session['username']}]}
+            ]}).sort("_id", -1)
+    result_num = mongo.db.recipes.find({"$text": {"$search": query}}).count()
+    if result_num > 0:
+        return render_template("search_results.html",
+                               result=result, query=query)
+    else:
+        return render_template("search_results.html",
+                               result=result, query=query,
+                               message="No results found. Please try again")
+
+
 # Function that returns the key value pair if the key
 # is an ingredient.
 def ingredient_search(ingredient):

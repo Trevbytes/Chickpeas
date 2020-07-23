@@ -55,7 +55,7 @@
   <body>
     <!-- Nav Bar -->
     <nav
-      class="mb-1 navbar navbar-expand-lg nav-wrapper navbar-dark fixed-top scrolling-navbar"
+      class="p-0 navbar navbar-expand-lg nav-wrapper navbar-dark fixed-top scrolling-navbar"
     >
       <a href="{{url_for('home')}}" class="brand-logo navbar-brand"
         ><img
@@ -75,6 +75,17 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+        <form method="POST" action="{{ url_for('search', recipe_id=query) }}" class="form-inline ml-auto">
+            <div class="input-group md-form form-sm form-2 pl-0 ">           
+                <input class="form-control" name="query" id="query" type="text" placeholder="Search"
+                    aria-label="Search">
+                <div class="input-group-append">
+                    <span><button class="btn" type="submit" name="search" value="search">
+                            <i class="fa fa-search"></i>
+                    </button></span>
+                </div>
+            </div>
+        </form>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('recipes')}}"
