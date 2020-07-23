@@ -199,7 +199,7 @@ def edit_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients.find().sort("name")
     return render_template('edit_ingredient.html', ingredient=the_ingredient,
                            ingredients=ingredients,
-                           sub_ingredient_search=ingredient_search)
+                           sub_ingredient_search=sub_ingredient_search)
 
 
 # Update Recipe route- This deletes the recived recipe ID and
@@ -316,12 +316,14 @@ def ingredient_search(ingredient):
         return ingredientMatch
     return 'blank'
 
+
+# Function that returns the key value pair if the key
+# is a substitute ingredient.
 def sub_ingredient_search(ingredient):
     if re.match('sub_ingredient_id_.+', ingredient):
         ingredientMatch = ingredient
         return ingredientMatch
     return 'blank'
-
 
 
 # Starts the app
