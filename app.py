@@ -226,7 +226,19 @@ def update_ingredient(ingredient_id):
                                     {"$set":
                                      (request.form.to_dict())},
                                     upsert=True)
-    print(request.form.to_dict())
+    test = request.form.to_dict()
+    for key, value in test.items():
+        if re.match('remove_.+', key):
+            deletequery = (key)
+            deletequery2 = (key[7:])
+            ingredients.update_one({'_id': ObjectId(ingredient_id)},
+                                   {'$unset': {deletequery: 1}})
+            ingredients.update_one({'_id': ObjectId(ingredient_id)},
+                                   {'$unset': {deletequery2: 1}})
+            print(deletequery + ' was deleted in the dictionary')
+            print(deletequery2 + ' was deleted in the dictionary')
+        else:
+            print(' no match')
     return redirect(url_for('view_ingredient', ingredient_id=ingredient_id))
 
 
@@ -326,6 +338,14 @@ def sub_ingredient_search(ingredient):
         return ingredientMatch
     return 'blank'
 
+
+# Function that returns the key value pair if the key
+# is a substitute ingredient.
+def remove_ingredient_search(ingredient):
+    if re.match('remove_.+', ingredient):
+        ingredientMatch = ingredient
+        return ingredientMatch
+    return 'blank'
 
 # Starts the app
 if __name__ == '__main__':

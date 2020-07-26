@@ -134,7 +134,7 @@
           Maybe possible to move script to a function with other scripts
           and call it at this point.------------------------------------->
 	  <script>
-	  var ingredient_index = 1 ;
+	  var ingredient_index = 0 ;
 	  </script>
 	  <div class="md-form">
         <!--List for substitute ingredients of an ingredient-->
@@ -156,7 +156,7 @@
 			<script>                                    
             $(document).ready(function () {
                         ingredient_index++;
-                        $('.{{key}}').append(`<input type="text" class="form-control" readonly name='sub_ingredient_id_${ingredient_index}' value="{{value}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="{{ingredient[recname]}}">`)
+                        $('.{{key}}').append(`<input type="text" class="form-control" readonly name='sub_ingredient_id_${ingredient_index}' value="{{value}}"><button type="button" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="{{ingredient[recname]}}">`)
 						});
 			</script>
 		{% endif %}{% endfor %}
@@ -185,3 +185,14 @@
   </div>
 </div>
 <script src="{{url_for('static', filename='js/edit_ingredient.js')}}"></script>
+<!-- <script>
+//Event listener to remove ingredients from the list
+$(document).ready(function () {
+    $(".delete").on("click", function () {        
+        $(this).parent().children().each(function() {
+            $(this).attr("name", "remove_" + $(this).attr("name"));
+        });       
+        $(this).parent().clone().appendTo("#remove-request");
+        $("#remove-request").find("button").remove();	
+        $(this).parent().remove();})});
+</script> -->

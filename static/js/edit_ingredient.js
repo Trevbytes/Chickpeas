@@ -13,6 +13,7 @@ function addToIngredientList() {
   if (!!selectedIngredient) {
     var commentlines = "";
     var ingredient_comment = $("#ingredient_comment").val();
+    ingredient_index++;
     if (!!ingredient_comment) {
       commentlines = "---";
     } else {
@@ -21,19 +22,26 @@ function addToIngredientList() {
     $("#sub_ingredient_list").append(
       `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="sub_ingredient_id_${ingredient_index}" value="${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="${selectedIngredient}"></li>`
     );
-    ingredient_index++;
-
     clearAddIngredient();
   }
 }
+
+//Event listener to remove ingredients from the list
+$(document).ready(function () {
+    $(".delete").on("click", function () {        
+        $(this).parent().children().each(function() {
+            $(this).attr("name", "remove_" + $(this).attr("name"));
+        });       
+        $(this).parent().clone().appendTo("#remove-request");
+        $("#remove-request").find("button").remove();	
+        $(this).parent().remove();})
+});
+
 function clearAddIngredient() {
   $("#ingredient_select").prop("selectedIndex", 1).val();
   $("select.ingredient_select").val("selectedvalue").trigger("change");
   $("#ingredient_comment").val("");
 }
-
-
-
 
 /* Functions for ingredient filter */
 function filterFunctionForEditIngredient() {
