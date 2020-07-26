@@ -217,28 +217,29 @@ def update_recipe(recipe_id):
 
 
 # Update Ingredient route- This updates the received ingredient. It
-# uses upsert to add any new items. *It does not update removed items*
+# uses upsert to add any new items. It then removes substitute ingredients
+# that are labeled as fields that begin with 'remove' in the form.
 # Returns the updated ingredient ID.
 @app.route('/update_ingredient/<ingredient_id>', methods=["POST"])
 def update_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients
+    formDataDict = request.form.to_dict()
     ingredients.find_one_and_update({'_id': ObjectId(ingredient_id)},
                                     {"$set":
-                                     (request.form.to_dict())},
+                                     (formDataDict)},
                                     upsert=True)
-    test = request.form.to_dict()
-    for key, value in test.items():
-        if re.match('remove_.+', key):
-            deletequery = (key)
-            deletequery2 = (key[7:])
+    for field, value in formDataDict.items():
+        if re.match('remove_.+', field):
+            # Field that begins with 'remove_'
+            # Example 'remove_sub_ingredient_1'
+            deletequery = (field)
+            # Original field in the database
+            # Example 'sub_ingredient_1'
+            deletequery2 = (field[7:])
             ingredients.update_one({'_id': ObjectId(ingredient_id)},
                                    {'$unset': {deletequery: 1}})
             ingredients.update_one({'_id': ObjectId(ingredient_id)},
                                    {'$unset': {deletequery2: 1}})
-            print(deletequery + ' was deleted in the dictionary')
-            print(deletequery2 + ' was deleted in the dictionary')
-        else:
-            print(' no match')
     return redirect(url_for('view_ingredient', ingredient_id=ingredient_id))
 
 
@@ -288,6 +289,10 @@ def view_ingredient2(ingredient_name):
                            sub_ingredient_search=sub_ingredient_search)
 
 
+# Recipe Search route - This searchs the recipe database for the query
+# entered by the user. It returns public recipes or recipes created or copied
+# by the user. The search is run twice to return a count tocheck if there is
+# at least one recipe to return.
 @ app.route('/search', methods=["GET", "POST"])
 def search():
     mongo.db.recipes.create_index([('$**', 'text')])
@@ -338,14 +343,6 @@ def sub_ingredient_search(ingredient):
         return ingredientMatch
     return 'blank'
 
-
-# Function that returns the key value pair if the key
-# is a substitute ingredient.
-def remove_ingredient_search(ingredient):
-    if re.match('remove_.+', ingredient):
-        ingredientMatch = ingredient
-        return ingredientMatch
-    return 'blank'
 
 # Starts the app
 if __name__ == '__main__':
