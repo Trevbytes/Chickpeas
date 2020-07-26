@@ -30,6 +30,7 @@
           {% elif session.username == ingredient.added_by %}
           {% else %}
           readonly
+          title="Can only be edited by the creator of the ingredient."
           {% endif %}
         />
         <label class="active" data-error="wrong" data-success="right" for="ingredient_name"
@@ -49,6 +50,7 @@
           {% elif session.username == ingredient.added_by %}
           {% else %}
           readonly
+          title="Can only be edited by the creator of the ingredient."
           {% endif %}
         >{{ingredient.description}}</textarea>
         <label class="active" for="ingredient_description">Ingredient Description</label>
@@ -60,12 +62,13 @@
           class="form-control validate"
           id="more_info_link"
           name="more_info_link"
-          placeholder="Add a link to more info on the ingredient. Wikipedia typically is a good option."
+          placeholder="OPTIONAL - Add a link to more info on the ingredient. Wikipedia typically is a good option."
           value="{{ingredient.more_info_link}}"
           {% if session.username == 'Admin-T' %}
           {% elif session.username == ingredient.added_by %}
           {% else %}
           readonly
+          title="Can only be edited by the creator of the ingredient."
           {% endif %}          
         />
         <label class="active" for="more_info_link">More Info Link</label>
