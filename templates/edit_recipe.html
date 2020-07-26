@@ -180,7 +180,7 @@ from a logged in user on the recipes page or view recipe page. -->
 		    <script>                                   
             $(document).ready(function () {
                 ingredient_index++;
-                $('.{{key}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="{{recipe[recname]}}">`)
+                $('.{{key}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="{{recipe[recname]}}">`)
 				});
 			</script>
 				{% endif %}{% endfor %}
@@ -228,3 +228,9 @@ from a logged in user on the recipes page or view recipe page. -->
   </main>
 </div>
 <script src="{{url_for('static', filename='js/edit_recipe.js')}}"></script>
+<script>
+$(document).ready(function () {
+    $(".delete").on("click", function () {        
+        $(this).parent().remove();})
+});
+</script>
