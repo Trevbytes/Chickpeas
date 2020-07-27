@@ -63,8 +63,12 @@ def login():
             if check_password_hash(user_login['user_password'],
                                    request.form.get('user_password')):
                 session['username'] = request.form.get('username')
+                flash('Welcome Back '+session['username'])
                 return redirect(url_for('dashboard',
                                         username=session['username']))
+            else:
+                flash('Invalid password.')                         
+        else:
             flash('Invalid username or password.')
     return render_template('login.html', is_index=True)
 
@@ -144,6 +148,7 @@ def submit_ingredient():
 def insert_recipe():
     recipes = mongo.db.recipes
     new_recipe_id = recipes.insert_one(request.form.to_dict()).inserted_id
+    flash('Recipe Added!')
     return redirect(url_for('view_recipe', recipe_id=new_recipe_id))
 
 
@@ -213,6 +218,7 @@ def update_recipe(recipe_id):
     recipes = mongo.db.recipes
     recipes.delete_one({'_id': ObjectId(recipe_id)})
     recipe_id = recipes.insert_one(request.form.to_dict()).inserted_id
+    flash('Recipe Updated!')
     return redirect(url_for('view_recipe', recipe_id=recipe_id))
 
 
@@ -240,6 +246,7 @@ def update_ingredient(ingredient_id):
                                    {'$unset': {deletequery: 1}})
             ingredients.update_one({'_id': ObjectId(ingredient_id)},
                                    {'$unset': {deletequery2: 1}})
+    flash('Ingredient Updated!')
     return redirect(url_for('view_ingredient', ingredient_id=ingredient_id))
 
 
@@ -249,6 +256,7 @@ def update_ingredient(ingredient_id):
 @app.route('/delete_recipe/<recipe_id>')
 def delete_recipe(recipe_id):
     mongo.db.recipes.delete_one({'_id': ObjectId(recipe_id)})
+    flash('Recipe Deleted!')
     return redirect(url_for('dashboard', username=session['username']))
 
 
@@ -257,6 +265,7 @@ def delete_recipe(recipe_id):
 @app.route('/delete_ingredient/<ingredient_id>')
 def delete_ingredient(ingredient_id):
     mongo.db.ingredients.delete_one({'_id': ObjectId(ingredient_id)})
+    flash('Ingredient Deleted!')
     return redirect(url_for('ingredients'))
 
 
