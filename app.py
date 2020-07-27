@@ -343,6 +343,17 @@ def sub_ingredient_search(ingredient):
         return ingredientMatch
     return 'blank'
 
+# Error 404
+@ app.errorhandler(404)
+def not_found(error):
+    return render_template('errors/404.html'), 404
+
+
+# Error 500
+@ app.errorhandler(500)
+def internal_error(error):
+    return render_template('errors/500.html'), 500
+
 
 # Starts the app
 if __name__ == '__main__':
