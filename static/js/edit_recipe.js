@@ -58,3 +58,9 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
   });
 });
+
+/* Event listener for removing a ingredient from the list */
+$(document).ready(function () {
+    $(".delete").on("click", function () {        
+        $(this).parent().remove();})
+});

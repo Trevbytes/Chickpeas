@@ -188,14 +188,3 @@
   </div>
 </div>
 <script src="{{url_for('static', filename='js/edit_ingredient.js')}}"></script>
-<!-- <script>
-//Event listener to remove ingredients from the list
-$(document).ready(function () {
-    $(".delete").on("click", function () {        
-        $(this).parent().children().each(function() {
-            $(this).attr("name", "remove_" + $(this).attr("name"));
-        });       
-        $(this).parent().clone().appendTo("#remove-request");
-        $("#remove-request").find("button").remove();	
-        $(this).parent().remove();})});
-</script> -->

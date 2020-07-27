@@ -228,9 +228,3 @@ from a logged in user on the recipes page or view recipe page. -->
   </main>
 </div>
 <script src="{{url_for('static', filename='js/edit_recipe.js')}}"></script>
-<script>
-$(document).ready(function () {
-    $(".delete").on("click", function () {        
-        $(this).parent().remove();})
-});
-</script>
