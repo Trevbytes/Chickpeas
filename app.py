@@ -354,13 +354,13 @@ def sub_ingredient_search(ingredient):
 
 # Error 404
 @ app.errorhandler(404)
-def not_found(error):
+def page_not_found(e):
     return render_template('errors/404.html'), 404
 
 
 # Error 500
 @ app.errorhandler(500)
-def internal_error(error):
+def internal_error(e):
     return render_template('errors/500.html'), 500
 
 
@@ -368,4 +368,4 @@ def internal_error(error):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)
