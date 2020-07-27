@@ -1,6 +1,6 @@
 <!-- Dashboard page/ Users Cookbook -->
 {% extends 'base.html'%}{% block content %}
-<header class="container mt-5 pt-5">
+<header class="container mt-5 pt-3">
   <h1 class="text-center pt-4">{{session.username}}'s Cookbook</h1>
   <p class="text-center">Welcome {{session.username}}, what's cooking?</p>
   <div class="text-center">
@@ -16,7 +16,7 @@
 <main>
   <h3 class="text-center">My Recipes</h3>
   <!-- User recipes container -->
-  <div class="container-fluid">
+  <div class="container-fluid mb-5">
     <!-- List and grid view option buttons -->
     <div class="row">
       <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
