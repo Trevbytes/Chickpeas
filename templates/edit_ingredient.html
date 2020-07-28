@@ -133,36 +133,33 @@
           </button>
         </div>
       </div>
-      <!--Script to reset the ingredient_index.
-          Maybe possible to move script to a function with other scripts
-          and call it at this point.------------------------------------->
+      <!--Script to reset the ingredient_index each time the modal is 
+      rendered.-->
 	  <script>
 	  var ingredient_index = 0 ;
 	  </script>
 	  <div class="md-form">
         <!--List for substitute ingredients of an ingredient-->
 	    <ul class="list-group" id="sub_ingredient_list">
-        {# Loop for key, value pairs in an ingredient object #}
-		{% for key, value in ingredient.items() %}
-        {# 'If' logic to check that the key is a substitute ingredient. Then sets a 
-        variable 'recname' with the ingredient name to seperate the name of the ingredient
-        from the possible substitute comments added later.  #}
-		{% if sub_ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
-			<li type="text" readonly class="list-group-item {{key}}">
-			</li>
-            <!--Script here to utilize the jinja variables in the loop. Creates a readonly
-            form input. The input sent with the form is given a unique ID and the value is the
-            ingredient with an optional comment. A hidden readonly input is added to send just the
-            name of the ingredient with the form. A remove ingredient buttton is added in order to
-            remove an ingredient from the list.
-            -->
-			<script>                                    
+         {# Loop for key, value pairs in an ingredient object #}
+		 {% for key, value in ingredient.items() %}
+         {# 'If' logic to check that the key is a substitute ingredient. Then sets a 
+         variable 'recname' with the ingredient name to seperate the name of the ingredient
+         from the possible substitute comments added later.  #}
+		 {% if sub_ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
+		 <li type="text" readonly class="list-group-item {{key}}"></li>
+         <!--Script here to utilize the jinja variables in the loop. Creates a readonly
+         form input. The input sent with the form is given a unique ID and the value is the
+         ingredient with an optional comment. A hidden readonly input is added to send just the
+         name of the ingredient with the form. A remove ingredient buttton is added in order to
+         remove an ingredient from the list.-->
+		 <script>                                    
             $(document).ready(function () {
-                        ingredient_index++;
-                        $('.{{key}}').append(`<input type="text" class="form-control" readonly name='sub_ingredient_id_${ingredient_index}' value="{{value}}"><button type="button" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="{{ingredient[recname]}}">`)
-						});
-			</script>
-		{% endif %}{% endfor %}
+                ingredient_index++;
+                $('.{{key}}').append(`<input type="text" class="form-control" readonly name='sub_ingredient_id_${ingredient_index}' value="{{value}}"><button type="button" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="{{ingredient[recname]}}">`)
+			});
+		 </script>
+		 {% endif %}{% endfor %}
 		</ul>
 	  </div>
       <!-- Hidden div to add 'added by' info to recipe -->
