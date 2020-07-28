@@ -17,6 +17,7 @@
   <h3 class="text-center">My Recipes</h3>
   <!-- User recipes container -->
   <div class="container-fluid mb-5">
+   <div class="container">
     <!-- List and grid view option buttons -->
     <div class="row">
       <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
@@ -91,6 +92,7 @@
     loop.index == loop.length %}
     </div>
     {% endif %} {% endfor %}
+   </div>
   </div>
 </main>
 {% endblock %}{% block js %}

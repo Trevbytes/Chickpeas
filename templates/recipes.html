@@ -21,7 +21,8 @@ to add more types like snacks, baked goods, drinks, etc.               -->
 </div>
 
 <!-- Breakfast tab -->
-<div id="breakfast" class="tabcontent container-fluid">
+<div id="breakfast" class="tabcontent">
+ <div class="container">
   <!-- Gridview buttons js-->
   <div class="row">
     <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
@@ -95,11 +96,13 @@ to add more types like snacks, baked goods, drinks, etc.               -->
     {% if loop.index % 2 == 0 or loop.index == loop.length %}
   </div>
   {% endif %} {% endfor %}
+ </div>
 </div>
 
 <!-- Lunch tab - COPY of breakfast tab using different recipes
  *Tabs could possibly be reworked to not repeat code.*     -->
 <div id="lunch" class="tabcontent">
+ <div class="container">
   <div class="row">
     <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
       <i class="fa fa-bars" role="img" aria-label="List View"></i>
@@ -164,11 +167,13 @@ to add more types like snacks, baked goods, drinks, etc.               -->
     {% if loop.index % 2 == 0 or loop.index == loop.length %}
   </div>
   {% endif %} {% endfor %}
+ </div>
 </div>
 
 <!-- Dinner tab - COPY of breakfast tab using different recipes
  *Tabs could possibly be reworked to not repeat code.*     -->
 <div id="dinner" class="tabcontent">
+ <div class="container">
   <div class="row">
     <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
       <i class="fa fa-bars" role="img" aria-label="List View"></i>
@@ -233,11 +238,13 @@ to add more types like snacks, baked goods, drinks, etc.               -->
     {% if loop.index % 2 == 0 or loop.index == loop.length %}
   </div>
   {% endif %} {% endfor %}
+ </div>
 </div>
 
 <!-- Dessert tab - COPY of breakfast tab using different recipes
  *Tabs could possibly be reworked to not repeat code.*     -->
 <div id="dessert" class="tabcontent">
+ <div class="container">
   <div class="row">
     <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
       <i class="fa fa-bars" role="img" aria-label="List View"></i>
@@ -302,6 +309,7 @@ to add more types like snacks, baked goods, drinks, etc.               -->
     {% if loop.index % 2 == 0 or loop.index == loop.length %}
   </div>
   {% endif %} {% endfor %}
+ </div>
 </div>
 <!-- End of tabs-->
 <!-- Action button to return user to the top of the site. -->
