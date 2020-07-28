@@ -37,7 +37,7 @@
         {# Check if user is logged in #}
 		{% if 'username' in session %}
 		<div class="float-right col-sm">
-			<a href="{{url_for('submit_ingredient')}}" class="btn" data-remote="false"
+			<a href="{{url_for('get_ingredient_info')}}" class="btn" data-remote="false"
 				data-toggle="submitIngredientModal">
                 <i class="fas fa-plus-circle" role="img" aria-label="Search"></i> 
                 Sumbit a New Ingredient

@@ -123,21 +123,21 @@ def dashboard(username):
                            ingredients=ingredients)
 
 
-# Add Recipe modal- returns full ingredient list, sorted
-# by name.
-@app.route('/add_recipe', methods=['GET', 'POST'])
-def add_recipe():
+# Modal with a form to get Recipe info - returns full ingredient list,
+# sorted by name.
+@app.route('/get_recipe_info', methods=['GET'])
+def get_recipe_info():
     ingredients = mongo.db.ingredients.find().sort("name")
-    return render_template('add_recipe.html',
+    return render_template('get_recipe_info.html',
                            ingredients=ingredients)
 
 
-# Submit Ingredient modal - returns full ingredient list, sorted
-# by name.
-@app.route('/submit_ingredient', methods=['GET', 'POST'])
-def submit_ingredient():
+# Modal with a form to get Ingredient info - returns full ingredient list,
+# sorted by name.
+@app.route('/get_ingredient_info', methods=['GET'])
+def get_ingredient_info():
     ingredients = mongo.db.ingredients.find().sort("name")
-    return render_template('submit_ingredient.html',
+    return render_template('get_ingredient_info',
                            ingredients=ingredients)
 
 
