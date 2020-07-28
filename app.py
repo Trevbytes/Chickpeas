@@ -26,7 +26,7 @@ def home():
 
 
 # Recipes page - Recipes sorted and returned by course
-@app.route('/recipes', methods=['GET', 'POST'])
+@app.route('/recipes', methods=['GET'])
 def recipes():
     breakfast_recipes = mongo.db.recipes.find({"meal_type": "Breakfast",
                                                "public": "on"})
@@ -67,7 +67,7 @@ def login():
                 return redirect(url_for('dashboard',
                                         username=session['username']))
             else:
-                flash('Invalid password.')                         
+                flash('Invalid password.')
         else:
             flash('Invalid username or password.')
     return render_template('login.html', is_index=True)
@@ -112,7 +112,7 @@ def logout():
 # modals, sorted by name. Returns recipes that were added or edited
 # by the user to display on their dashboard, sorted by added/edited
 # most recently.
-@app.route('/dashboard/<username>', methods=['GET', 'POST'])
+@app.route('/dashboard/<username>', methods=['GET'])
 def dashboard(username):
     ingredients = mongo.db.ingredients.find().sort("name")
     my_recipes = mongo.db.recipes.find({"$or": [{"added_by": username},
