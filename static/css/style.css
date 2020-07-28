@@ -236,7 +236,7 @@ ul {
 
 @media only screen and (max-width: 575px) {
   /* Dropdown For mobile phones: */
-  .dropdown-content {
+  .dropdown-content-ingredients {
     position: fixed;
     z-index: 2;
     left: 20%;
