@@ -112,7 +112,7 @@ def logout():
 # modals, sorted by name. Returns recipes that were added or edited
 # by the user to display on their dashboard, sorted by added/edited
 # most recently.
-@app.route('/dashboard/<username>', methods=['GET'])
+@app.route('/dashboard/<username>')
 def dashboard(username):
     ingredients = mongo.db.ingredients.find().sort("name")
     my_recipes = mongo.db.recipes.find({"$or": [{"added_by": username},
@@ -125,7 +125,7 @@ def dashboard(username):
 
 # Modal with a form to get Recipe info - returns full ingredient list,
 # sorted by name.
-@app.route('/get_recipe_info', methods=['GET'])
+@app.route('/get_recipe_info')
 def get_recipe_info():
     ingredients = mongo.db.ingredients.find().sort("name")
     return render_template('get_recipe_info.html',
@@ -134,10 +134,10 @@ def get_recipe_info():
 
 # Modal with a form to get Ingredient info - returns full ingredient list,
 # sorted by name.
-@app.route('/get_ingredient_info', methods=['GET'])
+@app.route('/get_ingredient_info')
 def get_ingredient_info():
     ingredients = mongo.db.ingredients.find().sort("name")
-    return render_template('get_ingredient_info',
+    return render_template('get_ingredient_info.html',
                            ingredients=ingredients)
 
 
@@ -197,7 +197,7 @@ def edit_recipe(recipe_id):
 # Edit Ingredient modal - Receives the ingredient ID to show the ingredient.
 # Returns the ingredient, the ingredient search function
 # and the full list of ingredients.
-@app.route('/edit_ingredient/<ingredient_id>', methods=['GET', 'POST'])
+@app.route('/edit_ingredient/<ingredient_id>')
 def edit_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients
     the_ingredient = ingredients.find_one({"_id": ObjectId(ingredient_id)})
@@ -286,7 +286,7 @@ def view_ingredient(ingredient_id):
 # the correct dictonary.
 # Returns the ingredient, the ingredient search function to
 # extract substitute ingredients and the full list of ingredients.
-@app.route('/view_ingredient2/<ingredient_name>', methods=['GET', 'POST'])
+@app.route('/view_ingredient2/<ingredient_name>')
 def view_ingredient2(ingredient_name):
     ingredients = mongo.db.ingredients
     if isinstance(ingredient_name, dict):
@@ -302,7 +302,7 @@ def view_ingredient2(ingredient_name):
 # entered by the user. It returns public recipes or recipes created or copied
 # by the user. The search is run twice to return a count tocheck if there is
 # at least one recipe to return.
-@ app.route('/search', methods=["GET", "POST"])
+@ app.route('/search', methods=["POST"])
 def search():
     mongo.db.recipes.create_index([('$**', 'text')])
     query = request.form.get("query")
@@ -369,4 +369,4 @@ def internal_error(error):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=False)
+            debug=True)
