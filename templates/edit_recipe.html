@@ -20,16 +20,15 @@ from a logged in user on the recipes page or view recipe page. -->
             <span aria-hidden="true">&times;</span>
         </button>
 	</div>
-
     <!-- Update form. -->
 	<form id="updateForm" class="modal-body mx-3"
-    {# update_recipe route requested if added or edited by(copied by) the user #}
-    {% if recipe.added_by == session.username or recipe.edited_by == session.username %}     
+      {# update_recipe route requested if added or edited by(copied by) the user #}
+      {% if recipe.added_by == session.username or recipe.edited_by == session.username %}     
         action="{{ url_for('update_recipe', recipe_id=recipe._id) }}"
-    {# insert_recipe route requested otherwise #}
-    {% else %}
+      {# insert_recipe route requested otherwise #}
+      {% else %}
         action="{{ url_for('insert_recipe', recipe_id=recipe._id) }}"
-    {% endif %}            
+      {% endif %}            
 		method="POST"
     >	                                				
 		<div class="md-form mb-5">
@@ -94,11 +93,13 @@ from a logged in user on the recipes page or view recipe page. -->
 		<h3>Ingredients</h3>
         <!-- Ingredient content collapse button and content -->
         <div>
-          <button class="btn btn-primary" type="button" data-toggle="collapse" 
-          data-target="#collapseIngredients"
-          aria-expanded="false" 
-          aria-controls="collapseIngredients">
-          <i class="fas fa-plus-circle"></i> Add Ingredients
+          <button class="btn btn-primary" 
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#collapseIngredients"
+            aria-expanded="false" 
+            aria-controls="collapseIngredients">
+            <i class="fas fa-plus-circle"></i> Add Ingredients
           </button>
         </div>
        <div class="collapse" id="collapseIngredients">
@@ -165,25 +166,25 @@ from a logged in user on the recipes page or view recipe page. -->
 		</script>
 		<div class="md-form">
 			<ul class="list-group" id="recipe_ingredient_list">
-                {# Loop for key, value pairs in an ingredient object #}
-				{% for key, ingredient in ingredients_selected.items() %}
-                {# 'If' logic to check that the key is an ingredient. Then sets a 
-                variable 'recname' with the ingredient name to seperate the name of the ingredient
-                from the measurement and optional comments added later. #}
-				{% if ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
-				<li type="text" readonly class="list-group-item {{key}}"></li>
-            <!--Script here to utilize the jinja variables in the loop. Creates a readonly
-            form input. The input sent with the form is given a unique ID and the value is the
-            ingredient and measurement with an optional comment. A hidden readonly input is added 
-            to send just the name of the ingredient with the form. A remove ingredient buttton is
-            added in order to remove an ingredient from the list. -->				
-		    <script>                                   
-            $(document).ready(function () {
+             {# Loop for key, value pairs in an ingredient object #}
+			 {% for key, ingredient in ingredients_selected.items() %}
+             {# 'If' logic to check that the key is an ingredient. Then sets a 
+             variable 'recname' with the ingredient name to seperate the name of the ingredient
+             from the measurement and optional comments added later. #}
+			 {% if ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
+			 <li type="text" readonly class="list-group-item {{key}}"></li>
+             <!--Script here to utilize the jinja variables in the loop. Creates a readonly
+             form input. The input sent with the form is given a unique ID and the value is the
+             ingredient and measurement with an optional comment. A hidden readonly input is added 
+             to send just the name of the ingredient with the form. A remove ingredient buttton is
+             added in order to remove an ingredient from the list. -->				
+		     <script>                                   
+             $(document).ready(function () {
                 ingredient_index++;
                 $('.{{key}}').append(`<input type="text" class="form-control" readonly name='recipe_ingredient_id_${ingredient_index}' value="{{ingredient}}"><button type="button" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="{{recipe[recname]}}">`)
 				});
-			</script>
-				{% endif %}{% endfor %}
+			 </script>
+			 {% endif %}{% endfor %}
 			</ul>
 		</div>
         <h3>Recipe Instructions</h3>
@@ -217,12 +218,12 @@ from a logged in user on the recipes page or view recipe page. -->
 	</form>
 	<div class="modal-footer md-form d-flex justify-content-center">
 		<button type="submit" form="updateForm" class="btn btn-indigo">
-            <!-- If creator, Update recipe. Else, Create a copy. Button-->
-            {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
-            Update Recipe
-            {% else %}
-            Create Copy of Recipe
-            {% endif %}
+         <!-- If creator, Update recipe. Else, Create a copy. Button-->
+         {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+         Update Recipe
+         {% else %}
+         Create Copy of Recipe
+         {% endif %}
         </button>
 	</div>
   </main>
