@@ -83,12 +83,12 @@ to add more types like snacks, baked goods, drinks, etc.               -->
         </div>
         {% endif %}
 
-        <h3 class="pl-2 col-md-10">
+        <h3 class="pl-2 col-md-10 title">
           <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
             {{ recipe.recipe_name }}</a
           >
         </h3>
-        <p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
+        <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
       </div>
     </div>
     <!-- 'If' logic to add closing tag for outer row, added every
@@ -156,12 +156,12 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           </a>
         </div>
         {% endif %}
-        <h3 class="pl-2 col-md-10">
+        <h3 class="pl-2 col-md-10 title">
           <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
             {{ recipe.recipe_name }}</a
           >
         </h3>
-        <p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
+        <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
       </div>
     </div>
     {% if loop.index % 2 == 0 or loop.index == loop.length %}
@@ -227,12 +227,12 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           </a>
         </div>
         {% endif %}
-        <h3 class="pl-2 col-md-10">
+        <h3 class="pl-2 col-md-10 title">
           <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
             {{ recipe.recipe_name }}</a
           >
         </h3>
-        <p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
+        <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
       </div>
     </div>
     {% if loop.index % 2 == 0 or loop.index == loop.length %}
@@ -298,12 +298,12 @@ to add more types like snacks, baked goods, drinks, etc.               -->
           </a>
         </div>
         {% endif %}
-        <h3 class="pl-2 col-md-10">
+        <h3 class="pl-2 col-md-10 title">
           <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
             {{ recipe.recipe_name }}</a
           >
         </h3>
-        <p class="pl-2"><strong>{{ recipe.recipe_description }}</strong></p>
+        <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
       </div>
     </div>
     {% if loop.index % 2 == 0 or loop.index == loop.length %}

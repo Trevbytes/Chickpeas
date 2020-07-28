@@ -91,6 +91,14 @@ ul {
   .tablink {
     font-size: 4vw;
   }
+
+  .title {
+      font-size: 6vw;
+  }
+
+  .info {
+      font-size: 4vw;
+  }
 }
 
 .tablink:hover {
