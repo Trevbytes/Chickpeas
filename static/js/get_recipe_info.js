@@ -1,4 +1,4 @@
-/* Functions for adding ingredients to the ingredients list in add_recipe.html */
+/* Functions for adding ingredients to the ingredients list in get_recipe_info.html */
 var selectedIngredient;
 
 $("select.ingredient_select").change(function () {
