@@ -87,7 +87,7 @@ ul {
 }
 
 @media only screen and (max-width: 575px) {
-  /* Tab links for phones */
+  /* Tab links recipe titles and info for phones */
   .tablink {
     font-size: 4vw;
   }
