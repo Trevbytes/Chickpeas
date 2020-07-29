@@ -242,6 +242,14 @@ ul {
     left: 20%;
     right: 30%;
   }
+
+    /* Dropdown in ingredients page For mobile phones: */
+  .dropdown-content {
+    position: fixed;
+    z-index: 2;
+    left: 20%;
+    right: 30%;
+  }
 }
 
 /* Links inside the dropdown */
