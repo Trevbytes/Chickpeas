@@ -364,7 +364,7 @@ def page_not_found(error):
 # Error 500
 @ app.errorhandler(500)
 def internal_error(error):
-    return render_template('errors/404.html'), 500
+    return render_template('errors/500.html'), 500
 
 
 # Starts the app
