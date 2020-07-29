@@ -365,6 +365,12 @@ def internal_error(error):
     return render_template('errors/500.html'), 500
 
 
+# Error route for bad external links
+@app.route('/bad_link')
+def bad_link():
+    return render_template('errors/404.html')
+
+
 # Starts the app
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

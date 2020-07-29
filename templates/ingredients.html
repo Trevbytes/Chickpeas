@@ -77,7 +77,9 @@
   #} {% if ingredient.more_info_link %}
   <div>
     <p>
-      <a href="{{ingredient.more_info_link}}" target="_blank">
+      <a href="{{ingredient.more_info_link}}" 
+         target="_blank"
+         onError="this.onerror=null;this.href='{{url_for('view_ingredient2')}};">
         More Info
       </a>
     </p>
