@@ -24,6 +24,7 @@
       <img
         class="featurette-image img-responsive"
         src="{{ recipe.recipe_pic_url }}"
+        onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
         alt="Picture of {{ recipe.recipe_name }}"
       />
       {% else %}

@@ -171,6 +171,8 @@ def insert_ingredient():
 @app.route('/view_recipe/<recipe_id>')
 def view_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    if not isinstance(the_recipe, dict):
+        return redirect(url_for('dashboard', username=session['username']))
     ingredients_selected = mongo.db.recipes.find_one({"_id":
                                                       ObjectId(recipe_id)})
     return render_template('view_recipe.html', recipe=the_recipe,
@@ -362,13 +364,7 @@ def page_not_found(error):
 # Error 500
 @ app.errorhandler(500)
 def internal_error(error):
-    return render_template('errors/500.html'), 500
-
-
-# Error route for bad external links
-@app.route('/bad_link')
-def bad_link():
-    return render_template('errors/404.html')
+    return render_template('errors/404.html'), 500
 
 
 # Starts the app
