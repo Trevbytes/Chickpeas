@@ -3,36 +3,86 @@
 Chickpeas is my third milestone project while studying at [The Code Institute](https://codeinstitute.net/).
 The purpose of the milestone project is to utilize a database in a website built with a Python Flask project using Python, HTML, CSS and Javascript.
 
-Chickpeas is a cookbook with a focus on the ingredients used in cooking.
+Chickpeas is a cookbook with a focus on individual ingredients used in cooking.
 
 [Live Link to Site](https://chickpeas-creative-cooking.herokuapp.com/)
 
 ## UX
 
-About the site design---
+These [wireframes](https://github.com/Trevbytes/Keys/blob/master/wireframes/chickpeas_wireframes.pdf) show the original idea for the site.
 
-The sites [wireframes](https://github.com/Trevbytes/Keys/blob/master/wireframes/keys-wireframe.pdf) show the original idea for the site. Design changes were made during the consturction of the site to keep the site clean and free from extensive text.
+The original idea of the project was to create a site with recipes with the focus of the site on the ingredients inside a recipe. A user should be able to see if there are substitutes for ingredients in a recipe. This has great value for users with cooking for people with allergies and/or food restrictions.
 
-Bright colors and gradients were chosen to engage the user and inspire creativity.
+Design changes and additions to the original wireframe ideas have been made throughout the development of the project to improve the user experience. Some of the major changes include: A grid view for viewing recipes. A dashboard for users to gather their recipes. New pages for ingredients, login, registration and search. Modals have been added for adding and editing recipes/ingredients and even viewing ingredients.
+
+Chickpeas has been designed with two main features/goals in mind.
+
+ - A custom cookbook, where the user can create their own recipes and create copies of other recipes that have been shared. All user recipes and publicly shared recipes are editable by the user.
+
+ - An ingredient database, where all ingredients contain information about the ingredient. Each ingredient can contain references to common substitutes. This feature is ideally shown when viewing a recipe and clicking on a specific ingredient.
+
+The vibrate colors and gradients of the website were chosen to inspire creativity while cooking. As foods can be in all shades of color, the site is designed to highlight the “fresh & vibrant” color that food can be. 
+
+I used MDB (Material Design for Bootstrap) framework in building the design of this site. Icons are provided by the framework and Font Awesome. The fonts used are Amarante and Roboto, provided by Google Fonts.
 
 ### User Stories
+
+As a User I would like to:
+- Use the site on all devices from mobile to desktop.
+- Be able to register to create my own recipes or ingredients.
+- Be able to browse recipes or ingredients easily.
+- Be able to view information about ingredients.
+- Be able to search for recipes.
+- Browse recipes by course.
+- Submit my own recipes and ingredients.
+- Be able to view substitutes for ingredients.
+- Copy public recipes to my collection.
+- Register or log in to the site simply. 
+- Edit and delete recipes or ingredients I have submitted.
+- Be able to choose to share a recipe or keep it private.
+- Get visual feedback when adding/editing recipes/ingredients and logging in/out.
+- View a collection of all my recipes.
+- Get error messages in case of unexpected issues.
+
+With admin access I would like to do everything above as well as:
+- Be able to access, edit and delete all ingredients.
 
 ## Features
 
 ### Existing Features
 
-- **Landing Page** - 
-- **Browse Public Recipes** - 
-- **Ingredients** -
-- **Login/Register** - 
-- **Dashboard** - 
-- **Create Recipe or Ingredients** - 
-- **Edit/Copy/Delete Recipes** - 
-- **Edit/Delete Ingredients** -
+- **Navagation Bar** - All pages contain the nav bar. It is simple and provides access to the whole site as well as a built in search bar. When a user is logged in the user has access to their personal cookbook and the ability to log out.
+- **Search Recipes** - This feature is designed to take a user's search request and find public recipes and user's personal recipes that contain the search request.
+- **Landing Page** - The first page a new user sees. It is also a page to send users to on logout. Here a user can read about the basic idea of the site.
+- **Browse Public Recipes** - This page allows a user to view all public recipes. It is sorted into 4 catagories for easier navigation. A logged in user can edit or delete their submitted recipes or create-and-edit a copy of another's recipe to add to their personal cookbook.
+- **Ingredients** - This page allows a user to search through all ingredients in the database. When an ingredient is selected the user can learn more about that ingredient and see common subsitutes, if any have been added.
+    - A logged in user can add new ingredients to the database. The user can also fully edit or delete an ingredient created by the user. A user can partially edit ANY ingredient by adding a common subsitute to the selected ingredient.
+- **Login/Register** - These two pages are used to handle the simple login and registration process.
+- **Dashboard** - The users personal cookbook. Here a user can create a new recipe and view all recipes created by the user, including copied recipes.
+- **Create Recipe or Ingredient** - These modals are used to provide the user a form to submit new a recipe or ingredient to the database.  
+- **Edit/Copy Recipes** - This modal allows a user to edit their recipes or create and edit a copy of another users recipe. 
+- **Delete Recipe/Ingredient** - A user can delete their own recipe or ingredient but not others.  
+- **Edit Ingredient** - This modal allows users to edit an ingredient. As mentioned earlier, all ingredients can be edited by users. However, full editing access is granted only to the creator (or admin) of the ingredient.
+- **Loading Page** - A simple loading page shown when the site is loading.
+- **Error Pages** - In case of unforseen errors these pages will help the user return to the site.
 
 ### Features Left to Implement
 
-- Redesign browse recipes page so that more courses can be added. Currently there are only four options of courses to choose from. 
+- Implement [Cloudinary](https://cloudinary.com/). Users should be able to upload their own images and the urls should be stored in the database with the recipe.
+- Redesign the browse recipes page so that more courses can be added. Currently there are only four options of courses to choose from. Ideally I would create a fixed side navigation bar to easily access the diffrent meal types from anywhere on the page. 
+- Add pictures to ingredients. An icon next to an ingredient's name would be another great addition.
+- Implement the seaching of ingredients in the navigation search bar. Power the search by using Google.
+- Add a Rich Text editor, possibly [CKEditor 4 or 5](https://ckeditor.com/), to enable users to format their input text.
+- Add a page to email me (or an admin) about site issuses or suggestions.
+- Add video tutorials for the features of the site.
+- Add metrics to the site. Such as: Total user recipes added and "Liking" of recipes.
+- Add the ability to create a copy of your own recipe.
+- Add more information to recipes. Such as but not limited to: Prep Time, Cook Time, Serving Amount, Date Added, Creator of Recipe, Kitchen Tools Needed.
+- **User settings** - Add the ability to change their username, personalize their cookbook or delete their account and all their recipes.
+- Add the ability to sign in using a third party such as Google or Facebook.
+- Add the ability to reset a forgotten password.
+- Pagination for pages where many recipes are shown.
+- Redesign the landing page so that featured recipes are displayed and selectable.
 
 ## Technologies Used
 
