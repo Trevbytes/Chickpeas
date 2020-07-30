@@ -65,6 +65,7 @@ With admin access I would like to do everything above as well as:
 - **Edit Ingredient** - This modal allows users to edit an ingredient. As mentioned earlier, all ingredients can be edited by users. However, full editing access is granted only to the creator (or admin) of the ingredient.
 - **Loading Page** - A simple loading page shown when the site is loading.
 - **Error Pages** - In case of unforseen errors these pages will help the user return to the site.
+- **Extensive Ingredient Options** - The site currently has over 950 ingredients to choose from in recipes.
 
 ### Features Left to Implement
 
@@ -166,6 +167,60 @@ With admin access I would like to do everything above as well as:
 - [Am I Responsive](http://ami.responsivedesign.is/)
   - The ReadME used **Am I Responsive** for creating an image of the website on multiple displays to show responsiveness.
 
+#### Database Schema
+
+- The application uses `MongoDB Atlas` for data storage.  
+
+The data stored in the database are the following:
+- Object ID
+- String
+
+The Database has three collections: 
+
+**Recipes**
+
+| Title | Field in db | Form validation type | Data type |
+--- | --- | --- | --- 
+Recipe ID | _id | None | ObjectId 
+Recipe Name | recipe_name | text | string
+Meal Type | meal_type | text | string
+Recipe Description | recipe_description | text | string
+Recipe Picture | recipe_pic_url | text | string
+Recipe Ingredient and Info | recipe_ingredient_id_* | none | string
+Recipe Ingredient Name | name_recipe_ingredient_id_* | none | string
+Recipe Instructions | recipe_insturctions | text | string
+Added By | added_by | none | string
+Edited By | edited_by | none | string
+Public Recipe | public | checkbox | string
+
+- Each ingredient added to the recipe is given two unique fields in the object. One containing the name of the ingredient, measurment info and comments. The other, just the name of the ingredient.
+
+**Ingredients**
+
+| Title | Field in db | Form validation type | Data type | Core Ingredient Field | User Ingredient Field |
+--- | --- | --- | --- | --- | ---
+MongoDB Ingredient ID | _id | None | ObjectId | Yes | Yes  
+Original ID | id | none | string | Yes | No
+Ingredient Name | name | text | string | Yes | Yes
+Ingredient Description | description | text | string | Yes | Yes
+Wikipedia Article | wikipedia_id | none | string | Yes | No
+Food Group | food_group | none | string | Yes | No
+More Info Link | more_info_link | text | string | No | Yes
+Added By | added_by | none | string | Yes | Yes
+Subsitute Ingredient and Info | sub_ingredient_id_* | none | string | Yes | Yes
+Subsitute Ingredient Name | name_sub_ingredient_id_* | none | string | Yes | Yes
+
+- Each substitute ingredient added to the ingredient is given two unique fields in the object. One containing the name of the subsitute ingredient and the 'how to subsitute' comment. The other, just the name of the subsitute ingredient.
+- The core ingredients were converted and uploaded from a free food database. As such, the fields of the core ingredients and the user added ingredients are slightly diffrent. When viewing a user submitted ingredient, 'User Submitted' is displayed.  
+
+**Users**
+
+| Title | Field in db | form validation type | Data type |
+--- | --- | --- | --- 
+User ID | _id | None | ObjectId 
+Username | username | text | string
+Hashed Password | user_password | text | string
+
 ## Testing
 
 This project has been tested for display responsiveness throughout development. I have tested the site in all display sizes in Chrome Dev Tools, Chrome, Firefox, Opera, Edge and Android devices.
@@ -178,13 +233,11 @@ The testing and debugging of this project was done extensively in Chrome Dev Too
 - Create next function/feature.
 - Repeat.
 
-A testing framework such as [Jasmine](https://jasmine.github.io/) was not used as manual user testing was more appropriate for the interactivity required in this project.
-
 This project have been reviewed/tested by an experienced web developer. A mentor provided by Code Institute during my studies.
 
 This project has been peer reviewed/tested within Code Institute's Slack channel.
 
-This project have been reviewed/tested by friends and family. This project has been texted extensively for interactivity.
+This project have been reviewed/tested by friends and family.
 
 Some of the main testing of features included:
 
@@ -196,6 +249,7 @@ Some of the main testing of features included:
 - Create an ingredient.
 - Edit an ingredient.
 - Delete an ingredient.
+- Search for a recipe.
 
 - The HTML and CSS code has been validated by [W3C Markup Validation Service](https://validator.w3.org) and [JShint](https://jshint.com/)
 
@@ -203,20 +257,21 @@ Some of the main testing of features included:
 
 This project is hosted on Heroku with the [master branch](https://github.com/Trevbytes/Chickpeas) deployed.
 
-Hosting a page from GitHub is as simple as locating the settings button at the top of your repository, clicking on it, then scrolling down to the GitHub Pages section. Here, under source, you can select the branch that GitHub Pages will Host
-
-![Image](./assets/images/githubpages.jpg)
-
 The GitHub Repository can be found [here](https://github.com/Trevbytes/Chickpeas).
 
 For infomation on how to clone or download the repository click [here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
 
 ## Credits
 
+### Ingredient Content
+
+- The core ingredients and their content found in this project were imported from a free database created by [www.foodb.ca](https://foodb.ca/). 
+
 ### Media
 
-- images
+- Images I have used are freely useable and provided from [Unsplash](https://unsplash.com/). 
 
 ### Acknowledgements
 
 - When stuck with coding issues, I used the following sites to help understand/solve the issues: [W3schools](https://www.w3schools.com/) and [StackOverflow](https://stackoverflow.com/)
+- I'd like to thank Tutor Support from Code Institute for helping me "Rubber Duck" my way through some of the more complex areas of the project.
