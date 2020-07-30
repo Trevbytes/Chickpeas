@@ -208,6 +208,11 @@ from a logged in user on the recipes page or view recipe page. -->
               class="custom-control-input"
               id="customSwitches"
               name="public"
+              {% if recipe.added_by == session.username or recipe.edited_by == session.username %}
+              {% if recipe.public == "on" %}
+              checked
+              {% endif %}        
+              {% endif %}
             />
 			<label class="custom-control-label" for="customSwitches"
               ><strong>Toggle this switch to make your recipe visable to the Public </strong>
