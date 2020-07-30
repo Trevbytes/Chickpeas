@@ -7,6 +7,22 @@ Chickpeas is a cookbook with a focus on individual ingredients used in cooking.
 
 [Live Link to Site](https://chickpeas-creative-cooking.herokuapp.com/)
 
+## Table of Contents
+
+- [**UX**](#UX)
+  - [User Stories](#User-Stories)
+- [**Features**](#Features)
+    - [Existing Features](#Existing-Features)
+    - [Features Left to Implement](#Features-Left-to-Implement)
+- [**Technologies Used**](#Technologies-Used)
+- [**Database Schema**](#Database-Schema)
+- [**Testing**](#Testing)
+- [**Deployment**](#Deployment)
+    - [GitHub](#GitHub)
+    - [Local Deployment](#Local-Deployment)
+    - [Remote Deployment](#Remote-Deployment)
+- [**Credits**](#Credits)
+
 ## UX
 
 These [wireframes](https://github.com/Trevbytes/Keys/blob/master/wireframes/chickpeas_wireframes.pdf) show the original idea for the site.
@@ -152,6 +168,10 @@ With admin access I would like to do everything above as well as:
 
   - The project uses **Heroku** for hosting the python app/webpage.
 
+- [Cloudinary](https://cloudinary.com/)
+
+  - The project uses **Cloudinary** for storing media outside of app and database. No API is currently implemented. Recipe pictures and the majority of the apps picture are stored on the Cloudinary platform.  
+
 - [Chrome Developer Tools](https://developers.google.com/web/tools/chrome-devtools)
 
   - The project uses **Chrome Developer Tools** for debugging the webpage during development.
@@ -167,7 +187,7 @@ With admin access I would like to do everything above as well as:
 - [Am I Responsive](http://ami.responsivedesign.is/)
   - The ReadME used **Am I Responsive** for creating an image of the website on multiple displays to show responsiveness.
 
-#### Database Schema
+## Database Schema
 
 - The application uses `MongoDB Atlas` for data storage.  
 
@@ -223,23 +243,7 @@ Hashed Password | user_password | text | string
 
 ## Testing
 
-This project has been tested for display responsiveness throughout development. I have tested the site in all display sizes in Chrome Dev Tools, Chrome, Firefox, Opera, Edge and Android devices.
-
-The testing and debugging of this project was done extensively in Chrome Dev Tools throughout the project. The process would typically go as follows:
-
-- Create a function/feature.
-- Test that function and try to break the function using unexpected input and having friends and family test the function.
-- Fix the bugs.
-- Create next function/feature.
-- Repeat.
-
-This project have been reviewed/tested by an experienced web developer. A mentor provided by Code Institute during my studies.
-
-This project has been peer reviewed/tested within Code Institute's Slack channel.
-
-This project have been reviewed/tested by friends and family.
-
-Some of the main testing of features included:
+This project as be throughly tested throughout development. Some of the main testing of features included:
 
 - Register/Create a new user.
 - Create a recipe.
@@ -251,17 +255,85 @@ Some of the main testing of features included:
 - Delete an ingredient.
 - Search for a recipe.
 
-- The HTML and CSS code has been validated by [W3C Markup Validation Service](https://validator.w3.org) and [JShint](https://jshint.com/)
+- The code has been validated by [W3C Markup Validation Service](https://validator.w3.org), [JShint](https://jshint.com/) and [PEP8online](http://pep8online.com/)
+
+Through details on testing can be found in [Testing.md](testing.md)
 
 ## Deployment
 
+### GitHub 
+
+[My GitHub Repository](https://github.com/Trevbytes/Chickpeas)
+
+After navigating to my repo you can download the project to a .zip file or open it in the online IDE Gitpod.
+
+<img src="/static/images/readme/clone_repo.jpg">
+
+For more infomation on how to clone or download the repository click [here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
+
+### Local Deployment
+
+**To run this project locally**
+
+To run the project locally the following must be installed: 
+- An IDE, such as [VS Code](https://code.visualstudio.com/)
+- [PIP](https://pip.pypa.io/en/stable/installing/), python requirements installer.
+- [Python3](https://www.python.org/downloads/), chosen coding language of the app.
+- [GIT](https://www.atlassian.com/git/tutorials/install-git), version control.
+- [MongoDB](https://www.mongodb.com/), database.
+
+
+After, download a .ZIP file of my repository ([Master Branch](https://github.com/Trevbytes/Chickpeas)) and unzip this file. In the control line interface, with GIT installed, enter the following command: 
+   
+    https://github.com/Trevbytes/Chickpeas.git
+
+- Navigate to the root path using the `cd` command. 
+- Create a `.env` file for environment variables. Include `MONGO_URI` and `SECRET_KEY` values.
+- All requirements from requirements.txt must be installed. Use the following command:
+    
+        sudo -H pip3 -r requirements.txt
+- Sign up for a free account on MongoDB and create a new Database for the Chickpeas app. Three collections should be created: recipes, ingredients and users. 
+- You should then be able to launch your app using the following command in your terminal:
+
+        python app.py
+
+### Remote Deployment
+
 This project is hosted on Heroku with the [master branch](https://github.com/Trevbytes/Chickpeas) deployed.
 
-The GitHub Repository can be found [here](https://github.com/Trevbytes/Chickpeas).
+In order to remotely deploy this project on Heroku the following is the method I recommend.
 
-For infomation on how to clone or download the repository click [here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
+- Ensure an updated `requirements.txt` exsists in the project. Use the terminal command `pip freeze > requirements.txt` to quickly create/update the file.
+- Ensure a Procfile exists, this essientaly lets Heroku know where to start the app. Use the terminal command `echo web: python app.py > Procfile` to quickly create a Procfile. 
+- Using git (`git add .`, `git commit -m "<your comment>"`) will stage any created or updated files. After, push the project to GitHub using `git push`.
+- Using a browser, naviagte to [Heroku](https://dashboard.heroku.com/login). Login or create a free account.
+- Select the "new" button, give the project a name & set the region. 
+- After, from the Heroku dashboard of the new app, click on "Deploy" > "Deployment method" and choose GitHub.
+- Review and confirm the connection of your Heroku app to your GitHub repository.
+- From the Heroku dashboard for the app, select "Settings" and then "Reveal Config Vars".
+- Configure the following variables:
+
+| KEY | VALUE |
+--- | --- | 
+IP | 0.0.0.0|
+PORT | 5000|
+MONGODBNAME | <database_name>
+MONGO_URI| mongodb+srv://<username>:<password>@<cluster_name>-qtxun.mongodb.net/<database_name>?retryWrites=true&w=majority 
+SECRET KEY | <secret_key>
+
+- In the Heroku dashboard, click "Deploy".
+- Congrats, if all went well, the app is now deployed.
+
+
+[My GitHub Repository](https://github.com/Trevbytes/Chickpeas)
+
+For more infomation on how to clone or download the repository click [here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
 
 ## Credits
+
+### README Structure
+
+- While writing this README I have used two other READMEs (alongside my previous knowledge) for content and structural inspiration. [Sabinemm](https://github.com/sabinemm/recipe-site-ms3/blob/master/README.md) and [ClaireLally](https://github.com/ClaireLally8/StudyPal/blob/master/README.md) 
 
 ### Ingredient Content
 
