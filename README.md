@@ -1,5 +1,7 @@
 # Chickpeas
 
+<img src="/static/images/readme/intro_image.jpg">
+
 Chickpeas is my third milestone project while studying at [The Code Institute](https://codeinstitute.net/).
 The purpose of the milestone project is to utilize a database in a website built with a Python Flask project using Python, HTML, CSS and Javascript.
 
@@ -323,11 +325,6 @@ SECRET KEY | <secret_key>
 
 - In the Heroku dashboard, click "Deploy".
 - Congrats, if all went well, the app is now deployed.
-
-
-[My GitHub Repository](https://github.com/Trevbytes/Chickpeas)
-
-For more infomation on how to clone or download the repository click [here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
 
 ## Credits
 
