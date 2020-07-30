@@ -27,7 +27,7 @@ Chickpeas is a cookbook with a focus on individual ingredients used in cooking.
 
 ## UX
 
-These [wireframes](https://github.com/Trevbytes/Keys/blob/master/wireframes/chickpeas_wireframes.pdf) show the original idea for the site.
+These [wireframes](https://github.com/Trevbytes/Chickpeas/blob/master/wireframes/chickpeas_wireframes.pdf) show the original idea for the site.
 
 The original idea of the project was to create a site with recipes with the focus of the site on the ingredients inside a recipe. A user should be able to see if there are substitutes for ingredients in a recipe. This has great value for users with cooking for people with allergies and/or food restrictions.
 
