@@ -4,6 +4,15 @@ $(".custom-close").on("click", function () {
   $("#editIngredientModal").remove();
 });
 
+/* Prevents Submitting with Return key */
+$('#editIngredientModal').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});
+
 /* Functions for adding subsitute ingredients to the ingredients list in edit_ingredient.html */
 var selectedIngredient;
 $("select.ingredient_select").change(function () {

@@ -35,6 +35,14 @@ $(".custom-close").on("click", function () {
   $("#ajaxModal").remove();
 });
 
+$('#ajaxModal').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});
+
 /* Functions for ingredient filter */
 function filterForEditRecipeIngredients() {
   var input, filter, ul, li, a, i, option;

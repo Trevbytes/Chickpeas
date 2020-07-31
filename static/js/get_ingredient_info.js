@@ -1,6 +1,16 @@
+/* Closes Modal */
 $(".custom-close").on("click", function () {
   $(".modal-backdrop").remove();
   $("#submitIngredientModal").remove();
+});
+
+/* Prevents Submitting with Return key */
+$('#submitIngredientModal').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
 });
 
 var selectedIngredient;

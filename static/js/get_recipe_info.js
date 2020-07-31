@@ -37,6 +37,15 @@ $(".custom-close").on("click", function () {
   $("#addRecipeModal").remove();
 });
 
+/* Prevents Submitting with Return key */
+$('#addRecipeModal').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});
+
 /* Functions for dropdown and ingredient filter */
 function myFunctiondrop() {
   document.getElementById("myDropdown").classList.toggle("show");
