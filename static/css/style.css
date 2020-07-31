@@ -118,12 +118,19 @@ ul {
   padding-top: 2.9rem;
 }
 
+@media only screen and (min-width: 995px) {
+  /* Tab links recipe titles and info for phones */
+  .tab-container {
+    padding-top: 3.8125rem;
+  }
+}
+
 /* Course content color */
 #breakfast {
   background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
 }
 #lunch {
-  background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
+  background-image: linear-gradient(to right, #cde7e7 0%, #1f7fec 100%);
 }
 #dinner {
   background-image: linear-gradient(to right, #ec77ab 0%, #7873f5 100%);
