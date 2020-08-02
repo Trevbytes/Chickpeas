@@ -88,6 +88,7 @@ With admin access I would like to do everything above as well as:
 ### Features Left to Implement
 
 - Implement [Cloudinary](https://cloudinary.com/). Users should be able to upload their own images and the urls should be stored in the database with the recipe.
+- Rework the search filter/search when adding ingrdients in modals. A filter similar to the search ingredients dropdown (located on the ingredients page) list would be ideal.   
 - Redesign the browse recipes page so that more courses can be added. Currently there are only four options of courses to choose from. Ideally I would create a fixed side navigation bar to easily access the diffrent meal types from anywhere on the page. 
 - Add pictures to ingredients. An icon next to an ingredient's name would be another great addition.
 - Implement the seaching of ingredients in the navigation search bar. Power the search by using Google.

@@ -154,37 +154,90 @@ The testing and debugging of this project was done extensively in Chrome Dev Too
 In order to ensure the site works as required, I manually tested all aspects of the deployed site.
 
 **Landing Page and Nav Bar**
-- Check that all links in navbar both when logged in and when logged out.
+- Check that all links in navbar, both when logged in and when logged out, work.
     - No errors
-- Check that images display properly on all screen sizes. 
+- Check that images and nav bar display properly on all screen sizes. 
     - No errors
 
 **Browse Public Recipes Page**
 - Check that images display properly on all screen sizes. 
     - No errors
-
-**Ingredients Page**
-- Check that images display properly on all screen sizes. 
+    - *Note:* When viewing recipes in grid view, the larger image on a row of recipes sets sets the size of both recipes. This, unintentionally, can distort some images. Ideally, I would like to implement [Cloudinary's](https://cloudinary.com/) API to automaticlly resize images that users upload.
+- Check that Grid View and List View work on all screen sizes.
+    - No errors
+- Check that tabs work correctly.
+    - No errors
+- Check that Edit, Copy and Delete buttons work on all tabs.
+    - No Errors
+- Check that Edit and Delete are only shown for the owner of a recipe.
+    - Working as intended.
+- Check that the Copy button is shown when logged in and viewing another's public recipe.
+    - Working as intended.
+- Check that all modals open and close correctly.
     - No errors
 
-**Create Ingredient Modal**
-- Check that images display properly on all screen sizes. 
+**Ingredients Page**
+- Check that the search button works on all screen sizes.
+    - No errors
+    - *Note:* After opening the search dropdown, closing the search bar without entering an ingredient can be difficult on smaller screens. The only way to close the dropdown is to either choose an ingredient or click on the search button again.
+- Check many differnt ingredients for broken links.
+    - No errors
+    - *Note:* All 1000 ingredients have not been reviewed. When clicking on broken likes the user is redirected to an error page.
+- Check that logged in users can add new ingredients.
+    - No errors
+- Check that all modals open and close correctly.
+    - No errors
+- Check that a user can remove an ingredient added by the user.
+    - No errors
+
+**Submit Ingredient Modal**
+- Check that a name and description must be added to submit an ingredient.
+    - If whitespace is added after an ingredient name, the ingredient cannot currently be viewed in modal form.
+- Check that a non-admin user can add a substitute ingredient to any ingredient. A non-admin should not be able to edit or delete any other part of an ingredient.
+    - No errors
+- Check that the an ingredient is added to the database and that user feedback is given.
     - No errors
 
 **Update Ingredient Modal**
-- Check that images display properly on all screen sizes. 
+- Check that an admin can fully edit or remove any ingredient.
+    - No errors
+- Check that a user can fully edit and remove an ingredient added by the user.
+    - No errors
+- Check that when submitted, the ingredient updates correctly in the database. Ensure that removed substitutes are removed from the database. 
     - No errors
 
 **Dashboard Page**
 - Check that images display properly on all screen sizes. 
     - No errors
-
-**Create Recipe Modal**
-- Check that images display properly on all screen sizes. 
+    - *Note:* When viewing recipes in grid view, the larger image on a row of recipes sets sets the size of both recipes. This, unintentionally, can distort some images. Ideally, I would like to implement [Cloudinary's](https://cloudinary.com/) API to automaticlly resize images that users upload.
+- Check that only a users recipes or recipes copied by the user are displayed.
+    - No errors
+- Check that the grid view works with an odd number of recipes.
+    - No errors
+- Check that all modals (update recipe, create recipe) open and close.
     - No errors
 
+**Create Recipe Modal**
+- Check that the modal resizes to all screen sizes.
+    - No errors
+- Check that the ingredient filter works when adding a recipe.
+    - Does not work on iOS and Safari. All ingredients are shown but none are filtered. Further research into why the current code does not work is required. 
+- Check that ingredients can be added to a recipe.
+    - No errors
+- Check that all required inputs must be filled in order to submit.
+    - A recipe filled with whitespaces can be submitted. A check to see that there is text in the input should be created.
+
 **Update Recipe/Copy Recipe Modal**
-- Check that images display properly on all screen sizes. 
+- Check that the correct information stored in the database is used to fill the form. 
+    - No errors
+- Check that information is updated when submitted to the database.
+    - No errors
+
+**View Recipe Page**
+- Check that the recipe image displays properly on all screen sizes. 
+    - No errors
+
+- Check that all modals (update recipe, create recipe) open and close.
     - No errors
 
 **View Ingredient Modal**
@@ -192,9 +245,13 @@ In order to ensure the site works as required, I manually tested all aspects of 
     - No errors
 
 **Delete Recipe or Ingredient**
-- Check that images display properly on all screen sizes. 
+- Check that a confirm window appears when removing a recipe or ingredient. 
+    - No errors
+- Check the database to confirm that the recipe/ingredient is removed.
     - No errors
 
 **Login/Logout**
-- Ensure logout works
+- Ensure login and logout works
+    - No errors
+- Ensure users are provided feedback on login, logout and signup.
     - No errors
