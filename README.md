@@ -43,6 +43,31 @@ The vibrate colors and gradients of the website were chosen to inspire creativit
 
 I used MDB (Material Design for Bootstrap) framework in building the design of this site. Icons are provided by the framework and Font Awesome. The fonts used are Amarante and Roboto, provided by Google Fonts.
 
+### Defensive Design
+
+Features have been added along the way to help prevent unexpected input or tampering with others recieps or ingredients as well as provide privacy and security for the user. These features include:
+ - User accounts
+    - Only registered users can create recipes or ingredients. This allows an admin to the database to see who has added a recipe/ingredient. 
+    - Users' passwords are hashed before being stored in the database. This prevents admins from seeing a users password.
+ - Required input
+    - Recipes and ingredient forms use required input fields in order to ensure that data is entered.
+ - Default images
+    - Default images are used when a user does not enter a URL for an image. If the URL does not work a the default image is also displayed.
+ - Privacy for recipes
+    - The user has the choice to share their created or copied recipes with the public.
+    - When a logged in user uses the search function, public recipes as well as the user's recipes are used in the search.
+ - Limited access
+    - A non-logged in user can only view recipes and ingredients.
+    - A logged in user can: 
+        - Create recipes and ingrdients
+        - Delete their own recipes and ingredients        
+        - Copy recipes
+        - Update their own recipes or ingredients
+        - Update existing ingredients by adding subsitutes
+        - **A logged in user can NOT edit main ingredient information or delete another's ingredient**
+    - An admin has full access to the ingredients. 
+
+
 ### User Stories
 
 As a User I would like to:
@@ -83,7 +108,7 @@ With admin access I would like to do everything above as well as:
 - **Edit Ingredient** - This modal allows users to edit an ingredient. As mentioned earlier, all ingredients can be edited by users. However, full editing access is granted only to the creator (or admin) of the ingredient.
 - **Loading Page** - A simple loading page shown when the site is loading.
 - **Error Pages** - In case of unforseen errors these pages will help the user return to the site.
-- **Extensive Ingredient Options** - The site currently has over 950 ingredients to choose from in recipes.
+- **Extensive Ingredient Options** - The site currently has over 1000 ingredients to choose from in recipes.
 
 ### Features Left to Implement
 
@@ -101,6 +126,7 @@ With admin access I would like to do everything above as well as:
 - Add more information to recipes. Such as but not limited to: Prep Time, Cook Time, Serving Amount, Date Added, Creator of Recipe, Kitchen Tools Needed.
 - **User settings** - Add the ability to change their username, personalize their cookbook or delete their account and all their recipes.
 - Add the ability to sign in using a third party such as Google or Facebook.
+- Add the ability to grant admin access to users.
 - Add the ability to reset a forgotten password.
 - Pagination for pages where many recipes are shown.
 - Redesign the landing page so that featured recipes are displayed and selectable.
