@@ -191,6 +191,9 @@ With admin access I would like to do everything above as well as:
 - [Am I Responsive](http://ami.responsivedesign.is/)
   - The ReadME used **Am I Responsive** for creating an image of the website on multiple displays to show responsiveness.
 
+- [FreeFormatter](https://www.freeformatter.com/)
+  - All HTML pages have been formatted using **FreeFormatter**.
+
 ## Database Schema
 
 - The application uses `MongoDB Atlas` for data storage.  
