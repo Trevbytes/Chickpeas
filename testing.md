@@ -186,7 +186,7 @@ In order to ensure the site works as required, I manually tested all aspects of 
 - Check that logged in users can add new ingredients.
     - No errors
 - Check that all modals open and close correctly.
-    - No errors
+    - Error 500 happens when a ingredient link is clicked if the ingredient no longer exists in the database. The modal does not reroute the page to the error 500 page.
 - Check that a user can remove an ingredient added by the user.
     - No errors
 
@@ -232,17 +232,28 @@ In order to ensure the site works as required, I manually tested all aspects of 
     - No errors
 - Check that information is updated when submitted to the database.
     - No errors
+- Check that the data in the form is sent via the correct route depending on if the form information is creating a copy of the recipe or updating the recipe.
+    - No errors
 
 **View Recipe Page**
 - Check that the recipe image displays properly on all screen sizes. 
     - No errors
-
-- Check that all modals (update recipe, create recipe) open and close.
+- Check that all buttons work as intended (Back, Cookbook, Update, Delete, Copy).
+    - No errors
+    - *Note:* After a recipe is updated a new ID is given to the recipe. If a user clicks on the back button after updating a recipe the user is sent to a recipe that no longer exists. The user is redirected to their dashboad when this happens. 
+- Check that all modals (update recipe, create recipe, ingredient info) open and close.
+    - When opening a ingredient info modal it seems that multiple instances of the modal are created. All are closed when the close button is clicked. However, when scrolling through the modal on smaller screens the underlying modal can sometimes be seen.
+    - Error 500 happens when a ingredient link is clicked if the ingredient no longer exists in the database. The modal does not reroute the page to the error 500 page.
+- Check that a confirmation window appears when attempting to delete a recipe.
+    - No errors
+- Check that no broken links to images are displayed. When a link does not work, a default image is displayed.
     - No errors
 
 **View Ingredient Modal**
-- Check that images display properly on all screen sizes. 
-    - No errors
+- Check that links displayed in the modal work. A new modal is opened and the current is closed when clicking on an ingredient link. When cliking on an external link a new window is created.
+    - Error 500 happens when a ingredient link is clicked if the ingredient no longer exists in the database. The modal does not reroute the page to the error 500 page.
+- Check that both close buttons work.
+    - After opening an closing multiple modals on the same page loading time is increased. The buttons for closing the modal can therefore be unresponsive for a few seconds after opening a modal. 
 
 **Delete Recipe or Ingredient**
 - Check that a confirm window appears when removing a recipe or ingredient. 
@@ -251,7 +262,9 @@ In order to ensure the site works as required, I manually tested all aspects of 
     - No errors
 
 **Login/Logout**
-- Ensure login and logout works
+- Ensure login and logout works.
     - No errors
 - Ensure users are provided feedback on login, logout and signup.
+    - No errors
+- Ensure proper feedback is given when incorrect input is given. (Wrong username, wrong password, password mismatch when confirming a password, username already exists)
     - No errors
