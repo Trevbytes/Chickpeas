@@ -70,7 +70,7 @@ def login():
                 flash('Invalid password.')
         else:
             flash('Invalid username or password.')
-    return render_template('login.html', is_index=True)
+    return render_template('login.html')
 
 
 # Registration page- This handels a request for a new user.
@@ -96,7 +96,7 @@ def register():
             return redirect(url_for('dashboard', username=session['username']))
         flash('That username already exists, please try again')
 
-    return render_template('register.html', is_index=True)
+    return render_template('register.html')
 
 
 # Logout route - When logout is requested the session is
@@ -114,13 +114,15 @@ def logout():
 # most recently.
 @app.route('/dashboard/<username>')
 def dashboard(username):
-    ingredients = mongo.db.ingredients.find().sort("name")
-    my_recipes = mongo.db.recipes.find({"$or": [{"added_by": username},
-                                                {"edited_by": username}
-                                                ]}).sort("_id", -1)
-
-    return render_template('dashboard.html', my_recipes=my_recipes,
-                           ingredients=ingredients)
+    if 'username' in session:
+        ingredients = mongo.db.ingredients.find().sort("name")
+        my_recipes = mongo.db.recipes.find({"$or": [{"added_by": username},
+                                                    {"edited_by": username}
+                                                    ]}).sort("_id", -1)
+        return render_template('dashboard.html', my_recipes=my_recipes,
+                               ingredients=ingredients)
+    else:
+        return redirect(url_for('home'))
 
 
 # Modal with a form to get Recipe info - returns full ingredient list,
