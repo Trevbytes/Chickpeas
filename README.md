@@ -31,7 +31,7 @@ These [wireframes](https://github.com/Trevbytes/Chickpeas/blob/master/wireframes
 
 The original idea of the project was to create a site with recipes with the focus of the site on the ingredients inside a recipe. A user should be able to see if there are substitutes for ingredients in a recipe. This has great value for users with cooking for people with allergies and/or food restrictions.
 
-Design changes and additions to the original wireframe ideas have been made throughout the development of the project to improve the user experience. Some of the major changes include: A grid view for viewing recipes. A dashboard for users to gather their recipes. New pages for ingredients, login, registration and search. Modals have been added for adding and editing recipes/ingredients and even viewing ingredients.
+This project has been created using the AGILE Software development model. Design changes and additions to the original wireframe ideas have been made throughout the development of the project to improve the user experience. Some of the major changes include: A grid view for viewing recipes. A dashboard for users to gather their recipes. New pages for ingredients, login, registration and search. Modals have been added for adding and editing recipes/ingredients and even viewing ingredients.
 
 Chickpeas has been designed with two main features/goals in mind.
 
@@ -93,6 +93,7 @@ With admin access I would like to do everything above as well as:
 - Add pictures to ingredients. An icon next to an ingredient's name would be another great addition.
 - Implement the seaching of ingredients in the navigation search bar. Power the search by using Google.
 - Add a Rich Text editor, possibly [CKEditor 4 or 5](https://ckeditor.com/), to enable users to format their input text.
+- Add "characters remaining" info under the input of recipe descriptions.
 - Add a page to email me (or an admin) about site issuses or suggestions.
 - Add video tutorials for the features of the site.
 - Add metrics to the site. Such as: Total user recipes added and "Liking" of recipes.

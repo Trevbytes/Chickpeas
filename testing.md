@@ -63,12 +63,31 @@ This project has been tested for display responsiveness throughout development. 
 
 #### Known Issues
 
-##### Resolved 
+Most errors throughout the project have been simple syntax errors that took very little time to locate and correct. Some of the larger issues/bugs can be found below.
 
+##### Resolved
+ - Grid view not displaying rows correctly.
+    - Jinja python logic is used to create rows depending on the amount of recipes. This creates rows of no more than 2 recipes and closes the last row if there is an uneven amount of recipes.
+ - Ingredients removed in a recipe or ingredient are not removed in the database.
+    - A hidden list is created when removing ingredients. This list is submitted when the recipe/ingredient is updated. All ingredients in this list are then removed from the database. 
+ - The nav bar design is inconsistent on differnt pages.
+    - Two design frameworks were being used, Bootstrap and Materialize. Both and been removed and only MDB is being used as the framework.
+ - Long recipe descriptions are distorting recipe cards.
+    - A max character of 200 has been implemented to keep descriptions short. Text is shown informing the user.
+ - Pressing return when a modal is open attempts to submit the form.
+    - Code has been added to prevent form submission when pressing return.
+ - When removing an ingredient from a list in the modals the first click of the button appears to do nothing.
+    - The first click was creating the event listener for the button but not executing the code. The event listener is now created at runtime so that the first click is responsive.
+ - Modals are unable to be reopened on some pages.
+    - jQuery was being linked multiple times. Cleaning the code and ensuring only one link for jQuery exists fixed this issue.
 
 ##### Unresolved
  - Removing an ingredient from the database does not remove the ingredient from recipes containing it. This results in a error when trying to view the ingredient info from a recipe.
  - The filter input does not clear after submitting an ingredient.
+    - Code to clear the value after clearing the other input values of an ingredient has been attempted, to no success. 
+ - The filter input does not work on iOS devices. A user can still select an ingredient. However, the user must scroll through the entire ingredient database to find an ingredient.
+ - Whitespace after an ingredient name causes an internal error when selecting that ingredient from the view recipe page.
+ - Multiple ajax modals appear to be opened when clicking on an ingredient from the view recipe page. 
 ---
 ## Functional Testing
 ---
