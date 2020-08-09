@@ -1,187 +1,186 @@
 <!-- Ajax Modal for the form for editing an igredient. Called from ingredients page. -->
 <div class="modal-dialog modal-fluid" role="document">
-  <div class="container modal-content">
-    <div class="modal-header text-center">
-      <h1 class="modal-title w-100 font-weight-bold">
-        Edit Ingredient
-      </h1>
-      <button type="button" class="close custom-close" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <!-- Edit Ingredient form -->
-    <form
-      id="ingredientForm"
-      class="modal-body mx-3"
-      action="{{ url_for('update_ingredient', ingredient_id=ingredient._id)}}"
-      method="POST"
-    >
-      <div class="md-form mb-5">
-        <!-- Ingredient name input. Readonly unless the user is an
-        admin or created the ingredient. -->
-        <input
-          type="text"
-          id="ingredient_name"
-          name="name"
-          class="form-control validate"
-          required
-          value="{{ingredient.name}}"          
-          {% if session.username == 'Admin-T' %}
-          {% elif session.username == ingredient.added_by %}
-          {% else %}
-          readonly
-          title="Can only be edited by the creator of the ingredient."
-          {% endif %}
-        />
-        <label class="active" data-error="wrong" data-success="right" for="ingredient_name"
-          >Ingredient Name</label
-        >
+   <div class="container modal-content">
+      <div class="modal-header text-center">
+         <h1 class="modal-title w-100 font-weight-bold">
+            Edit Ingredient
+         </h1>
+         <button type="button" class="close custom-close" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+         </button>
       </div>
-      <!---->
-      <div class="md-form">
-        <!-- Ingredient description input. Readonly unless the user is an
-        admin or created the ingredient. -->
-        <textarea
-          id="ingredient_description"
-          class="md-textarea form-control"
-          name="description"
-          required
-          {% if session.username == 'Admin-T' %}
-          {% elif session.username == ingredient.added_by %}
-          {% else %}
-          readonly
-          title="Can only be edited by the creator of the ingredient."
-          {% endif %}
-        >{{ingredient.description}}</textarea>
-        <label class="active" for="ingredient_description">Ingredient Description</label>
+      <!-- Edit Ingredient form -->
+      <form
+         id="ingredientForm"
+         class="modal-body mx-3"
+         action="{{ url_for('update_ingredient', ingredient_id=ingredient._id)}}"
+         method="POST"
+         >
+         <div class="md-form mb-5">
+            <!-- Ingredient name input. Readonly unless the user is an
+               admin or created the ingredient. -->
+            <input
+            type="text"
+            id="ingredient_name"
+            name="name"
+            class="form-control validate"
+            required
+            value="{{ingredient.name}}"          
+            {% if session.username == 'Admin-T' %}
+            {% elif session.username == ingredient.added_by %}
+            {% else %}
+            readonly
+            title="Can only be edited by the creator of the ingredient."
+            {% endif %}
+            />
+            <label class="active" data-error="wrong" data-success="right" for="ingredient_name"
+               >Ingredient Name</label
+               >
+         </div>
+         <!---->
+         <div class="md-form">
+            <!-- Ingredient description input. Readonly unless the user is an
+               admin or created the ingredient. -->
+            <textarea
+            id="ingredient_description"
+            class="md-textarea form-control"
+            name="description"
+            required
+            {% if session.username == 'Admin-T' %}
+            {% elif session.username == ingredient.added_by %}
+            {% else %}
+            readonly
+            title="Can only be edited by the creator of the ingredient."
+            {% endif %}
+            >{{ingredient.description}}</textarea>
+            <label class="active" for="ingredient_description">Ingredient Description</label>
+         </div>
+         <div class="md-form">
+            <!-- More info link, URL input -->
+            <input
+            type="text"
+            class="form-control validate"
+            id="more_info_link"
+            name="more_info_link"
+            placeholder="OPTIONAL - Add a link to more info on the ingredient. Wikipedia typically is a good option."
+            value="{{ingredient.more_info_link}}"
+            {% if session.username == 'Admin-T' %}
+            {% elif session.username == ingredient.added_by %}
+            {% else %}
+            readonly
+            title="Can only be edited by the creator of the ingredient."
+            {% endif %}          
+            />
+            <label class="active" for="more_info_link">More Info Link</label>
+         </div>
+         <h3>Common Substitutes</h3>
+         <!-- Substitutes ingredient content collapse button and content -->
+         <div>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" 
+               data-target="#collapseIngredients"
+               aria-expanded="false" 
+               aria-controls="collapseIngredients">
+            <i class="fas fa-plus-circle"></i> Add Substitute Ingredient
+            </button>
+         </div>
+         <div class="collapse" id="collapseIngredients">
+            <div class="md-form dropdown">
+               <strong>Ingredient Filter</strong>
+               <!-- Opened by default dropdown menu. Dropdown used in order to 
+                  filter ingredients in the select menu  -->        
+               <div id="edit-ingredient-dropdown" class="dropdown-content" style="display: block;">
+                  <!-- Filter for select menu -->
+                  <input
+                     type="text"
+                     class="form-control"
+                     placeholder="...Write the ingredient name here(or part of it) to filter your selection in the list below..."
+                     id="edit-ingredient-dropdown-input"
+                     onkeyup="filterFunctionForEditIngredient()"
+                     />
+                  <!-- Ingredient selection -->
+                  <select
+                     class="ingredient_select browser-default custom-select custom-select-lg"
+                     id="ingredient_select"
+                     >
+                     <option selected="true" disabled="disabled">
+                        Click here to choose an ingredient
+                     </option>
+                     {# Lists all ingredients in the database #}
+                     {% for ingredient in ingredients %}
+                     <option>{{ingredient.name}}</option>
+                     {% endfor %}
+                  </select>
+               </div>
+            </div>
+            <div class="md-form">
+               <!-- Ingredient comment input -->
+               <input
+                  type="text"
+                  class="form-control validate"
+                  id="ingredient_comment"
+                  />
+               <label for="ingredient_comment"
+                  >Comment(Tips for how to substitute)</label
+                  >
+            </div>
+            <!-- <script>
+               var ingredient_index = 1;
+               </script>       -->
+            <div class="md-form">
+               <!-- Add substitute ingredient to an ingredient button --> 
+               <button type="button" class="btn" onclick="addToIngredientList()">
+               Add Substitute to Ingredient
+               </button>
+            </div>
+         </div>
+         <!--Script to reset the ingredient_index each time the modal is 
+            rendered.-->
+         <script>
+            var ingredient_index = 0 ;
+         </script>
+         <div class="md-form">
+            <!--List for substitute ingredients of an ingredient-->
+            <ul class="list-group" id="sub_ingredient_list">
+               {# Loop for key, value pairs in an ingredient object #}
+               {% for key, value in ingredient.items() %}
+               {# 'If' logic to check that the key is a substitute ingredient. Then sets a 
+               variable 'recname' with the ingredient name to seperate the name of the ingredient
+               from the possible substitute comments added later.  #}
+               {% if sub_ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
+               <li type="text" readonly class="list-group-item {{key}}"></li>
+               <!--Script here to utilize the jinja variables in the loop. Creates a readonly
+                  form input. The input sent with the form is given a unique ID and the value is the
+                  ingredient with an optional comment. A hidden readonly input is added to send just the
+                  name of the ingredient with the form. A remove ingredient buttton is added in order to
+                  remove an ingredient from the list.-->
+               <script>                                    
+                  $(document).ready(function () {
+                      ingredient_index++;
+                      $('.{{key}}').append(`<input type="text" class="form-control" readonly name='sub_ingredient_id_${ingredient_index}' value="{{value}}"><button type="button" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="{{ingredient[recname]}}">`)
+                  });
+               </script>
+               {% endif %}{% endfor %}
+            </ul>
+         </div>
+         <!-- Hidden div to add 'added by' info to recipe -->
+         <div hidden>
+            <input
+               type="text"
+               readonly
+               id="added_by"
+               name="added_by"
+               value="{{ingredient.added_by}}"
+               />
+         </div>
+         <div id="remove-request" hidden>
+         </div>
+      </form>
+      <!-- Update ingredient button -->
+      <div class="modal-footer md-form d-flex justify-content-center">
+         <button type="submit" form="ingredientForm" class="btn btn-indigo">
+         Update Ingredient
+         </button>
       </div>
-      <div class="md-form">
-        <!-- More info link, URL input -->
-        <input
-          type="text"
-          class="form-control validate"
-          id="more_info_link"
-          name="more_info_link"
-          placeholder="OPTIONAL - Add a link to more info on the ingredient. Wikipedia typically is a good option."
-          value="{{ingredient.more_info_link}}"
-          {% if session.username == 'Admin-T' %}
-          {% elif session.username == ingredient.added_by %}
-          {% else %}
-          readonly
-          title="Can only be edited by the creator of the ingredient."
-          {% endif %}          
-        />
-        <label class="active" for="more_info_link">More Info Link</label>
-      </div>
-      <h3>Common Substitutes</h3>
-      <!-- Substitutes ingredient content collapse button and content -->
-      <div>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" 
-        data-target="#collapseIngredients"
-        aria-expanded="false" 
-        aria-controls="collapseIngredients">
-        <i class="fas fa-plus-circle"></i> Add Substitute Ingredient
-        </button>
-      </div>
-      <div class="collapse" id="collapseIngredients">
-        <div class="md-form dropdown">
-            <strong>Ingredient Filter</strong>
-            <!-- Opened by default dropdown menu. Dropdown used in order to 
-            filter ingredients in the select menu  -->        
-            <div id="edit-ingredient-dropdown" class="dropdown-content" style="display: block;">
-                <!-- Filter for select menu -->
-                <input
-                type="text"
-                class="form-control"
-                placeholder="...Write the ingredient name here(or part of it) to filter your selection in the list below..."
-                id="edit-ingredient-dropdown-input"
-                onkeyup="filterFunctionForEditIngredient()"
-                />
-                <!-- Ingredient selection -->
-                <select
-                    class="ingredient_select browser-default custom-select custom-select-lg"
-                    id="ingredient_select"
-                >
-                  <option selected="true" disabled="disabled">
-                    Click here to choose an ingredient
-                  </option>
-                  {# Lists all ingredients in the database #}
-                  {% for ingredient in ingredients %}
-                  <option>{{ingredient.name}}</option>
-                  {% endfor %}
-                </select>
-            </div>            
-        </div>
-        <div class="md-form">
-          <!-- Ingredient comment input -->
-          <input
-          type="text"
-          class="form-control validate"
-          id="ingredient_comment"
-          />
-          <label for="ingredient_comment"
-          >Comment(Tips for how to substitute)</label
-          >
-        </div>
-        <!-- <script>
-          var ingredient_index = 1;
-        </script>       -->
-        <div class="md-form">
-          <!-- Add substitute ingredient to an ingredient button --> 
-          <button type="button" class="btn" onclick="addToIngredientList()">
-            Add Substitute to Ingredient
-          </button>
-        </div>
-      </div>
-      <!--Script to reset the ingredient_index each time the modal is 
-      rendered.-->
-	  <script>
-	  var ingredient_index = 0 ;
-	  </script>
-	  <div class="md-form">
-        <!--List for substitute ingredients of an ingredient-->
-	    <ul class="list-group" id="sub_ingredient_list">
-         {# Loop for key, value pairs in an ingredient object #}
-		 {% for key, value in ingredient.items() %}
-         {# 'If' logic to check that the key is a substitute ingredient. Then sets a 
-         variable 'recname' with the ingredient name to seperate the name of the ingredient
-         from the possible substitute comments added later.  #}
-		 {% if sub_ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
-		 <li type="text" readonly class="list-group-item {{key}}"></li>
-         <!--Script here to utilize the jinja variables in the loop. Creates a readonly
-         form input. The input sent with the form is given a unique ID and the value is the
-         ingredient with an optional comment. A hidden readonly input is added to send just the
-         name of the ingredient with the form. A remove ingredient buttton is added in order to
-         remove an ingredient from the list.-->
-		 <script>                                    
-            $(document).ready(function () {
-                ingredient_index++;
-                $('.{{key}}').append(`<input type="text" class="form-control" readonly name='sub_ingredient_id_${ingredient_index}' value="{{value}}"><button type="button" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="{{ingredient[recname]}}">`)
-			});
-		 </script>
-		 {% endif %}{% endfor %}
-		</ul>
-	  </div>
-      <!-- Hidden div to add 'added by' info to recipe -->
-      <div hidden>
-        <input
-          type="text"
-          readonly
-          id="added_by"
-          name="added_by"
-          value="{{ingredient.added_by}}"
-        />
-      </div>
-      <div id="remove-request" hidden>
-      </div>
-
-    </form>
-    <!-- Update ingredient button -->
-    <div class="modal-footer md-form d-flex justify-content-center">
-      <button type="submit" form="ingredientForm" class="btn btn-indigo">
-        Update Ingredient
-      </button>
-    </div>
-  </div>
+   </div>
 </div>
 <script src="{{url_for('static', filename='js/edit_ingredient.js')}}"></script>

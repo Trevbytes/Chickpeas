@@ -1,325 +1,316 @@
 {% extends 'base.html'%}{% block content %}
 <!-- Meal type buttons. Future idea: meal type hover tabs on left, ability
-to add more types like snacks, baked goods, drinks, etc.               -->
+   to add more types like snacks, baked goods, drinks, etc.               -->
 <div class="mt-4 tab-container">
-  <button
-    class="tablink"
-    onclick="openCourse('breakfast', this, 'red')"
-    id="defaultOpen"
-  >
-    Breakfast
-  </button>
-  <button class="tablink" onclick="openCourse('lunch', this, 'green')">
-    Lunch
-  </button>
-  <button class="tablink" onclick="openCourse('dinner', this, 'purple')">
-    Dinner
-  </button>
-  <button class="tablink" onclick="openCourse('dessert', this, 'orange')">
-    Dessert
-  </button>
+   <button
+      class="tablink"
+      onclick="openCourse('breakfast', this, 'red')"
+      id="defaultOpen"
+      >
+   Breakfast
+   </button>
+   <button class="tablink" onclick="openCourse('lunch', this, 'green')">
+   Lunch
+   </button>
+   <button class="tablink" onclick="openCourse('dinner', this, 'purple')">
+   Dinner
+   </button>
+   <button class="tablink" onclick="openCourse('dessert', this, 'orange')">
+   Dessert
+   </button>
 </div>
-
 <!-- Breakfast tab -->
 <div id="breakfast" class="tabcontent">
- <div class="container">
-  <!-- Gridview buttons js-->
-  <div class="row">
-    <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
-      <i class="fa fa-bars" role="img" aria-label="List View"></i>
-    </button>
-    <button class="btn" onclick="gridView()" title="Grid View">
-      <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
-    </button>
-  </div>
-  <!-- 'For' loop for presorted recipes-->
-  {% for recipe in breakfast %}
-  <!-- 'If' logic to add a row opening tag every odd index for recipe loop. -->
-  {% if loop.index % 2 != 0 %}
-  <div class="row">
-    {% endif %}
-    <div class="row column no-gutters shadow">
-      <div class="col-md-5">
-        <!-- 'If logic to load a default image if no image is given - *Temporary* -->
-        {% if recipe.recipe_pic_url %}
-        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-          <img
-            class="featurette-image img-responsive h-100 w-100"
-            src="{{ recipe.recipe_pic_url }}"
-            onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
-            alt="Picture of {{ recipe.recipe_name }}"
-          />
-        </a>
-        {% else %}
-        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-          <img
-            class="featurette-image img-responsive h-100 w-100"
-            src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-            alt="Default Pic"
-          />
-        </a>
-        {% endif %}
+   <div class="container">
+      <!-- Gridview buttons js-->
+      <div class="row">
+         <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
+         <i class="fa fa-bars" role="img" aria-label="List View"></i>
+         </button>
+         <button class="btn" onclick="gridView()" title="Grid View">
+         <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
+         </button>
       </div>
-      <div class="col-md-7">
-        <!-- 'If' logic for buttons for logged in users-->
-        {% if 'username' in session %}
-        <div class="pl-2">
-          <a
-            href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
-            data-remote="false"
-            data-toggle="ajaxModal"
-            title="Edit/Copy Recipe"
-            class="btn"
-          >
-            {% if recipe.added_by == session.username or recipe.edited_by ==
-            session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
-          </a>
-          <a
-            onclick="return confirmDelete()"
-            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-            title="Delete Recipe"
-            class="btn"
-            ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
-          </a>
-        </div>
-        {% endif %}
-
-        <h3 class="pl-2 col-md-10 title">
-          <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-            {{ recipe.recipe_name }}</a
-          >
-        </h3>
-        <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
+      <!-- 'For' loop for presorted recipes-->
+      {% for recipe in breakfast %}
+      <!-- 'If' logic to add a row opening tag every odd index for recipe loop. -->
+      {% if loop.index % 2 != 0 %}
+      <div class="row">
+         {% endif %}
+         <div class="row column no-gutters shadow">
+            <div class="col-md-5">
+               <!-- 'If logic to load a default image if no image is given - *Temporary* -->
+               {% if recipe.recipe_pic_url %}
+               <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+               <img
+                  class="featurette-image img-responsive h-100 w-100"
+                  src="{{ recipe.recipe_pic_url }}"
+                  onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
+                  alt="Picture of {{ recipe.recipe_name }}"
+                  />
+               </a>
+               {% else %}
+               <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+               <img
+                  class="featurette-image img-responsive h-100 w-100"
+                  src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+                  alt="Default Pic"
+                  />
+               </a>
+               {% endif %}
+            </div>
+            <div class="col-md-7">
+               <!-- 'If' logic for buttons for logged in users-->
+               {% if 'username' in session %}
+               <div class="pl-2">
+                  <a
+                     href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+                     data-remote="false"
+                     data-toggle="ajaxModal"
+                     title="Edit/Copy Recipe"
+                     class="btn"
+                     >
+                  {% if recipe.added_by == session.username or recipe.edited_by ==
+                  session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
+                  </a>
+                  <a
+                     onclick="return confirmDelete()"
+                     href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+                     title="Delete Recipe"
+                     class="btn"
+                     ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
+                  </a>
+               </div>
+               {% endif %}
+               <h3 class="pl-2 col-md-10 title">
+                  <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+                  {{ recipe.recipe_name }}</a
+                     >
+               </h3>
+               <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
+            </div>
+         </div>
+         <!-- 'If' logic to add closing tag for outer row, added every
+            even index in recipe loop or at the end of the loop. -->
+         {% if loop.index % 2 == 0 or loop.index == loop.length %}
       </div>
-    </div>
-    <!-- 'If' logic to add closing tag for outer row, added every
-    even index in recipe loop or at the end of the loop. -->
-    {% if loop.index % 2 == 0 or loop.index == loop.length %}
-  </div>
-  {% endif %} {% endfor %}
- </div>
+      {% endif %} {% endfor %}
+   </div>
 </div>
-
 <!-- Lunch tab - COPY of breakfast tab using different recipes
- *Tabs could possibly be reworked to not repeat code.*     -->
+   *Tabs could possibly be reworked to not repeat code.*     -->
 <div id="lunch" class="tabcontent">
- <div class="container">
-  <div class="row">
-    <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
-      <i class="fa fa-bars" role="img" aria-label="List View"></i>
-    </button>
-    <button class="btn" onclick="gridView()" title="Grid View">
-      <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
-    </button>
-  </div>
-  {% for recipe in lunch %} {% if loop.index % 2 != 0 %}
-  <div class="row">
-    {% endif %}
-    <div class="row column featurette no-gutters shadow">
-      <div class="col-md-5">
-        {% if recipe.recipe_pic_url %}
-        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-          <img
-            class="featurette-image img-responsive h-100 w-100"
-            src="{{ recipe.recipe_pic_url }}"
-            alt="Picture of {{ recipe.recipe_name }}"
-          />
-        </a>
-        {% else %}
-        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-          <img
-            class="featurette-image img-responsive h-100 w-100"
-            src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-            onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
-            alt="Default Pic"
-          />
-        </a>
-        {% endif %}
+   <div class="container">
+      <div class="row">
+         <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
+         <i class="fa fa-bars" role="img" aria-label="List View"></i>
+         </button>
+         <button class="btn" onclick="gridView()" title="Grid View">
+         <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
+         </button>
       </div>
-      <div class="col-md-7">
-        {% if 'username' in session %}
-        <div class="pl-2">
-          <a
-            href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
-            data-remote="false"
-            data-toggle="ajaxModal"
-            title="Edit/Copy Recipe"
-            class="btn"
-          >
-            {% if recipe.added_by == session.username or recipe.edited_by ==
-            session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
-          </a>
-          <a
-            onclick="return confirmDelete()"
-            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-            title="Delete Recipe"
-            class="btn"
-            ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
-          </a>
-        </div>
-        {% endif %}
-        <h3 class="pl-2 col-md-10 title">
-          <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-            {{ recipe.recipe_name }}</a
-          >
-        </h3>
-        <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
+      {% for recipe in lunch %} {% if loop.index % 2 != 0 %}
+      <div class="row">
+         {% endif %}
+         <div class="row column featurette no-gutters shadow">
+            <div class="col-md-5">
+               {% if recipe.recipe_pic_url %}
+               <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+               <img
+                  class="featurette-image img-responsive h-100 w-100"
+                  src="{{ recipe.recipe_pic_url }}"
+                  alt="Picture of {{ recipe.recipe_name }}"
+                  />
+               </a>
+               {% else %}
+               <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+               <img
+                  class="featurette-image img-responsive h-100 w-100"
+                  src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+                  onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
+                  alt="Default Pic"
+                  />
+               </a>
+               {% endif %}
+            </div>
+            <div class="col-md-7">
+               {% if 'username' in session %}
+               <div class="pl-2">
+                  <a
+                     href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+                     data-remote="false"
+                     data-toggle="ajaxModal"
+                     title="Edit/Copy Recipe"
+                     class="btn"
+                     >
+                  {% if recipe.added_by == session.username or recipe.edited_by ==
+                  session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
+                  </a>
+                  <a
+                     onclick="return confirmDelete()"
+                     href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+                     title="Delete Recipe"
+                     class="btn"
+                     ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
+                  </a>
+               </div>
+               {% endif %}
+               <h3 class="pl-2 col-md-10 title">
+                  <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+                  {{ recipe.recipe_name }}</a
+                     >
+               </h3>
+               <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
+            </div>
+         </div>
+         {% if loop.index % 2 == 0 or loop.index == loop.length %}
       </div>
-    </div>
-    {% if loop.index % 2 == 0 or loop.index == loop.length %}
-  </div>
-  {% endif %} {% endfor %}
- </div>
+      {% endif %} {% endfor %}
+   </div>
 </div>
-
 <!-- Dinner tab - COPY of breakfast tab using different recipes
- *Tabs could possibly be reworked to not repeat code.*     -->
+   *Tabs could possibly be reworked to not repeat code.*     -->
 <div id="dinner" class="tabcontent">
- <div class="container">
-  <div class="row">
-    <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
-      <i class="fa fa-bars" role="img" aria-label="List View"></i>
-    </button>
-    <button class="btn" onclick="gridView()" title="Grid View">
-      <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
-    </button>
-  </div>
-  {% for recipe in dinner %} {% if loop.index % 2 != 0 %}
-  <div class="row">
-    {% endif %}
-    <div class="row column featurette no-gutters shadow">
-      <div class="col-md-5">
-        {% if recipe.recipe_pic_url %}
-        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-          <img
-            class="featurette-image img-responsive h-100 w-100"
-            src="{{ recipe.recipe_pic_url }}"
-            onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
-            alt="Picture of {{ recipe.recipe_name }}"
-          />
-        </a>
-        {% else %}
-        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-          <img
-            class="featurette-image img-responsive h-100 w-100"
-            src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-            alt="Default Pic"
-          />
-        </a>
-        {% endif %}
+   <div class="container">
+      <div class="row">
+         <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
+         <i class="fa fa-bars" role="img" aria-label="List View"></i>
+         </button>
+         <button class="btn" onclick="gridView()" title="Grid View">
+         <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
+         </button>
       </div>
-      <div class="col-md-7">
-        {% if 'username' in session %}
-        <div class="pl-2">
-          <a
-            href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
-            data-remote="false"
-            data-toggle="ajaxModal"
-            title="Edit/Copy Recipe"
-            class="btn"
-          >
-            {% if recipe.added_by == session.username or recipe.edited_by ==
-            session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
-          </a>
-          <a
-            onclick="return confirmDelete()"
-            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-            title="Delete Recipe"
-            class="btn"
-            ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
-          </a>
-        </div>
-        {% endif %}
-        <h3 class="pl-2 col-md-10 title">
-          <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-            {{ recipe.recipe_name }}</a
-          >
-        </h3>
-        <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
+      {% for recipe in dinner %} {% if loop.index % 2 != 0 %}
+      <div class="row">
+         {% endif %}
+         <div class="row column featurette no-gutters shadow">
+            <div class="col-md-5">
+               {% if recipe.recipe_pic_url %}
+               <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+               <img
+                  class="featurette-image img-responsive h-100 w-100"
+                  src="{{ recipe.recipe_pic_url }}"
+                  onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
+                  alt="Picture of {{ recipe.recipe_name }}"
+                  />
+               </a>
+               {% else %}
+               <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+               <img
+                  class="featurette-image img-responsive h-100 w-100"
+                  src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+                  alt="Default Pic"
+                  />
+               </a>
+               {% endif %}
+            </div>
+            <div class="col-md-7">
+               {% if 'username' in session %}
+               <div class="pl-2">
+                  <a
+                     href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+                     data-remote="false"
+                     data-toggle="ajaxModal"
+                     title="Edit/Copy Recipe"
+                     class="btn"
+                     >
+                  {% if recipe.added_by == session.username or recipe.edited_by ==
+                  session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
+                  </a>
+                  <a
+                     onclick="return confirmDelete()"
+                     href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+                     title="Delete Recipe"
+                     class="btn"
+                     ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
+                  </a>
+               </div>
+               {% endif %}
+               <h3 class="pl-2 col-md-10 title">
+                  <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+                  {{ recipe.recipe_name }}</a
+                     >
+               </h3>
+               <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
+            </div>
+         </div>
+         {% if loop.index % 2 == 0 or loop.index == loop.length %}
       </div>
-    </div>
-    {% if loop.index % 2 == 0 or loop.index == loop.length %}
-  </div>
-  {% endif %} {% endfor %}
- </div>
+      {% endif %} {% endfor %}
+   </div>
 </div>
-
 <!-- Dessert tab - COPY of breakfast tab using different recipes
- *Tabs could possibly be reworked to not repeat code.*     -->
+   *Tabs could possibly be reworked to not repeat code.*     -->
 <div id="dessert" class="tabcontent">
- <div class="container">
-  <div class="row">
-    <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
-      <i class="fa fa-bars" role="img" aria-label="List View"></i>
-    </button>
-    <button class="btn" onclick="gridView()" title="Grid View">
-      <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
-    </button>
-  </div>
-  {% for recipe in dessert %} {% if loop.index % 2 != 0 %}
-  <div class="row">
-    {% endif %}
-    <div class="row column featurette no-gutters shadow">
-      <div class="col-md-5">
-        {% if recipe.recipe_pic_url %}
-        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-          <img
-            class="featurette-image img-responsive h-100 w-100"
-            src="{{ recipe.recipe_pic_url }}"
-            onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
-            alt="Picture of {{ recipe.recipe_name }}"
-          />
-        </a>
-        {% else %}
-        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-          <img
-            class="featurette-image img-responsive h-100 w-100"
-            src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-            alt="Default Pic"
-          />
-        </a>
-        {% endif %}
+   <div class="container">
+      <div class="row">
+         <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
+         <i class="fa fa-bars" role="img" aria-label="List View"></i>
+         </button>
+         <button class="btn" onclick="gridView()" title="Grid View">
+         <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
+         </button>
       </div>
-      <div class="col-md-7">
-        {% if 'username' in session %}
-        <div class="pl-2">          
-          <a
-            href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
-            data-remote="false"
-            data-toggle="ajaxModal"
-            title="Edit/Copy Recipe"
-            class="btn"
-          >
-            {% if recipe.added_by == session.username or recipe.edited_by ==
-            session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
-          </a>
-          <a
-            onclick="return confirmDelete()"
-            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-            title="Delete Recipe"
-            class="btn"
-            ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
-          </a>
-        </div>
-        {% endif %}
-        <h3 class="pl-2 col-md-10 title">
-          <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-            {{ recipe.recipe_name }}</a
-          >
-        </h3>
-        <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
+      {% for recipe in dessert %} {% if loop.index % 2 != 0 %}
+      <div class="row">
+         {% endif %}
+         <div class="row column featurette no-gutters shadow">
+            <div class="col-md-5">
+               {% if recipe.recipe_pic_url %}
+               <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+               <img
+                  class="featurette-image img-responsive h-100 w-100"
+                  src="{{ recipe.recipe_pic_url }}"
+                  onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
+                  alt="Picture of {{ recipe.recipe_name }}"
+                  />
+               </a>
+               {% else %}
+               <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+               <img
+                  class="featurette-image img-responsive h-100 w-100"
+                  src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+                  alt="Default Pic"
+                  />
+               </a>
+               {% endif %}
+            </div>
+            <div class="col-md-7">
+               {% if 'username' in session %}
+               <div class="pl-2">          
+                  <a
+                     href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+                     data-remote="false"
+                     data-toggle="ajaxModal"
+                     title="Edit/Copy Recipe"
+                     class="btn"
+                     >
+                  {% if recipe.added_by == session.username or recipe.edited_by ==
+                  session.username %} <i class="fas fa-edit" role="img" aria-label="Update"></i>
+                  </a>
+                  <a
+                     onclick="return confirmDelete()"
+                     href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+                     title="Delete Recipe"
+                     class="btn"
+                     ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> {% else %} <i class="fas fa-copy" role="img" aria-label="Copy"></i> {% endif %}
+                  </a>
+               </div>
+               {% endif %}
+               <h3 class="pl-2 col-md-10 title">
+                  <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+                  {{ recipe.recipe_name }}</a
+                     >
+               </h3>
+               <p class="pl-2 info"><strong>{{ recipe.recipe_description }}</strong></p>
+            </div>
+         </div>
+         {% if loop.index % 2 == 0 or loop.index == loop.length %}
       </div>
-    </div>
-    {% if loop.index % 2 == 0 or loop.index == loop.length %}
-  </div>
-  {% endif %} {% endfor %}
- </div>
+      {% endif %} {% endfor %}
+   </div>
 </div>
 <!-- End of tabs-->
-<!-- Action button to return user to the top of the site. -->
-<!-- <div class="fixed-action-btn">
-  <a class="btn-floating btn-large red" href="#"> ^</a>
-</div> -->
 {% endblock %} {% block js %}
 <!-- My JS for recipes-->
 <script src="{{url_for('static', filename='js/recipes.js')}}"></script>

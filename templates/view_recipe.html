@@ -1,91 +1,95 @@
 {% extends "base.html" %}{% block content %}
 <!-- View Recipe Page -->
 <div class="mt-5 pt-4 pb-5">
-<main class="container recipe-container pb-3 rounded shadow mt-3 pt-3 animated flipInY">
-    <div class="row"> 
-        <div class="col-12"> 
+   <main class="container recipe-container pb-3 rounded shadow mt-3 pt-3 animated flipInY">
+      <div class="row">
+         <div class="col-12">
             <div><button class="btn float-left ml-5" onclick="goBack()">
-            <i class="fas fa-arrow-circle-left"></i> Back</button></div>
+               <i class="fas fa-arrow-circle-left"></i> Back</button>
+            </div>
             {# Option to go to users cookbook when logged in #}
             {% if 'username' in session %}
             <div>            
-            <a
-              class="btn float-right mr-5"
-              href="{{url_for('dashboard', username=session.username)}}"
-              ><i class="fas fa-book"></i> {{session.username}}'s Cookbook</a
-            ></div>
+               <a
+                  class="btn float-right mr-5"
+                  href="{{url_for('dashboard', username=session.username)}}"
+                  ><i class="fas fa-book"></i> {{session.username}}'s Cookbook</a
+                  >
+            </div>
             {% endif %}
-        </div>   
-    </div>        
-  <div class="row justify-content-center">    
-    <div class="col-md-5 mt-4">
-      {# Checks if a default image should be shown #}
-      {% if recipe.recipe_pic_url %}
-      <img
-        class="featurette-image img-responsive"
-        src="{{ recipe.recipe_pic_url }}"
-        onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
-        alt="Picture of {{ recipe.recipe_name }}"
-      />
-      {% else %}
-      <img
-        class="featurette-image img-responsive"
-        src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-        alt="Default Pic"
-      />
-      {% endif %}
-    </div>
-  </div>
-  <h1 class="row justify-content-center">{{recipe.recipe_name}}</h1>
-  <div class="row justify-content-center">Course: {{recipe.meal_type}}</div>
-  <div class="row justify-content-center">
-    <p><strong>{{recipe.recipe_description}}</strong></p>
-  </div>
-  <div class="row ml-4">
-  <div class="col-12">
-    <ul class="" id="view_recipe_ingredient_list">
-      {# Loop for key, value pairs in an ingredient object #}
-	  {% for key, ingredient in ingredients_selected.items() %}
-      {# 'If' logic to check that the key is an ingredient. Then sets a 
-        variable 'recname' with the ingredient name to create a link to
-        the correct ingredient. #} 
-      {% if ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
-      <li><a
-      href="{{url_for('view_ingredient2', ingredient_name=recipe[recname])}}"
-              data-remote="false"
-              data-toggle="ajaxModalIngredient"             
-      ><i class="fas fa-leaf" style="color:green;"></i> {{ingredient}}</a></li>
-      {% endif %}{% endfor %}
-    </ul>
-  </div>  
-  </div>
-  <h2 class="pl-5">Recipe Instructions</h2>
-  <div class="row pl-5"><p class="pl-4">{{recipe.recipe_instructions}}</p></div>  
-  <!-- Options row, options to edit/delete/copy when logged in-->
-  <div class="row justify-content-center">
-    {% if 'username' in session %}
-            <a
-              href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
-              data-remote="false"
-              data-toggle="ajaxModal"
-              class="btn"
-              >
-      {% if recipe.added_by == session.username or recipe.edited_by ==
-      session.username %} <i class="fas fa-edit"></i> Update
-    </a>       
-    <a
-    onclick="return confirmDelete()"
-    href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-    class="btn ml-1"
-    ><i class="fas fa-trash-alt"></i> Delete
-    </a>
-      {% else %} 
-      <i class="fas fa-copy"></i> Create a Copy      
-    </a>       
-      {% endif %}
-    {% endif %}
-  </div> 
-</main>
+         </div>
+      </div>
+      <div class="row justify-content-center">
+         <div class="col-md-5 mt-4">
+            {# Checks if a default image should be shown #}
+            {% if recipe.recipe_pic_url %}
+            <img
+               class="featurette-image img-responsive"
+               src="{{ recipe.recipe_pic_url }}"
+               onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
+               alt="Picture of {{ recipe.recipe_name }}"
+               />
+            {% else %}
+            <img
+               class="featurette-image img-responsive"
+               src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+               alt="Default Pic"
+               />
+            {% endif %}
+         </div>
+      </div>
+      <h1 class="row justify-content-center">{{recipe.recipe_name}}</h1>
+      <div class="row justify-content-center">Course: {{recipe.meal_type}}</div>
+      <div class="row justify-content-center">
+         <p><strong>{{recipe.recipe_description}}</strong></p>
+      </div>
+      <div class="row ml-4">
+         <div class="col-12">
+            <ul class="" id="view_recipe_ingredient_list">
+               {# Loop for key, value pairs in an ingredient object #}
+               {% for key, ingredient in ingredients_selected.items() %}
+               {# 'If' logic to check that the key is an ingredient. Then sets a 
+               variable 'recname' with the ingredient name to create a link to
+               the correct ingredient. #} 
+               {% if ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
+               <li><a
+                  href="{{url_for('view_ingredient2', ingredient_name=recipe[recname])}}"
+                  data-remote="false"
+                  data-toggle="ajaxModalIngredient"             
+                  ><i class="fas fa-leaf" style="color:green;"></i> {{ingredient}}</a></li>
+               {% endif %}{% endfor %}
+            </ul>
+         </div>
+      </div>
+      <h2 class="pl-5">Recipe Instructions</h2>
+      <div class="row pl-5">
+         <p class="pl-4">{{recipe.recipe_instructions}}</p>
+      </div>
+      <!-- Options row, options to edit/delete/copy when logged in-->
+      <div class="row justify-content-center">
+         {% if 'username' in session %}
+         <a
+            href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+            data-remote="false"
+            data-toggle="ajaxModal"
+            class="btn"
+            >
+         {% if recipe.added_by == session.username or recipe.edited_by ==
+         session.username %} <i class="fas fa-edit"></i> Update
+         </a>       
+         <a
+            onclick="return confirmDelete()"
+            href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+            class="btn ml-1"
+            ><i class="fas fa-trash-alt"></i> Delete
+         </a>
+         {% else %} 
+         <i class="fas fa-copy"></i> Create a Copy      
+         </a>       
+         {% endif %}
+         {% endif %}
+      </div>
+   </main>
 </div>
 {% endblock %}{% block js %}
 <script src="{{url_for('static', filename='js/view_recipe.js')}}"></script>

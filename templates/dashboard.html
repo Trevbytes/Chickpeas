@@ -1,96 +1,96 @@
 <!-- Dashboard page/ Users Cookbook -->
 {% extends 'base.html'%}{% block content %}
 <header class="container mt-5 pt-3">
-  <h1 class="text-center pt-4">{{session.username}}'s Cookbook</h1>
-  <p class="text-center">Welcome {{session.username}}, what's cooking?</p>
-  <div class="text-center">
-    <a
-      href="{{url_for('get_recipe_info')}}"
-      class="btn mb-4"
-      data-remote="false"
-      data-toggle="addRecipeModal"
-      >Create a Recipe</a
-    >
-  </div>
+   <h1 class="text-center pt-4">{{session.username}}'s Cookbook</h1>
+   <p class="text-center">Welcome {{session.username}}, what's cooking?</p>
+   <div class="text-center">
+      <a
+         href="{{url_for('get_recipe_info')}}"
+         class="btn mb-4"
+         data-remote="false"
+         data-toggle="addRecipeModal"
+         >Create a Recipe</a
+         >
+   </div>
 </header>
 <main>
-  <h3 class="text-center">My Recipes</h3>
-  <!-- User recipes container -->
-  <div class="container-fluid mb-5">
-    <div class="container">
-      <!-- List and grid view option buttons -->
-      <div class="row">
-        <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
-          <i class="fa fa-bars" role="img" aria-label="List View"></i>
-        </button>
-        <button class="btn" onclick="gridView()" title="Grid View">
-          <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
-        </button>
-      </div>
-      <!-- Users created or copied recipes -->
-      {% for recipe in my_recipes %} {# 'If' logic to add a row opening tag
-      every odd index for recipe loop. #} {% if loop.index % 2 != 0 %}
-      <div class="row">
-        {% endif %}
-        <!--Single Recipe Card-->
-        <div class="row column featurette no-gutters shadow">
-          <!-- Recipe Image -->
-          <div class="col-md-5">
-            {# 'If' logic to add default image #} {% if recipe.recipe_pic_url %}
-            <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-              <img
-                class="featurette-image h-100 w-100 image-responsive"
-                src="{{ recipe.recipe_pic_url }}"
-                onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
-                alt="Picture of {{ recipe.recipe_name }}"
-              />
-            </a>
-            {% else %}
-            <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-              <img
-                class="featurette-image h-100 w-100 image-responsive"
-                src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
-                alt="Default Pic"
-              />
-            </a>
+   <h3 class="text-center">My Recipes</h3>
+   <!-- User recipes container -->
+   <div class="container-fluid mb-5">
+      <div class="container">
+         <!-- List and grid view option buttons -->
+         <div class="row">
+            <button class="btn mr-1 ml-2" onclick="listView()" title="List View">
+            <i class="fa fa-bars" role="img" aria-label="List View"></i>
+            </button>
+            <button class="btn" onclick="gridView()" title="Grid View">
+            <i class="fa fa-th-large" role="img" aria-label="Grid View"></i>
+            </button>
+         </div>
+         <!-- Users created or copied recipes -->
+         {% for recipe in my_recipes %} {# 'If' logic to add a row opening tag
+         every odd index for recipe loop. #} {% if loop.index % 2 != 0 %}
+         <div class="row">
             {% endif %}
-          </div>
-          <!-- Recipe Description and options -->
-          <div class="col-md-7 pl-2">
-            <div class="row pl-2">
-              <a
-                href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
-                data-remote="false"
-                data-toggle="ajaxModal"
-                title="Edit Recipe"
-                class="btn"
-                ><i class="fas fa-edit" role="img" aria-label="Update"></i
-              ></a>
-              <a
-                onclick="return confirmDelete()"
-                href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
-                title="Delete Recipe"
-                class="btn"
-                ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i
-              ></a>
-              <h3 class="col-md-10 title">
-                <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
-                  {{ recipe.recipe_name }}</a
-                >
-              </h3>
-              <p class="pl-2 col-md-9 info">
-                <strong>{{ recipe.recipe_description }}</strong>
-              </p>
+            <!--Single Recipe Card-->
+            <div class="row column featurette no-gutters shadow">
+               <!-- Recipe Image -->
+               <div class="col-md-5">
+                  {# 'If' logic to add default image #} {% if recipe.recipe_pic_url %}
+                  <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+                  <img
+                     class="featurette-image h-100 w-100 image-responsive"
+                     src="{{ recipe.recipe_pic_url }}"
+                     onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
+                     alt="Picture of {{ recipe.recipe_name }}"
+                     />
+                  </a>
+                  {% else %}
+                  <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+                  <img
+                     class="featurette-image h-100 w-100 image-responsive"
+                     src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
+                     alt="Default Pic"
+                     />
+                  </a>
+                  {% endif %}
+               </div>
+               <!-- Recipe Description and options -->
+               <div class="col-md-7 pl-2">
+                  <div class="row pl-2">
+                     <a
+                        href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"
+                        data-remote="false"
+                        data-toggle="ajaxModal"
+                        title="Edit Recipe"
+                        class="btn"
+                        ><i class="fas fa-edit" role="img" aria-label="Update"></i
+                        ></a>
+                     <a
+                        onclick="return confirmDelete()"
+                        href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+                        title="Delete Recipe"
+                        class="btn"
+                        ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i
+                        ></a>
+                     <h3 class="col-md-10 title">
+                        <a href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+                        {{ recipe.recipe_name }}</a
+                           >
+                     </h3>
+                     <p class="pl-2 col-md-9 info">
+                        <strong>{{ recipe.recipe_description }}</strong>
+                     </p>
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
-        {# 'If' logic to add closing tag for outer row, added every even index
-        in recipe loop or at the end of the loop. #} {% if loop.index % 2 == 0
-        or loop.index == loop.length %}
+            {# 'If' logic to add closing tag for outer row, added every even index
+            in recipe loop or at the end of the loop. #} {% if loop.index % 2 == 0
+            or loop.index == loop.length %}
+         </div>
+         {% endif %} {% endfor %}
       </div>
-      {% endif %} {% endfor %}
-    </div>
-  </div>
+   </div>
 </main>
 {% endblock %}{% block js %}
 <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>

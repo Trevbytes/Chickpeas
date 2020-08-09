@@ -1,131 +1,129 @@
 {% extends 'base.html'%} {% block content %}
 <!-- Ingredients Page -->
 <main class="container text-center ingredients-container mt-5 pt-5 mb-5">
-  <h1>Ingredients</h1>
-  <!-- Ingredients search and add buttons -->
-  <div class="row">
-    <div
-      class="dropdown {# Positioning of search button when logged in #} {% if 'username' in session %} col-sm {% endif %}"
-    >
-      <button onclick="myFunctiondrop()" class="btn">
-        <i class="fas fa-search" role="img" aria-label="Search"></i> Search for
-        Ingredient
-      </button>
-    </div>
-    <div style="position: relative;">
+   <h1>Ingredients</h1>
+   <!-- Ingredients search and add buttons -->
+   <div class="row">
       <div
-        style="{# Positioning of dropdown when logged in #} 
-            {% if 'username' in session %} position: absolute; left: -7.2rem; {% endif %}"
-      >
-        <div id="myDropdown" class="dropdown-content dropdown-content-ingredients list-group">
-          <input
-            type="text"
-            class="list-group-item form-control"
-            placeholder="Search.."
-            id="myInput"
-            onkeyup="filterFunction()"
-          />
-          {% for ingredient in selectedIngredient %}
-          <a
-            class="list-group-item"
-            href="{{url_for('view_ingredient', ingredient_id = ingredient._id)}}"
-          >
-            {{ingredient.name}}
-          </a>
-          {% endfor %}
-        </div>
+         class="dropdown {# Positioning of search button when logged in #} {% if 'username' in session %} col-sm {% endif %}"
+         >
+         <button onclick="myFunctiondrop()" class="btn">
+         <i class="fas fa-search" role="img" aria-label="Search"></i> Search for
+         Ingredient
+         </button>
       </div>
-    </div>
-    {# Check if user is logged in #} {% if 'username' in session %}
-    <div class="float-right col-sm">
-      <a
-        href="{{url_for('get_ingredient_info')}}"
-        class="btn"
-        data-remote="false"
-        data-toggle="submitIngredientModal"
-      >
-        <i class="fas fa-plus-circle" role="img" aria-label="Search"></i>
-        Sumbit a New Ingredient
-      </a>
-    </div>
-    {% endif %}
-  </div>
-  {# Check if there is a value in the ingredient variable #} {% if ingredient %}
-  <div>
-    <h2>{{ingredient.name}}</h2>
-    <div>
-      {% if ingredient.food_group %}
-      <p>Food Group: {{ingredient.food_group}}</p>
-      {% else %}
-      <p>User Submitted Ingredient</p>
+      <div style="position: relative;">
+         <div
+            style="{# Positioning of dropdown when logged in #} 
+            {% if 'username' in session %} position: absolute; left: -7.2rem; {% endif %}"
+            >
+            <div id="myDropdown" class="dropdown-content dropdown-content-ingredients list-group">
+               <input
+                  type="text"
+                  class="list-group-item form-control"
+                  placeholder="Search.."
+                  id="myInput"
+                  onkeyup="filterFunction()"
+                  />
+               {% for ingredient in selectedIngredient %}
+               <a
+                  class="list-group-item"
+                  href="{{url_for('view_ingredient', ingredient_id = ingredient._id)}}"
+                  >
+               {{ingredient.name}}
+               </a>
+               {% endfor %}
+            </div>
+         </div>
+      </div>
+      {# Check if user is logged in #} {% if 'username' in session %}
+      <div class="float-right col-sm">
+         <a
+            href="{{url_for('get_ingredient_info')}}"
+            class="btn"
+            data-remote="false"
+            data-toggle="submitIngredientModal"
+            >
+         <i class="fas fa-plus-circle" role="img" aria-label="Search"></i>
+         Sumbit a New Ingredient
+         </a>
+      </div>
       {% endif %}
-    </div>
-    <h4>Ingredient Description</h4>
-    <p>{{ingredient.description}}</p>
-  </div>
-  {# Check if there is a value in the ingredient wiki id variable #} {% if
-  ingredient.wikipedia_id %}
-  <div>
-    <p>
+   </div>
+   {# Check if there is a value in the ingredient variable #} {% if ingredient %}
+   <div>
+      <h2>{{ingredient.name}}</h2>
+      <div>
+         {% if ingredient.food_group %}
+         <p>Food Group: {{ingredient.food_group}}</p>
+         {% else %}
+         <p>User Submitted Ingredient</p>
+         {% endif %}
+      </div>
+      <h4>Ingredient Description</h4>
+      <p>{{ingredient.description}}</p>
+   </div>
+   {# Check if there is a value in the ingredient wiki id variable #} {% if
+   ingredient.wikipedia_id %}
+   <div>
+      <p>
+         <a
+            href="https://en.wikipedia.org/wiki/{{ingredient.wikipedia_id}}"
+            target="_blank"
+            >
+         Wikipedia Article
+         </a>
+      </p>
+   </div>
+   {% endif %} {# Check if there is a value in the ingredient more info variable
+   #} {% if ingredient.more_info_link %}
+   <div>
+      <p>
+         <a href="{{ingredient.more_info_link}}" 
+            target="_blank">
+         More Info
+         </a>
+      </p>
+   </div>
+   {% endif %}
+   <ul class="pl-0" id="view_substitute_list">
+      {# Check if there are common substitutes associated with the ingredient. A
+      flag is used to have 'Common Substitutes' appear only once in the loop. #}
+      {% set ns = namespace(flag=true) %}{% for key, value in ingredient.items()
+      %} {% if sub_ingredient_search(key) in key %}{% set ingredientName =
+      ("name_"+key) %} {% if ns.flag == true %} Common Substitutes: {% set ns.flag
+      = namespace(flag=false) %} {% endif %}
+      <!-- Link to open modal of displayed ingredient-->
+      <li>
+         <a
+            href="{{url_for('view_ingredient2', ingredient_name=ingredient[ingredientName])}}"
+            data-remote="false"
+            data-toggle="ajaxModalIngredient"
+            ><i class="fas fa-leaf" style="color: green;"></i> {{value}}</a
+            >
+      </li>
+      {% endif %}{% endfor %}
+   </ul>
+   <div>
+      {# Ingredients can only be deleted by the original creator or an admin #} {%
+      if 'username' in session %}
       <a
-        href="https://en.wikipedia.org/wiki/{{ingredient.wikipedia_id}}"
-        target="_blank"
-      >
-        Wikipedia Article
-      </a>
-    </p>
-  </div>
-  {% endif %} {# Check if there is a value in the ingredient more info variable
-  #} {% if ingredient.more_info_link %}
-  <div>
-    <p>
-      <a href="{{ingredient.more_info_link}}" 
-         target="_blank">
-        More Info
-      </a>
-    </p>
-  </div>
-  {% endif %}
-
-  <ul class="pl-0" id="view_substitute_list">
-    {# Check if there are common substitutes associated with the ingredient. A
-    flag is used to have 'Common Substitutes' appear only once in the loop. #}
-    {% set ns = namespace(flag=true) %}{% for key, value in ingredient.items()
-    %} {% if sub_ingredient_search(key) in key %}{% set ingredientName =
-    ("name_"+key) %} {% if ns.flag == true %} Common Substitutes: {% set ns.flag
-    = namespace(flag=false) %} {% endif %}
-    <!-- Link to open modal of displayed ingredient-->
-    <li>
+         href="{{url_for('edit_ingredient', ingredient_id=ingredient._id)}}"
+         class="btn"
+         data-remote="false"
+         data-toggle="editIngredientModal"
+         ><i class="fas fa-edit" role="img" aria-label="Edit"></i> Update</a
+         >
+      {% if session.username == 'Admin-T' or session.username ==
+      ingredient.added_by %}
       <a
-        href="{{url_for('view_ingredient2', ingredient_name=ingredient[ingredientName])}}"
-        data-remote="false"
-        data-toggle="ajaxModalIngredient"
-        ><i class="fas fa-leaf" style="color: green;"></i> {{value}}</a
-      >
-    </li>
-    {% endif %}{% endfor %}
-  </ul>
-
-  <div>
-    {# Ingredients can only be deleted by the original creator or an admin #} {%
-    if 'username' in session %}
-    <a
-      href="{{url_for('edit_ingredient', ingredient_id=ingredient._id)}}"
-      class="btn"
-      data-remote="false"
-      data-toggle="editIngredientModal"
-      ><i class="fas fa-edit" role="img" aria-label="Edit"></i> Update</a
-    >
-    {% if session.username == 'Admin-T' or session.username ==
-    ingredient.added_by %}
-    <a
-      onclick="return confirmDelete()"
-      href="{{url_for('delete_ingredient', ingredient_id=ingredient._id)}}"
-      class="btn"
-      ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> Delete</a
-    >
-    {% endif %} {% endif %} {% endif %}
-  </div>
+         onclick="return confirmDelete()"
+         href="{{url_for('delete_ingredient', ingredient_id=ingredient._id)}}"
+         class="btn"
+         ><i class="fas fa-trash-alt" role="img" aria-label="Delete"></i> Delete</a
+         >
+      {% endif %} {% endif %} {% endif %}
+   </div>
 </main>
 {% endblock %}{% block js %}
 <script src="{{url_for('static', filename='js/ingredients.js')}}"></script>
