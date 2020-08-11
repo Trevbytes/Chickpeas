@@ -4,18 +4,24 @@
    <div class="container modal-content">
       <div class="modal-header text-center">
          <h1 class="modal-title w-100 font-weight-bold">
-            Error
+            Oops! Looks something went wrong.
          </h1>
          <button type="button" class="close custom-close" aria-label="Close">
          <span aria-hidden="true">&times;</span>
          </button>
       </div>
         <!-- Broken Link message Message -->
-        <h1 class="mt-5 pt-5 modal-body">Oops! Looks something went wrong.</h1>
+      <div class="mt-5 pt-5 modal-body">
+        <p>That ingredient no longer exists in the database.</p>
+        <p>Note: If the ingredient does exist in the database (as seen
+        from the ingredients page) and you created the ingredient, 
+        ensure that the ingredient name contains no spaces before or after the name. 
+        If the problem persists please contact an admin.</p>
+      </div>          
       <div class="modal-footer md-form d-flex justify-content-center">
          <!-- Submit Form button -->
-         <button type="submit" form="ingredientForm" class="btn btn-indigo">
-         Submit Ingredient
+         <button type="submit" class="custom-close btn">
+         Close
          </button>
       </div>
    </div>
@@ -24,6 +30,7 @@
 /* Closes Modal */
 $(".custom-close").on("click", function () {
   $(".modal-backdrop").remove();
-  $("#submitIngredientModal").remove();
+  $("#ajaxModalIngredient").remove();
+  $("#ajaxModalIngredient2").remove();
 });
 </script>

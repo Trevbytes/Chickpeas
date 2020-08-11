@@ -298,8 +298,11 @@ def view_ingredient2(ingredient_name):
     else:
         the_ingredient = ingredients.find_one({"name": ingredient_name})
 
-    return render_template('view_ingredient.html', ingredient=the_ingredient,
-                           sub_ingredient_search=sub_ingredient_search)
+    if isinstance(the_ingredient, dict):
+        return render_template('view_ingredient.html', ingredient=the_ingredient,
+                               sub_ingredient_search=sub_ingredient_search)
+    else:
+        return render_template('errors/500_modal.html')
 
 
 # Recipe Search route - This searchs the recipe database for the query
