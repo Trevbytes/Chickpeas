@@ -1,0 +1,29 @@
+<!-- Ajax Modal for the form for adding an ingredient. Called from the ingredients page
+   when logged in. -->
+<div class="modal-dialog modal-fluid" role="document">
+   <div class="container modal-content">
+      <div class="modal-header text-center">
+         <h1 class="modal-title w-100 font-weight-bold">
+            Error
+         </h1>
+         <button type="button" class="close custom-close" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+        <!-- Broken Link message Message -->
+        <h1 class="mt-5 pt-5 modal-body">Oops! Looks something went wrong.</h1>
+      <div class="modal-footer md-form d-flex justify-content-center">
+         <!-- Submit Form button -->
+         <button type="submit" form="ingredientForm" class="btn btn-indigo">
+         Submit Ingredient
+         </button>
+      </div>
+   </div>
+</div>
+<script>
+/* Closes Modal */
+$(".custom-close").on("click", function () {
+  $(".modal-backdrop").remove();
+  $("#submitIngredientModal").remove();
+});
+</script>

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Amarante&family=Roboto:wght@500&display=swap");
 
+/*-----------------General Styles----------------------*/
 * {
   box-sizing: border-box;
 }
@@ -27,6 +28,30 @@ ul {
   list-style-type: none;
 }
 
+.btn {
+  background-image: linear-gradient(
+    to top,
+    #1e3c72 0%,
+    #1e3c72 1%,
+    #2a5298 100%
+  );
+  color: white;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.hidden {
+  display: none;
+}
+/*-----------------Navbar Styles----------------------*/
+.nav-wrapper {
+  background-image: linear-gradient(-60deg, #16a085 0%, #f4d03f 100%);
+  color: black;
+}
+
+/*-----------------Landing Page----------------------*/
 /* Slideshow */
 .view {
   height: 100%;
@@ -40,17 +65,6 @@ ul {
 .mySlides {
   display: none;
   width: 100%;
-}
-
-/* Caption text */
-.text {
-  color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
 }
 
 /* The dots/bullets/indicators */
@@ -69,6 +83,7 @@ ul {
   background-color: #717171;
 }
 
+/*-----------------Recipes Page----------------------*/
 .tab_choice {
   margin: 0 auto;
 }
@@ -139,37 +154,17 @@ ul {
   background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
 }
 
-.nav-wrapper {
-  background-image: linear-gradient(-60deg, #16a085 0%, #f4d03f 100%);
-  color: black;
-}
-
-.addRecipe {
-  padding-bottom: 0.5em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-}
-
+/*-----------------Recipe Cards----------------------*/
 .col-md-5 img {
   width: 100%;
+  object-fit: cover;
+  max-height: 20rem;
 }
 
-#my_recipes a {
-  text-decoration: none;
-}
-
-.btn {
-  background-image: linear-gradient(
-    to top,
-    #1e3c72 0%,
-    #1e3c72 1%,
-    #2a5298 100%
-  );
-  color: white;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+.col-md-7 {
+  background-image: url("https://res.cloudinary.com/chickpeas/image/upload/v1597071802/lukas-blazek-EWDvHNNfUmQ-unsplash_xwx2sd.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* Create two equal columns that floats next to each other */
@@ -186,28 +181,17 @@ ul {
   clear: both;
 }
 
-#meal_label {
-  top: 0;
-}
-
+/*-----------------View Recipe Styles----------------------*/
 .recipe-container {
   background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
 }
 
-.col-md-7 {
-  background-image: url("https://res.cloudinary.com/chickpeas/image/upload/v1592411276/lukas-blazek-EWDvHNNfUmQ-unsplash_xwx2sd.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+.featurette-image {
+  max-height: 25rem;
+  object-fit: cover;
 }
 
-.become-member-container {
-  padding-top: 2rem;
-}
-
-.hidden {
-  display: none;
-}
-
+/*-----------------Search/dropdown Styles----------------------*/
 /* The search field */
 #myInput {
   box-sizing: border-box;
@@ -269,16 +253,13 @@ ul {
   display: block;
 }
 
-.featurette-image {
-  max-height: 20rem;
-}
-
+/*-----------------Message Styles----------------------*/
 /* Flashed/toast messages */
 .toast-margin {
   z-index: 5;
 }
 
-/* Loading styling */
+/*----------------- Loading Page Styles----------------------*/
 .loader-bg {
   position: fixed;
   z-index: 20;
