@@ -1,17 +1,23 @@
 {% extends 'base.html' %} {% block content %}
 <!-- Broken Link message Message -->
-<h1 class="mt-5 pt-5">Oops! Looks something went wrong.</h1>
-<!--Following link will take user back to the previous page.-->
-<div>
-   <button class="btn float-left ml-5" onclick="goBack()">
-   <i class="fas fa-arrow-circle-left"></i> Take me back to the previous page.
-   </button>
+<div class="container">
+   <h1 class="mt-5 pt-5">Oops! Looks something went wrong.</h1>
+   <p> This is most likely caused because of an external broken link.
+      If you are able to update the link, please do so. Otherwise contact
+      an admin.
+   </p>
+   <div>
+      <!--Following button will take user back to the previous page.-->
+      <button class="btn float-left ml-5" onclick="closeWindow()">
+      <i class="far fa-window-close"></i> Close this window.
+      </button>
+   </div>
 </div>
 {% endblock %} {% block js %}
 <script>
    //Back button
-   function goBack() {
-     window.history.back();
-   }
+     function closeWindow() {
+       window.open('','_self').close();
+     }
 </script>
 {% endblock %}
