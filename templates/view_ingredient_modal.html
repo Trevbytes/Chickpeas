@@ -54,7 +54,7 @@
             {% set ns.flag = namespace(flag=false) %}
             {% endif %}
             <!-- Link to open modal of displayed ingredient-->
-            <li><a href="{{url_for('view_ingredient2', ingredient_name=ingredient[ingredientName])}}" data-remote="false"
+            <li><a href="{{url_for('view_ingredient_modal', ingredient_name=ingredient[ingredientName])}}" data-remote="false"
                data-toggle="ajaxModalIngredient"><i class="fas fa-leaf" style="color: green;"></i> {{value}}</a></li>
             {% endif %}{% endfor %}
          </ul>

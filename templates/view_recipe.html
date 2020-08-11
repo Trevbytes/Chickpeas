@@ -53,7 +53,7 @@
                the correct ingredient. #} 
                {% if ingredient_search(key) in key %}{% set recname = ("name_"+key) %}
                <li><a
-                  href="{{url_for('view_ingredient2', ingredient_name=recipe[recname])}}"
+                  href="{{url_for('view_ingredient_modal', ingredient_name=recipe[recname])}}"
                   data-remote="false"
                   data-toggle="ajaxModalIngredient"             
                   ><i class="fas fa-leaf" style="color:green;"></i> {{ingredient}}</a></li>

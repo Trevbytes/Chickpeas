@@ -290,8 +290,8 @@ def view_ingredient(ingredient_id):
 # the correct dictonary.
 # Returns the ingredient, the ingredient search function to
 # extract substitute ingredients and the full list of ingredients.
-@app.route('/view_ingredient2/<ingredient_name>')
-def view_ingredient2(ingredient_name):
+@app.route('/view_ingredient_modal/<ingredient_name>')
+def view_ingredient_modal(ingredient_name):
     ingredients = mongo.db.ingredients
     if isinstance(ingredient_name, dict):
         the_ingredient = ingredient_name
@@ -299,7 +299,7 @@ def view_ingredient2(ingredient_name):
         the_ingredient = ingredients.find_one({"name": ingredient_name})
 
     if isinstance(the_ingredient, dict):
-        return render_template('view_ingredient.html', ingredient=the_ingredient,
+        return render_template('view_ingredient_modal.html', ingredient=the_ingredient,
                                sub_ingredient_search=sub_ingredient_search)
     else:
         return render_template('errors/500_modal.html')
