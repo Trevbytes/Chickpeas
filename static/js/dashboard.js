@@ -7,7 +7,7 @@ function confirmDelete() {
 }
 
 // Get the elements with class="column"
-var elements = document.getElementsByClassName("column");
+var elements = $(".column");
 
 // Declare a loop variable
 var i;

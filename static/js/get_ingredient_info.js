@@ -41,9 +41,9 @@ function clearAddIngredient() {
 
 function filterFunctionForSubmitIngredient() {
   var input, filter, ul, li, a, i, option;
-  input = document.getElementById("submit-ingredient-dropdown-input");
+  input = $("#submit-ingredient-dropdown-input");
   filter = input.value.toUpperCase();
-  div = document.getElementById("submit-ingredient-dropdown");
+  div = $("#submit-ingredient-dropdown");
   a = div.getElementsByTagName("option");
   for (i = 0; i < a.length; i++) {
     txtValue = a[i].textContent || a[i].innerText;

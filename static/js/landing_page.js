@@ -9,7 +9,7 @@ showSlides();
 
 function showSlides() {
   var i;
-  var slides = document.getElementsByClassName("mySlides");
+  var slides = $(".mySlides");
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
@@ -18,7 +18,7 @@ function showSlides() {
     slideIndex = 1;
   }
   slides[slideIndex - 1].style.display = "block";
-  slidetime = setTimeout(showSlides, 6000); // Change image every 2 seconds
+  slidetime = setTimeout(showSlides, 6000); // Change image every 6 seconds
 }
 
 $(".carousel").carousel({

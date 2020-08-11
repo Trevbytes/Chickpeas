@@ -46,16 +46,12 @@ $('#addRecipeModal').on('keyup keypress', function(e) {
   }
 });
 
-/* Functions for dropdown and ingredient filter */
-function myFunctiondrop() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
+/* Functions for ingredient filter */
 function filterFunction() {
   var input, filter, ul, li, a, i, option;
-  input = document.getElementById("myInput");
+  input = $("#myInput");
   filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
+  div = $("#myDropdown");
   a = div.getElementsByTagName("option");
   for (i = 0; i < a.length; i++) {
     txtValue = a[i].textContent || a[i].innerText;

@@ -6,13 +6,13 @@ $(document).ready(function () {
 function openCourse(mealType, elmnt, color) {
   // Hide all elements with class="tabcontent" by default */
   var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
+  tabcontent = $(".tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }
 
   // Remove the background color of all tablinks/buttons
-  tablinks = document.getElementsByClassName("tablink");
+  tablinks = $(".tablink");
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].style.backgroundColor = "";
   }
@@ -32,7 +32,7 @@ function currentSlide(n) {
 }
 
 // Get the elements with class="column"
-var elements = document.getElementsByClassName("column");
+var elements = $(".column");
 
 // Declare a loop variable
 var i;
