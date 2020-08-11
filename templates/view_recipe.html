@@ -24,14 +24,14 @@
             {# Checks if a default image should be shown #}
             {% if recipe.recipe_pic_url %}
             <img
-               class="featurette-image img-responsive"
+               class="featurette-image img-responsive rounded mb-0"
                src="{{ recipe.recipe_pic_url }}"
                onError="this.onerror=null;this.src='https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg';"
                alt="Picture of {{ recipe.recipe_name }}"
                />
             {% else %}
             <img
-               class="featurette-image img-responsive"
+               class="featurette-image img-responsive rounded mb-0"
                src="https://res.cloudinary.com/chickpeas/image/upload/v1591259691/chickpeas/variety-of-fruits_shgeju.jpg"
                alt="Default Pic"
                />
