@@ -80,6 +80,9 @@ Most errors throughout the project have been simple syntax errors that took very
     - The first click was creating the event listener for the button but not executing the code. The event listener is now created at runtime so that the first click is responsive.
  - Modals are unable to be reopened on some pages.
     - jQuery was being linked multiple times. Cleaning the code and ensuring only one link for jQuery exists fixed this issue.
+ - Multiple ajax modals appear to be opened when clicking on an ingredient from the view recipe page.
+    - Opening and closing modals did not always fully close the modal. All possible modals are now closed when closing a modal. All possbile modals are also closed when opening a new modal, before the new modal content is loaded. This allows a user to open new modals from within a modal. 
+
 
 ##### Unresolved
  - Removing an ingredient from the database does not remove the ingredient from recipes containing it. This results in a error when trying to view the ingredient info from a recipe.
@@ -90,8 +93,6 @@ Most errors throughout the project have been simple syntax errors that took very
     - A redesign of the filter code would be my ideal solution. This bug has been left due to time constraints.
  - Whitespace after an ingredient name causes an internal error when selecting that ingredient from the view recipe page.
     - This error is handled with a Error modal to help inform the user of the issue and get back to the site.
- - Multiple ajax modals appear to be opened when clicking on an ingredient from the view recipe page.
-    - This error could ideally be solved by going through all the ajax modal code, particularly the code used to close the modals. This bug has been left due to time constraints.
 ---
 ## Functional Testing
 ---
