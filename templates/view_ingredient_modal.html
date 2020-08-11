@@ -68,14 +68,18 @@
 </div>
 <script>
    /* Ajax Modal */
-   $(document).ready(function () {
-     $(".custom-close").on("click", function () {
-       $(".modal-backdrop").remove();
-       $("#ajaxModalIngredient").remove();
-       $("#ajaxModalIngredient2").remove();
-     });
+$(document).ready(function () {
+    $(".custom-close").on("click", function () {
+      $(".modal-backdrop").remove();
+      $("#ajaxModalIngredient").remove();
+      $("#ajaxModalIngredient2").remove();
+      $("#ajaxModal").remove();
+    });
    
-         $('[data-toggle="ajaxModalIngredient"]').on("click", function (e) {
+    $('[data-toggle="ajaxModalIngredient"]').on("click", function (e) {
+       $(".modal-backdrop").remove();
+       $("#ajaxModal").remove();
+       $("#ajaxModalIngredient").remove();
        $("#ajaxModalIngredient2").remove();
        e.preventDefault();
        var $this = $(this),
@@ -86,6 +90,6 @@
        $("body").append($modal);
        $modal.modal({ backdrop: "static", keyboard: false });
        $modal.load($remote);
-     }); 
-   });
+    }); 
+});
 </script>

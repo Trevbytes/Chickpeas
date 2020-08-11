@@ -10,6 +10,8 @@ function confirmDelete() {
 //Ajax Modals
 $('[data-toggle="ajaxModal"]').on("click", function (e) {
   $("#ajaxModal").remove();
+  $("#ajaxModalIngredient").remove();
+  $("#ajaxModalIngredient2").remove();
   e.preventDefault();
   var $this = $(this),
     $remote = $this.data("remote") || $this.attr("href"),
@@ -22,7 +24,9 @@ $('[data-toggle="ajaxModal"]').on("click", function (e) {
 });
 
 $('[data-toggle="ajaxModalIngredient"]').on("click", function (e) {
+  $("#ajaxModal").remove();
   $("#ajaxModalIngredient").remove();
+  $("#ajaxModalIngredient2").remove();
   e.preventDefault();
   var $this = $(this),
     $remote = $this.data("remote") || $this.attr("href"),
