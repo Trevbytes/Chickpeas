@@ -83,11 +83,15 @@ Most errors throughout the project have been simple syntax errors that took very
 
 ##### Unresolved
  - Removing an ingredient from the database does not remove the ingredient from recipes containing it. This results in a error when trying to view the ingredient info from a recipe.
+    - This error is handled with a Error modal to help inform the user of the issue and get back to the site.
  - The filter input does not clear after submitting an ingredient.
-    - Code to clear the value after clearing the other input values of an ingredient has been attempted, to no success. 
+    - Code to clear the value after clearing the other input values of an ingredient has been attempted, to no success. Due to time constraints this bug has been left unfixed.  
  - The filter input does not work on iOS devices. A user can still select an ingredient. However, the user must scroll through the entire ingredient database to find an ingredient.
+    - A redesign of the filter code would be my ideal solution. This bug has been left due to time constraints.
  - Whitespace after an ingredient name causes an internal error when selecting that ingredient from the view recipe page.
- - Multiple ajax modals appear to be opened when clicking on an ingredient from the view recipe page. 
+    - This error is handled with a Error modal to help inform the user of the issue and get back to the site.
+ - Multiple ajax modals appear to be opened when clicking on an ingredient from the view recipe page.
+    - This error could ideally be solved by going through all the ajax modal code, particularly the code used to close the modals. This bug has been left due to time constraints.
 ---
 ## Functional Testing
 ---
