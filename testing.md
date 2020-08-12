@@ -263,6 +263,7 @@ In order to ensure the site works as required, I manually tested all aspects of 
     - No errors
 - Check that all buttons work as intended (Back, Cookbook, Update, Delete, Copy).
     - No errors
+    - *Note:* The back button can send users to their filled in form from creating recipe. This situation could be handled better but has been left as it does not break the app and would reqiure more time to implement a better solution.
     - *Note:* After a recipe is updated a new ID is given to the recipe. If a user clicks on the back button after updating a recipe the user is sent to a recipe that no longer exists. The user is redirected to their dashboad when this happens. 
 - Check that all modals (update recipe, create recipe, ingredient info) open and close.
     - Error 500 happens when a ingredient link is clicked if the ingredient no longer exists in the database or if the ingredient name contains whitespace before or after the name. A modal appears for the user explaining the possible issues.
