@@ -193,7 +193,10 @@ ul {
 
 /*-----------------Search/dropdown Styles----------------------*/
 /* The search field */
-#myInput {
+#myInput, 
+#edit-ingredient-dropdown-input, 
+#editRecipeDropdownInput, 
+#submit-ingredient-dropdown-input {
   box-sizing: border-box;
   background-image: url("https://www.w3schools.com/css/searchicon.png");
   background-position: 14px 12px;
@@ -205,7 +208,10 @@ ul {
 }
 
 /* The search field when it gets focus/clicked on */
-#myInput:focus {
+#myInput:focus,
+#edit-ingredient-dropdown-input:focus, 
+#editRecipeDropdownInput:focus, 
+#submit-ingredient-dropdown-input:focus {
   outline: 3px solid #ddd;
 }
 
