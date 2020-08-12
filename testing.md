@@ -25,7 +25,8 @@ This is an extension from the [README.MD](README.md) file.
 [W3C Markup Validation](https://validator.w3.org/)
 
 W3C was used for HTML and CSS validation.
-- One error is found on the ingredients page, stray end div tag.
+- One error is found on the ingredients page, stray end div tag. I have been unable find this stray div in my code.
+- Some "Bad value" errors have been found when validating a specific ingredient due to bad links. Not all 1000+ ingredients have been checked for these bad links, error handlers are in place.  
 - No errors were found in the CSS validation. 
 
 [JSHint](https://jshint.com/)
