@@ -77,14 +77,13 @@ Most errors throughout the project have been simple syntax errors that took very
  - Pressing return when a modal is open attempts to submit the form.
     - Code has been added to prevent form submission when pressing return.
  - When removing an ingredient from a list in the modals the first click of the button appears to do nothing.
-    - The first click was creating the event listener for the button but not executing the code. The event listener is now created at runtime so that the first click is responsive.
+    - The first click was creating the event listener for the button but not executing the code. The event listeners for existing ingredients are now created at runtime so that the first click is responsive. Script is added to each new user added ingredient to allow removal of those ingredients.
  - Modals are unable to be reopened on some pages.
     - jQuery was being linked multiple times. Cleaning the code and ensuring only one link for jQuery exists fixed this issue.
  - Multiple ajax modals appear to be opened when clicking on an ingredient from the view recipe page.
     - Opening and closing modals did not always fully close the modal. All possible modals are now closed when closing a modal. All possbile modals are also closed when opening a new modal, before the new modal content is loaded. This allows a user to open new modals from within a modal. 
  - The filter input does not clear after submitting an ingredient.
     - Issues were happening with the cache of a modal to test if new code worked. After applying "Disable cache (while DevTools is open)" I was able to test my code and confirm that filter input now clears correctly. 
- 
 
 ##### Unresolved
  - Removing an ingredient from the database does not remove the ingredient from recipes containing it. This results in a error when trying to view the ingredient info from a recipe.
