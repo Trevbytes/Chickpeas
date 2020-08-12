@@ -82,13 +82,13 @@ Most errors throughout the project have been simple syntax errors that took very
     - jQuery was being linked multiple times. Cleaning the code and ensuring only one link for jQuery exists fixed this issue.
  - Multiple ajax modals appear to be opened when clicking on an ingredient from the view recipe page.
     - Opening and closing modals did not always fully close the modal. All possible modals are now closed when closing a modal. All possbile modals are also closed when opening a new modal, before the new modal content is loaded. This allows a user to open new modals from within a modal. 
-
+ - The filter input does not clear after submitting an ingredient.
+    - Issues were happening with the cache of a modal to test if new code worked. After applying "Disable cache (while DevTools is open)" I was able to test my code and confirm that filter input now clears correctly. 
+ 
 
 ##### Unresolved
  - Removing an ingredient from the database does not remove the ingredient from recipes containing it. This results in a error when trying to view the ingredient info from a recipe.
     - This error is handled with a Error modal to help inform the user of the issue and get back to the site.
- - The filter input does not clear after submitting an ingredient.
-    - Code to clear the value after clearing the other input values of an ingredient has been attempted, to no success. Due to time constraints this bug has been left unfixed.  
  - The filter input does not work on iOS devices. A user can still select an ingredient. However, the user must scroll through the entire ingredient database to find an ingredient.
     - A redesign of the filter code would be my ideal solution. This bug has been left due to time constraints.
  - Whitespace after an ingredient name causes an internal error when selecting that ingredient from the view recipe page.
@@ -186,17 +186,17 @@ In order to ensure the site works as required, I manually tested all aspects of 
 **Browse Public Recipes Page**
 - Check that images display properly on all screen sizes. 
     - No errors
-    - *Note:* When viewing recipes in grid view, the larger image on a row of recipes sets sets the size of both recipes. This, unintentionally, can distort some images. Ideally, I would like to implement [Cloudinary's](https://cloudinary.com/) API to automaticlly resize images that users upload.
+    - *Note:* When viewing recipes in grid view, the larger image on a row of recipes sets sets the size of both recipes. This, unintentionally, can poorly crop some images. Ideally, I would like to implement [Cloudinary's](https://cloudinary.com/) API to automaticlly resize images that users upload.
 - Check that Grid View and List View work on all screen sizes.
     - No errors
 - Check that tabs work correctly.
     - No errors
 - Check that Edit, Copy and Delete buttons work on all tabs.
-    - No Errors
+    - No errors
 - Check that Edit and Delete are only shown for the owner of a recipe.
-    - Working as intended.
+    - No errors
 - Check that the Copy button is shown when logged in and viewing another's public recipe.
-    - Working as intended.
+    - No errors
 - Check that all modals open and close correctly.
     - No errors
 
@@ -210,7 +210,7 @@ In order to ensure the site works as required, I manually tested all aspects of 
 - Check that logged in users can add new ingredients.
     - No errors
 - Check that all modals open and close correctly.
-    - Error 500 happens when a ingredient link is clicked if the ingredient no longer exists in the database. The modal does not reroute the page to the error 500 page.
+    - Error 500 happens when a ingredient link is clicked if the ingredient no longer exists in the database or if the ingredient name contains whitespace before or after the name. A modal appears for the user explaining the possible issues.
 - Check that a user can remove an ingredient added by the user.
     - No errors
 
@@ -233,7 +233,7 @@ In order to ensure the site works as required, I manually tested all aspects of 
 **Dashboard Page**
 - Check that images display properly on all screen sizes. 
     - No errors
-    - *Note:* When viewing recipes in grid view, the larger image on a row of recipes sets sets the size of both recipes. This, unintentionally, can distort some images. Ideally, I would like to implement [Cloudinary's](https://cloudinary.com/) API to automaticlly resize images that users upload.
+    - *Note:* When viewing recipes in grid view, the larger image on a row of recipes sets sets the size of both recipes. This, unintentionally, can poorly crop some images. Ideally, I would like to implement [Cloudinary's](https://cloudinary.com/) API to automaticlly resize images that users upload.
 - Check that only a users recipes or recipes copied by the user are displayed.
     - No errors
 - Check that the grid view works with an odd number of recipes.
@@ -266,8 +266,8 @@ In order to ensure the site works as required, I manually tested all aspects of 
     - No errors
     - *Note:* After a recipe is updated a new ID is given to the recipe. If a user clicks on the back button after updating a recipe the user is sent to a recipe that no longer exists. The user is redirected to their dashboad when this happens. 
 - Check that all modals (update recipe, create recipe, ingredient info) open and close.
-    - When opening a ingredient info modal it seems that multiple instances of the modal are created. All are closed when the close button is clicked. However, when scrolling through the modal on smaller screens the underlying modal can sometimes be seen.
-    - Error 500 happens when a ingredient link is clicked if the ingredient no longer exists in the database. The modal does not reroute the page to the error 500 page.
+    - Error 500 happens when a ingredient link is clicked if the ingredient no longer exists in the database or if the ingredient name contains whitespace before or after the name. A modal appears for the user explaining the possible issues.
+    - *Resolved:* ~~When opening a ingredient info modal it seems that multiple instances of the modal are created. All are closed when the close button is clicked. However, when scrolling through the modal on smaller screens the underlying modal can sometimes be seen.~~
 - Check that a confirmation window appears when attempting to delete a recipe.
     - No errors
 - Check that no broken links to images are displayed. When a link does not work, a default image is displayed.
@@ -275,9 +275,10 @@ In order to ensure the site works as required, I manually tested all aspects of 
 
 **View Ingredient Modal**
 - Check that links displayed in the modal work. A new modal is opened and the current is closed when clicking on an ingredient link. When cliking on an external link a new window is created.
-    - Error 500 happens when a ingredient link is clicked if the ingredient no longer exists in the database. The modal does not reroute the page to the error 500 page.
+    - Error 500 happens when a ingredient link is clicked if the ingredient no longer exists in the database or if the ingredient name contains whitespace before or after the name. A modal appears for the user explaining the possible issues.
 - Check that both close buttons work.
-    - After opening an closing multiple modals on the same page loading time is increased. The buttons for closing the modal can therefore be unresponsive for a few seconds after opening a modal. 
+    - No errors
+    - *Resolved:* ~~After opening an closing multiple modals on the same page loading time is increased. The buttons for closing the modal can therefore be unresponsive for a few seconds after opening a modal.~~ 
 
 **Delete Recipe or Ingredient**
 - Check that a confirm window appears when removing a recipe or ingredient. 
