@@ -16,7 +16,7 @@ function addToIngredientList() {
     }
     ingredient_index++;
     $("#recipe_ingredient_list").append(
-      `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="${selectedIngredient}"></li>`
+      `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="$(this).parent().remove();" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="${selectedIngredient}"></li>`
     );
     clearAddIngredient();
   }
@@ -26,6 +26,7 @@ function clearAddIngredient() {
   $("select.ingredient_select").val("selectedvalue").trigger("change");
   $("#ingredient_comment").val("");
   $("#ingredient_measurement").val("");
+  $("#editRecipeDropdownInput").val("");
 }
 
 
@@ -67,7 +68,7 @@ $(document).ready(function () {
   });
 });
 
-/* Event listener for removing a ingredient from the list */
+/* Event listener for removing existing ingredients from the list */
 $(document).ready(function () {
     $(".delete").on("click", function () {        
         $(this).parent().remove();})

@@ -6,9 +6,9 @@ function myFunctiondrop() {
 
 function filterFunction() {
   var input, filter, ul, li, a, i;
-  input = $("#myInput");
+  input = input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  div = $("#myDropdown");
+  div = div = document.getElementById("myDropdown");
   a = div.getElementsByTagName("a");
   for (i = 0; i < a.length; i++) {
     txtValue = a[i].textContent || a[i].innerText;

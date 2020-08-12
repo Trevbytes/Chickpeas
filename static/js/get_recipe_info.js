@@ -17,7 +17,7 @@ function addToIngredientList() {
     }
     ingredient_index++;
     $("#recipe_ingredient_list").append(
-      `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="${selectedIngredient}"></li>`
+      `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="recipe_ingredient_id_${ingredient_index}" value="${ingredient_measurement} ${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="$(this).parent().remove();" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_recipe_ingredient_id_${ingredient_index}" value="${selectedIngredient}"></li>`
     );    
     clearAddIngredient();
   }
@@ -28,6 +28,7 @@ function clearAddIngredient() {
   $("select.ingredient_select").val("selectedvalue").trigger("change");
   $("#ingredient_comment").val("");
   $("#ingredient_measurement").val("");
+  $("#myInput").val("");
 }
 
 
@@ -49,9 +50,9 @@ $('#addRecipeModal').on('keyup keypress', function(e) {
 /* Functions for ingredient filter */
 function filterFunction() {
   var input, filter, ul, li, a, i, option;
-  input = $("#myInput");
+  input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  div = $("#myDropdown");
+  div = document.getElementById("myDropdown");
   a = div.getElementsByTagName("option");
   for (i = 0; i < a.length; i++) {
     txtValue = a[i].textContent || a[i].innerText;
@@ -68,7 +69,7 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
 
-/* Event listener for removing a ingredient from the list */
+/* Event listener for removing exsiting ingredients from the list */
 $(document).ready(function () {
     $(".delete").on("click", function () {        
         $(this).parent().remove();})

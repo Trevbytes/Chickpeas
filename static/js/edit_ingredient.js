@@ -29,13 +29,14 @@ function addToIngredientList() {
       commentlines = "";
     }
     $("#sub_ingredient_list").append(
-      `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="sub_ingredient_id_${ingredient_index}" value="${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="removeLI()" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="${selectedIngredient}"></li>`
+      `<li type="text" readonly class="list-group-item"><input type="text" class="form-control" readonly name="sub_ingredient_id_${ingredient_index}" value="${selectedIngredient} ${commentlines} ${ingredient_comment}"><button type="button" onclick="$(this).parent().remove();" class="btn float-right delete">Remove Ingredient</button><input type="text" hidden name="name_sub_ingredient_id_${ingredient_index}" value="${selectedIngredient}"></li>`
     );
     clearAddIngredient();
   }
 }
 
-//Event listener to remove ingredients from the list
+/*Event listeners for exisiting ingredients. Allows removal of ingredients from the list. 
+Creates a hidden copy of the ingredient used to remove it from the database*/
 $(document).ready(function () {
     $(".delete").on("click", function () {        
         $(this).parent().children().each(function() {
@@ -50,6 +51,7 @@ function clearAddIngredient() {
   $("#ingredient_select").prop("selectedIndex", 1).val();
   $("select.ingredient_select").val("selectedvalue").trigger("change");
   $("#ingredient_comment").val("");
+  $("#edit-ingredient-dropdown-input").val("");
 }
 
 /* Functions for ingredient filter */
